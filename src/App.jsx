@@ -3,6 +3,8 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { pages } from './pages';
+import Navbar from "./components/Navbar/Navbar";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   React.useEffect(() => {
@@ -15,11 +17,15 @@ function App() {
     AOS.refresh();
   }, []);
   return (
+    <>
+    <Navbar/>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<pages.Home/>} />
         </Routes>
       </BrowserRouter>
+      <Footer />
+      </>
   )
 }
 
