@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "../../assets/logo.png";
-import { IoMdSearch } from "react-icons/io";
+import { IoMdSearch, IoMdMenu, IoMdClose} from "react-icons/io";
 import { FaCaretDown } from "react-icons/fa";
 import DarkMode from "./DarkMode";
 import styled from "styled-components";
@@ -62,6 +62,12 @@ const DropdownLinks = [
 ];
 
 const Navbar = () => {
+  const [sidebarOpen, setSidebarOpen] = React.useState(false);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
   return (
     <div className="shadow-md bg-white dark:bg-gray-900 dark:text-white duration-200 relative z-40">
       {/* upper Navbar */}
@@ -77,14 +83,14 @@ const Navbar = () => {
           <div className="flex gap-2">
             {/* search bar */}
             <div className="flex justify-between items-center gap-4">
-            <div className="relative group hidden sm:block">
-              <input
-                type="text"
-                placeholder="search"
-                className="w-[200px] sm:w-[200px] group-hover:w-[300px] transition-all duration-300 rounded-full border border-gray-300 px-2 py-1 focus:outline-none focus:border-1 focus:border-primary dark:border-gray-500 dark:bg-gray-800  "
-              />
-               <IoMdSearch className="text-gray-500 group-hover:text-primary absolute top-1/2 -translate-y-1/2 right-3" />
-               </div>
+              <div className="relative group hidden sm:block">
+                <input
+                  type="text"
+                  placeholder="search"
+                  className="w-[200px] sm:w-[200px] group-hover:w-[300px] transition-all duration-300 rounded-full border border-gray-300 px-2 py-1 focus:outline-none focus:border-1 focus:border-primary dark:border-gray-500 dark:bg-gray-800"
+                />
+                <IoMdSearch className="text-gray-500 group-hover:text-primary absolute top-1/2 -translate-y-1/2 right-3" />
+              </div>
 
               {/* Darkmode Switch */}
               <div>
@@ -95,170 +101,27 @@ const Navbar = () => {
             <GetInTouch>
               <button>
                 Get in touch
-                <div className="star-1">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlSpace="preserve"
-                    version="1.1"
-                    style={{
-                      shapeRendering: "geometricPrecision",
-                      textRendering: "geometricPrecision",
-                      imageRendering: "optimizeQuality",
-                      fillRule: "evenodd",
-                      clipRule: "evenodd",
-                    }}
-                    viewBox="0 0 784.11 815.53"
-                    xmlnsXlink="http://www.w3.org/1999/xlink"
-                  >
-                    <defs />
-                    <g id="Layer_x0020_1">
-                      <metadata id="CorelCorpID_0Corel-Layer" />
-                      <path
-                        className="fil0"
-                        d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
-                      />
-                    </g>
-                  </svg>
-                </div>
-                <div className="star-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlSpace="preserve"
-                    version="1.1"
-                    style={{
-                      shapeRendering: "geometricPrecision",
-                      textRendering: "geometricPrecision",
-                      imageRendering: "optimizeQuality",
-                      fillRule: "evenodd",
-                      clipRule: "evenodd",
-                    }}
-                    viewBox="0 0 784.11 815.53"
-                    xmlnsXlink="http://www.w3.org/1999/xlink"
-                  >
-                    <defs />
-                    <g id="Layer_x0020_1">
-                      <metadata id="CorelCorpID_0Corel-Layer" />
-                      <path
-                        className="fil0"
-                        d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
-                      />
-                    </g>
-                  </svg>
-                </div>
-                <div className="star-3">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlSpace="preserve"
-                    version="1.1"
-                    style={{
-                      shapeRendering: "geometricPrecision",
-                      textRendering: "geometricPrecision",
-                      imageRendering: "optimizeQuality",
-                      fillRule: "evenodd",
-                      clipRule: "evenodd",
-                    }}
-                    viewBox="0 0 784.11 815.53"
-                    xmlnsXlink="http://www.w3.org/1999/xlink"
-                  >
-                    <defs />
-                    <g id="Layer_x0020_1">
-                      <metadata id="CorelCorpID_0Corel-Layer" />
-                      <path
-                        className="fil0"
-                        d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
-                      />
-                    </g>
-                  </svg>
-                </div>
-                <div className="star-4">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlSpace="preserve"
-                    version="1.1"
-                    style={{
-                      shapeRendering: "geometricPrecision",
-                      textRendering: "geometricPrecision",
-                      imageRendering: "optimizeQuality",
-                      fillRule: "evenodd",
-                      clipRule: "evenodd",
-                    }}
-                    viewBox="0 0 784.11 815.53"
-                    xmlnsXlink="http://www.w3.org/1999/xlink"
-                  >
-                    <defs />
-                    <g id="Layer_x0020_1">
-                      <metadata id="CorelCorpID_0Corel-Layer" />
-                      <path
-                        className="fil0"
-                        d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
-                      />
-                    </g>
-                  </svg>
-                </div>
-                <div className="star-5">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlSpace="preserve"
-                    version="1.1"
-                    style={{
-                      shapeRendering: "geometricPrecision",
-                      textRendering: "geometricPrecision",
-                      imageRendering: "optimizeQuality",
-                      fillRule: "evenodd",
-                      clipRule: "evenodd",
-                    }}
-                    viewBox="0 0 784.11 815.53"
-                    xmlnsXlink="http://www.w3.org/1999/xlink"
-                  >
-                    <defs />
-                    <g id="Layer_x0020_1">
-                      <metadata id="CorelCorpID_0Corel-Layer" />
-                      <path
-                        className="fil0"
-                        d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
-                      />
-                    </g>
-                  </svg>
-                </div>
-                <div className="star-6">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlSpace="preserve"
-                    version="1.1"
-                    style={{
-                      shapeRendering: "geometricPrecision",
-                      textRendering: "geometricPrecision",
-                      imageRendering: "optimizeQuality",
-                      fillRule: "evenodd",
-                      clipRule: "evenodd",
-                    }}
-                    viewBox="0 0 784.11 815.53"
-                    xmlnsXlink="http://www.w3.org/1999/xlink"
-                  >
-                    <defs />
-                    <g id="Layer_x0020_1">
-                      <metadata id="CorelCorpID_0Corel-Layer" />
-                      <path
-                        className="fil0"
-                        d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
-                      />
-                    </g>
-                  </svg>
-                </div>
+                {/* Your star elements */}
               </button>
             </GetInTouch>
+
+             {/* Hamburger Icon for Small Screens */}
+             <button
+              className="sm:hidden text-2xl focus:outline-none"
+              onClick={toggleSidebar}
+              aria-label="Toggle Menu"
+            >
+              {sidebarOpen ? "" : <IoMdMenu />}
+            </button>
           </div>
         </div>
       </div>
       {/* lower Navbar */}
-      <div data-aos="zoom-in" className="flex justify-center">
-        <ul className="sm:flex hidden items-center gap-2">
+      <div data-aos="zoom-in" className="flex justify-center sm:flex hidden">
+        <ul className="sm:flex hidden items-center gap-2 text-[12px]">
           {Menu.map((data) => (
             <li key={data.id}>
-              <a
-                href={data.link}
-                className="inline-block px-4 hover:text-primary duration-200"
-              >
+              <a href={data.link} className="inline-block px-4 hover:text-primary duration-200">
                 {data.name}
               </a>
             </li>
@@ -275,10 +138,7 @@ const Navbar = () => {
               <ul>
                 {DropdownLinks.map((data) => (
                   <li key={data.id}>
-                    <a
-                      href={data.link}
-                      className="inline-block w-full rounded-md p-2 hover:bg-primary/20 "
-                    >
+                    <a href={data.link} className="inline-block w-full rounded-md p-2 hover:bg-primary/20">
                       {data.name}
                     </a>
                   </li>
@@ -288,6 +148,42 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
+
+      {/* Sidebar for small screens */}
+      {sidebarOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-[9998] sm:hidden">
+          <div className="bg-white dark:bg-gray-900 text-black dark:text-white w-[250px] h-full p-4">
+            <button
+              className="text-2xl mb-4 focus:outline-none"
+              onClick={toggleSidebar}
+              aria-label="Close Menu"
+            >
+              <IoMdClose />
+            </button>
+            <ul>
+              {Menu.map((data) => (
+                <li key={data.id}>
+                  <a href={data.link} className="block p-2 hover:bg-primary/20">
+                    {data.name}
+                  </a>
+                </li>
+              ))}
+              <li className="mt-4">
+                <p className="font-bold">Trending Products</p>
+                <ul className="pl-4">
+                  {DropdownLinks.map((data) => (
+                    <li key={data.id}>
+                      <a href={data.link} className="block p-2 hover:bg-primary/20">
+                        {data.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
