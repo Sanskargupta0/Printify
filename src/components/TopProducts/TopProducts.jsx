@@ -1,8 +1,6 @@
 import React from "react";
+import Products from "../../constants/products";
 import styled from "styled-components";
-import Sticker from "../../assets/products/Stickers.png";
-import Tape from "../../assets/products/tape.png";
-import Gift from "../../assets/products/gift-Box2.png";
 import Img1 from "../../assets/products/gallery/img1.png";
 import Img2 from "../../assets/products/gallery/img2.png";
 import Img3 from "../../assets/products/gallery/img3.png";
@@ -16,32 +14,15 @@ import Img10 from "../../assets/products/gallery/img10.png";
 import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const ProductsData = [
-  {
-    id: 1,
-    img: Sticker,
-    title: "Sticker & Labels",
-    link: "/category/labels-and-stickers",
-    description:
-      "Make your products pop with our product labels that combine eye-catching design and essential information.",
-  },
-  {
-    id: 2,
-    img: Tape,
-    title: "Packaging Tapes",
-    link: "/category/packaging-tape",
-    description:
-      "Boxes and packaging serve as the silent guardians of products. It is ensuring they reach their destination unscathed. Beyond practicality, packaging is a canvas for brand identity and storytelling. ",
-  },
-  {
-    id: 3,
-    img: Gift,
-    title: "Custom Gift Boxes",
-    link: "/category/rigid-gift-boxes",
-    description:
-      "You can also get plain boxes from us. But if you need totally 100% 'custom gift boxes,' you are at the best place with all the packaging possibilities.",
-  },
-];
+// Map last three products to the ProductsData id , img , title , link and description
+const ProductsData = Products.slice(-3).map((product) => ({
+  id: product.id,
+  img: product.bgRemoveImage,
+  title: product.name,
+  link: product.link,
+  description: product.description,
+}));
+
 const TopProducts = () => {
   return (
     <div>
@@ -211,8 +192,8 @@ const TopProducts = () => {
               {/* image section */}
               <div className="h-[100px]">
                 <img
-                  src={data.img}
-                  alt=""
+                  src={`src/assets/products/${data.img}`}
+                  alt={data.title}
                   className="max-w-[140px] block mx-auto transform -translate-y-20 group-hover:scale-105 duration-300 drop-shadow-md"
                 />
               </div>

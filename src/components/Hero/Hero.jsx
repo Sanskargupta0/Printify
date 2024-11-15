@@ -1,37 +1,17 @@
 import React from "react";
-import Cartons from "../../assets/hero/cartons.png";
-import Bags from "../../assets/hero/bags.png";
-import Roll from "../../assets/hero/roll.png";
 import styled from "styled-components";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
+import Products from "../../constants/products";
 
-const ImageList = [
-  {
-    id: 1,
-    img: Cartons,
-    title: "Folding Cartons",
-    link: "/category/mono-cartons",
-    description:
-      "Our packaging company prints and produces folding cartons of cardboard, Kraft, corrugated, and rigid materials. Get them today!",
-  },
-  {
-    id: 2,
-    img: Bags,
-    title: "Mylar Bags",
-    link: "/category/flexible-pouches",
-    description:
-      "We print and produce Mylar Bags in all the required materials, i.e., Metalized, Clear, White, Foil, and Kraft. What is your theme?",
-  },
-  {
-    id: 3,
-    img: Roll,
-    title: "Roll Labels",
-    link: "/category/packaging-tape",
-    description:
-      "We are “handsomely” experts in printing the labels on rolls. Print them in any material. Peel off and apply anywhere you want",
-  },
-];
+// Map all products to the ImageList id , img , title , link and description
+const ImageList = Products.map((product) => ({
+  id: product.id,
+  img: product.bgRemoveImage,
+  title: product.name,
+  description: product.description,
+  link: product.link,
+}));
 
 const Hero = () => {
   var settings = {
@@ -131,8 +111,8 @@ const Hero = () => {
                     className="relative z-10"
                   >
                     <img
-                      src={data.img}
-                      alt=""
+                      src={`src/assets/products/${data.img}`}
+                      alt={data.title}
                       className="w-[300px] h-[300px] sm:h-[450px] sm:w-[450px] sm:scale-105 lg:scale-120 object-contain mx-auto"
                     />
                   </div>
