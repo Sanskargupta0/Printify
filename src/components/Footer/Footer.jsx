@@ -3,6 +3,7 @@ import footerLogo from "../../assets/logo.png";
 import Banner from "../../assets/website/footer-pattern.jpg";
 import resume from '../../assets/catalogue.pdf';
 import { Link } from "react-router-dom";
+import Products from "../../constants/products";
 import {
   FaFacebook,
   FaInstagram,
@@ -39,36 +40,11 @@ const FooterLinks = [
   },
 ];
 
-const ProductsLinks = [
-  {
-    title: "Corrugated Boxes",
-    link: "/category/corrugated-boxes",
-  },
-  {
-    title: "Mono Cartons",
-    link: "/category/mono-cartons",
-  },
-  {
-    title: "Labels and Stickers",
-    link: "/category/labels-and-stickers",
-  },
-  {
-    title: "Packaging Tape",
-    link: "/category/packaging-tape",
-  },
-  {
-    title: "Flexible Pouches",
-    link: "/category/flexible-pouches",
-  },
-  {
-    title: "Shrink Sleeves",
-    link: "/category/shrink-sleeves",
-  },
-  {
-    title: "Rigid Gift Boxes",
-    link: "/category/rigid-gift-boxes",
-  }
-];
+// Map max 6 products to the ProductsLinks id , name and link
+const ProductsLinks = Products.slice(0, 5).map((product) => ({
+  title: product.name,
+  link: product.link,
+}));
 
 const Footer = () => {
 
