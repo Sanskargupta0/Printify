@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { pages } from './pages';
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
+import DownloadBtn from "./components/DownloadBtn/DownloadBtn";
 
 function App() {
   React.useEffect(() => {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/" element={<pages.Home/>} />
         </Routes>
       </BrowserRouter>
+      <DownloadBtn />
       <Footer />
       </>
   )

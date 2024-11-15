@@ -7,7 +7,7 @@ import Subscribe from "../components/Subscribe/Subscribe";
 import Testimonials from "../components/Testimonials/Testimonials";
 const Home = () => {
   return (
-    <div className="bg-white dark:bg-gray-900 dark:text-white duration-200 pb-16">
+    <div className="bg-white dark:bg-gray-900 dark:text-white duration-200">
       <Hero />
       <Products />
       <TopProducts />
