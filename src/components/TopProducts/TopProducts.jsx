@@ -37,7 +37,7 @@ const ProductsData = [
     id: 3,
     img: Gift,
     title: "Custom Gift Boxes",
-    link: "/category//rigid-gift-boxes",
+    link: "/category/rigid-gift-boxes",
     description:
       "You can also get plain boxes from us. But if you need totally 100% 'custom gift boxes,' you are at the best place with all the packaging possibilities.",
   },
