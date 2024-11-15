@@ -25,6 +25,7 @@ function App() {
           <Route path="/" element={<pages.Home/>} />
           <Route path="/aboutUs" element={<pages.About/>} />
           <Route path="/contact" element={<pages.Contact/>} />
+          <Route path="/products" element={<pages.ProductListing/>} />
           {Products.map((product) => (
           <Route 
             key={product.id} 
