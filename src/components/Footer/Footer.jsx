@@ -1,6 +1,8 @@
 import React from "react";
 import footerLogo from "../../assets/logo.png";
 import Banner from "../../assets/website/footer-pattern.jpg";
+import resume from '../../assets/catalogue.pdf';
+import { Link } from "react-router-dom";
 import {
   FaFacebook,
   FaInstagram,
@@ -21,23 +23,64 @@ const BannerImg = {
 const FooterLinks = [
   {
     title: "Home",
-    link: "/#",
+    link: "/",
   },
   {
     title: "About",
-    link: "/#about",
+    link: "/aboutUs",
   },
   {
     title: "Contact",
-    link: "/#contact",
+    link: "/contact",
   },
   {
-    title: "Blog",
-    link: "/#blog",
+    title: "All Products",
+    link: "/products",
   },
 ];
 
+const ProductsLinks = [
+  {
+    title: "Corrugated Boxes",
+    link: "/category/corrugated-boxes",
+  },
+  {
+    title: "Mono Cartons",
+    link: "/category/mono-cartons",
+  },
+  {
+    title: "Labels and Stickers",
+    link: "/category/labels-and-stickers",
+  },
+  {
+    title: "Packaging Tape",
+    link: "/category/packaging-tape",
+  },
+  {
+    title: "Flexible Pouches",
+    link: "/category/flexible-pouches",
+  },
+  {
+    title: "Shrink Sleeves",
+    link: "/category/shrink-sleeves",
+  },
+  {
+    title: "Rigid Gift Boxes",
+    link: "/category/rigid-gift-boxes",
+  }
+];
+
 const Footer = () => {
+
+  const handleDownload = () => {
+    const link = document.createElement('a');
+    link.href = resume;
+    link.download = 'Catalogue.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div style={BannerImg} className="text-white">
       <div className="container">
@@ -49,7 +92,8 @@ const Footer = () => {
               Print 360
             </h1>
             <p>
-            We are a leading American Brand of Printing and Packaging Products. It is the time to Embrace the Packaging of Tomorrow. Welcome!
+              We are a leading Brand of Printing and Packaging Products. It is
+              the time to Embrace the Packaging of Tomorrow. Welcome!
             </p>
           </div>
 
@@ -61,29 +105,36 @@ const Footer = () => {
                   Important Links
                 </h1>
                 <ul className="flex flex-col gap-3">
-                  {FooterLinks.map((link) => (
+                  {FooterLinks.map((link, index) => (
                     <li
                       className="cursor-pointer hover:text-primary hover:translate-x-1 duration-300 text-gray-200"
-                      key={link.title}
+                      key={index}
                     >
-                      <span>{link.title}</span>
+                      <Link to={link.link}>
+                        <span>{link.title}</span>
+                      </Link>
                     </li>
                   ))}
+                  <li className="cursor-pointer hover:text-primary hover:translate-x-1 duration-300 text-gray-200" onClick={handleDownload}>
+                    <span>Download Catalogue</span>
+                  </li>
                 </ul>
               </div>
             </div>
             <div>
               <div className="py-8 px-4">
                 <h1 className="sm:text-xl text-xl font-bold sm:text-left text-justify mb-3">
-                  Links
+                  Products Links
                 </h1>
                 <ul className="flex flex-col gap-3">
-                  {FooterLinks.map((link) => (
+                {ProductsLinks.map((link, index) => (
                     <li
                       className="cursor-pointer hover:text-primary hover:translate-x-1 duration-300 text-gray-200"
-                      key={link.title}
+                      key={index}
                     >
-                      <span>{link.title}</span>
+                      <Link to={link.link}>
+                        <span>{link.title}</span>
+                      </Link>
                     </li>
                   ))}
                 </ul>

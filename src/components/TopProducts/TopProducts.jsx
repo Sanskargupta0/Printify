@@ -1,5 +1,5 @@
 import React from "react";
-import styled from 'styled-components';
+import styled from "styled-components";
 import Sticker from "../../assets/products/Stickers.png";
 import Tape from "../../assets/products/tape.png";
 import Gift from "../../assets/products/gift-Box2.png";
@@ -14,12 +14,14 @@ import Img8 from "../../assets/products/gallery/img8.png";
 import Img9 from "../../assets/products/gallery/img9.png";
 import Img10 from "../../assets/products/gallery/img10.png";
 import { FaStar } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const ProductsData = [
   {
     id: 1,
     img: Sticker,
     title: "Sticker & Labels",
+    link: "/category/labels-and-stickers",
     description:
       "Make your products pop with our product labels that combine eye-catching design and essential information.",
   },
@@ -27,6 +29,7 @@ const ProductsData = [
     id: 2,
     img: Tape,
     title: "Packaging Tapes",
+    link: "/category/packaging-tape",
     description:
       "Boxes and packaging serve as the silent guardians of products. It is ensuring they reach their destination unscathed. Beyond practicality, packaging is a canvas for brand identity and storytelling. ",
   },
@@ -34,6 +37,7 @@ const ProductsData = [
     id: 3,
     img: Gift,
     title: "Custom Gift Boxes",
+    link: "/category//rigid-gift-boxes",
     description:
       "You can also get plain boxes from us. But if you need totally 100% 'custom gift boxes,' you are at the best place with all the packaging possibilities.",
   },
@@ -42,147 +46,165 @@ const TopProducts = () => {
   return (
     <div>
       <div className="container">
-        
-      <div className="container mx-auto px-4 py-8 md:py-16">
-      <h1 className="text-3xl md:text-5xl font-bold text-center mb-8 md:mb-12">
-        Endless Printing And Packaging Possibilities
-      </h1>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="col-span-1 row-span-1 md:col-span-2 md:row-span-2"
-        data-aos="fade-up"
-        data-aos-delay={200}
-        >
-          <img
-            src={Img1}
-            alt="Disposable cups and containers"
-            width={300}
-            height={300}
-            className="w-full h-full object-cover rounded-lg"
-          />
+        <div className="container mx-auto px-4 py-8 md:py-16">
+          <h1 className="text-3xl md:text-5xl font-bold text-center mb-8 md:mb-12">
+            Endless Printing And Packaging Possibilities
+          </h1>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div
+              className="col-span-1 row-span-1 md:col-span-2 md:row-span-2"
+              data-aos="fade-up"
+              data-aos-delay={200}
+            >
+              <img
+                src={Img1}
+                alt="Disposable cups and containers"
+                width={300}
+                height={300}
+                className="w-full h-full object-cover rounded-lg"
+              />
+            </div>
+            <div
+              className="col-span-1 row-span-1"
+              data-aos="fade-up"
+              data-aos-delay={400}
+            >
+              <img
+                src={Img2}
+                alt="Colorful stand-up pouches"
+                width={150}
+                height={150}
+                className="w-full h-full object-cover rounded-lg"
+              />
+            </div>
+            <div
+              className="col-span-1 row-span-1"
+              data-aos="fade-up"
+              data-aos-delay={600}
+            >
+              <img
+                src={Img3}
+                alt="Promotional posters"
+                width={150}
+                height={150}
+                className="w-full h-full object-cover rounded-lg"
+              />
+            </div>
+            <div
+              className="col-span-1 row-span-1"
+              data-aos="fade-up"
+              data-aos-delay={800}
+            >
+              <img
+                src={Img4}
+                alt="Sticker rolls"
+                width={150}
+                height={150}
+                className="w-full h-full object-cover rounded-lg"
+              />
+            </div>
+            <div
+              className="col-span-1 row-span-1"
+              data-aos="fade-up"
+              data-aos-delay={1000}
+            >
+              <img
+                src={Img5}
+                alt="Brochures or catalogs"
+                width={150}
+                height={150}
+                className="w-full h-full object-cover rounded-lg"
+              />
+            </div>
+            <div
+              className="col-span-2 row-span-1 md:col-span-1 md:row-span-2"
+              data-aos="fade-up"
+              data-aos-delay={1000}
+            >
+              <img
+                src={Img6}
+                alt="Food packaging"
+                width={150}
+                height={300}
+                className="w-full h-full object-cover rounded-lg"
+              />
+            </div>
+            <div
+              className="col-span-1 row-span-1"
+              data-aos="fade-up"
+              data-aos-delay={1000}
+            >
+              <img
+                src={Img7}
+                alt="Bottles and labels"
+                width={150}
+                height={150}
+                className="w-full h-full object-cover rounded-lg"
+              />
+            </div>
+            <div
+              className="col-span-1 row-span-1"
+              data-aos="fade-up"
+              data-aos-delay={1000}
+            >
+              <img
+                src={Img8}
+                alt="Small boxes"
+                width={150}
+                height={150}
+                className="w-full h-full object-cover rounded-lg"
+              />
+            </div>
+            <div
+              className="col-span-1 row-span-1"
+              data-aos="fade-up"
+              data-aos-delay={1000}
+            >
+              <img
+                src={Img9}
+                alt="Stand banners"
+                width={150}
+                height={150}
+                className="w-full h-full object-cover rounded-lg"
+              />
+            </div>
+            <div
+              className="col-span-1 row-span-1"
+              data-aos="fade-up"
+              data-aos-delay={1000}
+            >
+              <img
+                src={Img10}
+                alt="Business cards or postcards"
+                width={150}
+                height={150}
+                className="w-full h-full object-cover rounded-lg"
+              />
+            </div>
+          </div>
+          <div className="flex justify-center mt-8 md:mt-12">
+            <StyledWrapper>
+              <Link to="/aboutUs">
+                <button
+                  className="cta flex items-center"
+                  style={{ marginBottom: "4rem" }}
+                >
+                  <span>About Us</span>
+                  <svg width="15px" height="10px" viewBox="0 0 13 10">
+                    <path d="M1,5 L11,5" />
+                    <polyline points="8 1 12 5 8 9" />
+                  </svg>
+                </button>
+              </Link>
+            </StyledWrapper>
+          </div>
         </div>
-        <div className="col-span-1 row-span-1"
-        data-aos="fade-up"
-        data-aos-delay={400}
-        >
-          <img
-            src={Img2}
-            alt="Colorful stand-up pouches"
-            width={150}
-            height={150}
-            className="w-full h-full object-cover rounded-lg"
-          />
-        </div>
-        <div className="col-span-1 row-span-1"
-        data-aos="fade-up"
-        data-aos-delay={600}
-        >
-          <img
-            src={Img3}
-            alt="Promotional posters"
-            width={150}
-            height={150}
-            className="w-full h-full object-cover rounded-lg"
-          />
-        </div>
-        <div className="col-span-1 row-span-1" 
-        data-aos="fade-up"
-        data-aos-delay={800}
-        >
-          <img
-            src={Img4}
-            alt="Sticker rolls"
-            width={150}
-            height={150}
-            className="w-full h-full object-cover rounded-lg"
-          />
-        </div>
-        <div className="col-span-1 row-span-1" data-aos="fade-up"
-                data-aos-delay={1000} >
-          <img
-            src={Img5}
-            alt="Brochures or catalogs"
-            width={150}
-            height={150}
-            className="w-full h-full object-cover rounded-lg"
-          />
-        </div>
-        <div className="col-span-2 row-span-1 md:col-span-1 md:row-span-2" data-aos="fade-up"
-                data-aos-delay={1000} >
-          <img
-            src={Img6}
-            alt="Food packaging"
-            width={150}
-            height={300}
-            className="w-full h-full object-cover rounded-lg"
-          />
-        </div>
-        <div className="col-span-1 row-span-1"
-        data-aos="fade-up"
-        data-aos-delay={1000}
-        >
-          <img
-            src={Img7}
-            alt="Bottles and labels"
-            width={150}
-            height={150}
-            className="w-full h-full object-cover rounded-lg"
-          />
-        </div>
-        <div className="col-span-1 row-span-1"
-        data-aos="fade-up"
-        data-aos-delay={1000}
-        >
-          <img
-            src={Img8}
-            alt="Small boxes"
-            width={150}
-            height={150}
-            className="w-full h-full object-cover rounded-lg"
-          />
-        </div>
-        <div className="col-span-1 row-span-1"
-        data-aos="fade-up"
-        data-aos-delay={1000}
-        >
-          <img
-            src={Img9}
-            alt="Stand banners"
-            width={150}
-            height={150}
-            className="w-full h-full object-cover rounded-lg"
-          />
-        </div>
-        <div className="col-span-1 row-span-1"
-        data-aos="fade-up"
-        data-aos-delay={1000}
-        >
-          <img
-            src={Img10}
-            alt="Business cards or postcards"
-            width={150}
-            height={150}
-            className="w-full h-full object-cover rounded-lg"
-          />
-        </div>
-      </div>
-      <div className="flex justify-center mt-8 md:mt-12">
-      <StyledWrapper>
-      <button className="cta flex items-center" style={{"marginBottom":"4rem"}}>
-        <span>About Us</span>
-        <svg width="15px" height="10px" viewBox="0 0 13 10">
-          <path d="M1,5 L11,5" />
-          <polyline points="8 1 12 5 8 9" />
-        </svg>
-      </button>
-    </StyledWrapper>
-      </div>
-    </div>
-
 
         {/* Body section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-20 md:gap-5 place-items-center">
           {ProductsData.map((data) => (
-            <div key={data.id}
+            <div
+              key={data.id}
               data-aos="zoom-in"
               className="rounded-2xl  bg-white dark:bg-gray-800 hover:bg-black/80 dark:hover:bg-primary hover:text-white relative shadow-xl duration-300 group max-w-[300px]"
             >
@@ -207,12 +229,11 @@ const TopProducts = () => {
                 <p className="text-gray-500 group-hover:text-white duration-300 text-sm line-clamp-2">
                   {data.description}
                 </p>
-                <button
-                  className="bg-primary hover:scale-105 duration-300 text-white py-1 px-4 rounded-full mt-4 group-hover:bg-white group-hover:text-primary"
-                  
-                >
-                  Order Now
-                </button>
+                <Link to={data.link}>
+                  <button className="bg-primary hover:scale-105 duration-300 text-white py-1 px-4 rounded-full mt-4 group-hover:bg-white group-hover:text-primary">
+                    Order Now
+                  </button>
+                </Link>{" "}
               </div>
             </div>
           ))}
@@ -279,6 +300,7 @@ const StyledWrapper = styled.div`
 
   .cta:active {
     transform: scale(0.95);
-  }`;
+  }
+`;
 
 export default TopProducts;

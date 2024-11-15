@@ -4,6 +4,7 @@ import Boxes from "../../assets/products/boxes.png";
 import Gift from "../../assets/products/gift-Box.png";
 import Labels from "../../assets/products/labels.png";
 import Roll from "../../assets/products/roll.png";
+import { Link } from "react-router-dom";
 
 const ProductsData = [
   {
@@ -78,9 +79,11 @@ const Products = () => {
           </div>
           {/* view all products button */}
           <div className="flex justify-center">
+            <Link to="/products">
             <button className="text-center mt-10 cursor-pointer bg-primary text-white py-1 px-5 rounded-md">
               View All Products
             </button>
+            </Link>
           </div>
         </div>
       </div>

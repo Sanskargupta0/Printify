@@ -1,45 +1,46 @@
 import React from "react";
 import Logo from "../../assets/logo.png";
-import { IoMdSearch, IoMdMenu, IoMdClose} from "react-icons/io";
+import { IoMdSearch, IoMdMenu, IoMdClose } from "react-icons/io";
 import { FaCaretDown } from "react-icons/fa";
 import DarkMode from "./DarkMode";
 import styled from "styled-components";
+import { Outlet, Link } from "react-router-dom";
 
 const Menu = [
   {
     id: 1,
     name: "Corrugated boxes",
-    link: "/#",
+    link: "/category/corrugated-boxes",
   },
   {
     id: 2,
     name: "Mono Cartons",
-    link: "/#services",
+    link: "/category/mono-cartons",
   },
   {
     id: 3,
     name: "Labels and Stickers",
-    link: "/#",
+    link: "/category/labels-and-stickers",
   },
   {
     id: 4,
     name: "Packaging Tape",
-    link: "/#",
+    link: "/category/packaging-tape",
   },
   {
     id: 5,
     name: "Flexible Pouches",
-    link: "/#",
+    link: "/category/flexible-pouches",
   },
   {
     id: 6,
     name: "Shrink Sleeves",
-    link: "/#",
+    link: "/category/shrink-sleeves",
   },
   {
     id: 7,
     name: "Rigid gift boxes",
-    link: "/#",
+    link: "/category/rigid-gift-boxes",
   },
 ];
 
@@ -47,17 +48,17 @@ const DropdownLinks = [
   {
     id: 1,
     name: "Corrugated boxes",
-    link: "/#",
+    link: "/category/corrugated-boxes",
   },
   {
     id: 2,
     name: "Mono Cartons",
-    link: "/#",
+    link: "/category/mono-cartons",
   },
   {
     id: 3,
     name: "Labels and Stickers",
-    link: "/#",
+    link: "/category/labels-and-stickers",
   },
 ];
 
@@ -74,10 +75,10 @@ const Navbar = () => {
       <div className="bg-primary/40 py-2">
         <div className="container flex justify-between items-center">
           <div>
-            <a href="#" className="font-bold text-2xl sm:text-3xl flex gap-2">
+            <Link to="" className="font-bold text-2xl sm:text-3xl flex gap-2">
               <img src={Logo} alt="Logo" className="w-10" />
               Print 360
-            </a>
+            </Link>
           </div>
 
           <div className="flex gap-2">
@@ -98,15 +99,14 @@ const Navbar = () => {
               </div>
             </div>
             {/* Get in touch Button */}
+            <Link to="/contact">
             <GetInTouch>
-              <button>
-                Get in touch
-                {/* Your star elements */}
-              </button>
+              <button>Get in touch</button>
             </GetInTouch>
+            </Link>
 
-             {/* Hamburger Icon for Small Screens */}
-             <button
+            {/* Hamburger Icon for Small Screens */}
+            <button
               className="sm:hidden text-2xl focus:outline-none"
               onClick={toggleSidebar}
               aria-label="Toggle Menu"
@@ -121,26 +121,32 @@ const Navbar = () => {
         <ul className="sm:flex hidden items-center gap-2 text-[12px]">
           {Menu.map((data) => (
             <li key={data.id}>
-              <a href={data.link} className="inline-block px-4 hover:text-primary duration-200">
+              <Link
+                to={data.link}
+                className="inline-block px-4 hover:text-primary duration-200"
+              >
                 {data.name}
-              </a>
+              </Link>
             </li>
           ))}
           {/* Simple Dropdown and Links */}
           <li className="group relative cursor-pointer">
-            <a href="#" className="flex items-center gap-[2px] py-2">
+            <Link to="/products" className="flex items-center gap-[2px] py-2">
               Trending Products
               <span>
                 <FaCaretDown className="transition-all duration-200 group-hover:rotate-180" />
               </span>
-            </a>
+            </Link>
             <div className="absolute z-[9999] hidden group-hover:block w-[200px] rounded-md bg-white p-2 text-black shadow-md">
               <ul>
                 {DropdownLinks.map((data) => (
                   <li key={data.id}>
-                    <a href={data.link} className="inline-block w-full rounded-md p-2 hover:bg-primary/20">
+                    <Link
+                      to={data.link}
+                      className="inline-block w-full rounded-md p-2 hover:bg-primary/20"
+                    >
                       {data.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -173,7 +179,10 @@ const Navbar = () => {
                 <ul className="pl-4">
                   {DropdownLinks.map((data) => (
                     <li key={data.id}>
-                      <a href={data.link} className="block p-2 hover:bg-primary/20">
+                      <a
+                        href={data.link}
+                        className="block p-2 hover:bg-primary/20"
+                      >
                         {data.name}
                       </a>
                     </li>
@@ -184,6 +193,7 @@ const Navbar = () => {
           </div>
         </div>
       )}
+      <Outlet />
     </div>
   );
 };
@@ -353,9 +363,7 @@ const SearchBar = styled.div`
     border: 2px solid #5e5757;
     padding: 15px 8px 15px 10px;
     text-align: left;
-    box-shadow:
-      20px 20px 60px #3853c7,
-      -20px -20px 60px #19ad88;
+    box-shadow: 20px 20px 60px #3853c7, -20px -20px 60px #19ad88;
   }
 
   .shortcut {
@@ -379,7 +387,7 @@ const SearchBar = styled.div`
     outline: none;
     font-size: 16px;
     color: rgb(111, 115, 119);
-  }`;
-
+  }
+`;
 
 export default Navbar;

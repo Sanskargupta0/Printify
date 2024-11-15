@@ -80,7 +80,8 @@ export default function AboutPage() {
           <h2 className="text-4xl font-bold text-center mb-16">Values 360°</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {values.map((value, index) => (
-              <Card key={index} className="p-6">
+              <Card key={index} className="p-6" data-aos="fade-up"
+              data-aos-delay={200*index}>
                 <div className="text-3xl font-bold mb-4 text-blue-500">
                   {String(index + 1).padStart(2, '0')}.
                 </div>
