@@ -23,6 +23,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<pages.Home/>} />
+          <Route path="/aboutUs" element={<pages.About/>} />
+          <Route path="/contact" element={<pages.Contact/>} />
+          <Route path="*" element={<pages.Error/>} />
         </Routes>
       </BrowserRouter>
       <DownloadBtn />
