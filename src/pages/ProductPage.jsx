@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FiUpload, FiStar } from 'react-icons/fi';
+import { FiUpload, FiStar, FiShare2 } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 export default function ProductPage({ product }) {
@@ -249,16 +249,25 @@ export default function ProductPage({ product }) {
               </div>
 
               {/* Submit Button */}
-              <button
-                type="submit"
-                className="w-full p-3 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-blue-600 dark:hover:bg-blue-700"
-              >
-                Submit Request
-              </button>
+              <div className="flex gap-4">
+                <button
+                  type="submit"
+                  className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  Get a Quote
+                </button>
+                <button
+                  type="button"
+                  className="px-6 py-3 border rounded-lg dark:border-gray-700 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                >
+                  <FiShare2 className="w-5 h-5" />
+                </button>
+              </div>
             </form>
           </div>
         </div>
         {/* Related Products */}
+        {product.alsoLike && product.alsoLike.length > 0 && (
         <div className="mt-16">
           <h2 className="text-2xl font-bold mb-6 dark:text-white">You may also like</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -278,6 +287,7 @@ export default function ProductPage({ product }) {
             ))}
           </div>
         </div>
+      )}
       </div>
     </div>
   )

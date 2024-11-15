@@ -5,62 +5,23 @@ import { FaCaretDown } from "react-icons/fa";
 import DarkMode from "./DarkMode";
 import styled from "styled-components";
 import { Outlet, Link } from "react-router-dom";
+import Products from "../../constants/products";
 
-const Menu = [
-  {
-    id: 1,
-    name: "Corrugated boxes",
-    link: "/category/corrugated-boxes",
-  },
-  {
-    id: 2,
-    name: "Mono Cartons",
-    link: "/category/mono-cartons",
-  },
-  {
-    id: 3,
-    name: "Labels and Stickers",
-    link: "/category/labels-and-stickers",
-  },
-  {
-    id: 4,
-    name: "Packaging Tape",
-    link: "/category/packaging-tape",
-  },
-  {
-    id: 5,
-    name: "Flexible Pouches",
-    link: "/category/flexible-pouches",
-  },
-  {
-    id: 6,
-    name: "Shrink Sleeves",
-    link: "/category/shrink-sleeves",
-  },
-  {
-    id: 7,
-    name: "Rigid gift boxes",
-    link: "/category/rigid-gift-boxes",
-  },
-];
 
-const DropdownLinks = [
-  {
-    id: 1,
-    name: "Corrugated boxes",
-    link: "/category/corrugated-boxes",
-  },
-  {
-    id: 2,
-    name: "Mono Cartons",
-    link: "/category/mono-cartons",
-  },
-  {
-    id: 3,
-    name: "Labels and Stickers",
-    link: "/category/labels-and-stickers",
-  },
-];
+
+// Map max 6 products to the menu id , name and link
+const Menu = Products.slice(0, 7).map((product) => ({
+  id: product.id,
+  name: product.name,
+  link: product.link,
+}));
+
+// Map max 3 products from the end of array to the dropdown id , name and link
+const DropdownLinks = Products.slice(-3).map((product) => ({
+  id: product.id,
+  name: product.name,
+  link: product.link,
+}));
 
 const Navbar = () => {
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
