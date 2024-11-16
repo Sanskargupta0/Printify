@@ -1,9 +1,9 @@
 import React from "react";
-import Bags from "../../assets/products/bags.png";
-import Boxes from "../../assets/products/boxes.png";
-import Gift from "../../assets/products/gift-Box.png";
-import Labels from "../../assets/products/labels.png";
-import Roll from "../../assets/products/roll.png";
+import Bags from "../../assets/products/bags/bags.png";
+import Boxes from "../../assets/products/boxes/boxes.png";
+import Gift from "../../assets/products/gift-Box/gift-Box.png";
+import Labels from "../../assets/products/labels/labels.png";
+import Roll from "../../assets/products/roll/roll.png";
 import { Link } from "react-router-dom";
 
 const ProductsData = [
