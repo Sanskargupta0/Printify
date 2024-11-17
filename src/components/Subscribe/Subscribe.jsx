@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import Banner from "../../assets/website/orange-pattern.jpg";
+import Loader from "../Loader/Loder";
 const BannerImg = {
   backgroundImage: `url(${Banner})`,
   backgroundPosition: "center",
@@ -11,22 +13,58 @@ const BannerImg = {
 
 const Subscribe = () => {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubscribe = async () => {
+
     if (!email) {
-      alert("Please enter a valid email address.");
+      toast.error("Please enter your email to subscribe.",{
+        position: "top-center",
+      });
       return;
     }
-
     try {
-      alert("Subscription successful! Please check your email.");
+      // chcek if email is valid
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        toast.error("Please enter a valid email address.",{
+          position: "top-center",
+        });
+        return;
+      } else{
+        setLoading(true);
+        const res = await fetch(`${import.meta.env.VITE_Backend_URL}/subscribe-email`, 
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email })
+          }
+        )
+        if (res.ok) {
+          setEmail("");
+          toast.success("You have successfully subscribed to our newsletter.",{
+            position: "top-center",
+          });
+          setLoading(false);
+        } else {
+          toast.error("An error occurred while sending your subscription email. Please try again.",{
+            position: "top-center",
+          });
+          setLoading(false);
+        }
+      }
     } catch (error) {
       console.error("Error sending email:", error);
-      alert("An error occurred while sending your subscription email. Please try again.");
+      toast.error("An error occurred while sending your subscription email. Please try again.",{
+        position: "top-center",
+      });
     }
   };
 
   return (
+    <>
     <div
       data-aos="zoom-in"
       className="mb-20 bg-gray-100 dark:bg-gray-800 text-white"
@@ -56,6 +94,10 @@ const Subscribe = () => {
         </div>
       </div>
     </div>
+
+    {loading && <Loader />}
+    </>
+
   );
 };
 

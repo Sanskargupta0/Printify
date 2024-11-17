@@ -1,6 +1,7 @@
 import React from 'react'
 import { FiArrowRight } from 'react-icons/fi'
 import Products from '../constants/products'
+import { Link } from 'react-router-dom'
 
 
 // Map all Products
@@ -37,13 +38,13 @@ export default function AlternatingProductListing() {
                 <div className="p-6 md:w-1/2 flex flex-col justify-center">
                   <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">{product.name}</h2>
                   <p className="text-gray-600 dark:text-gray-300 mb-6">{product.description}</p>
-                  <a 
-                    href={product.link}
+                  <Link 
+                    to={`../${product.link}`}
                     className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition-colors duration-300 self-start"
                   >
                     Learn More
                     <FiArrowRight className="ml-2 -mr-1 h-4 w-4" aria-hidden="true" />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

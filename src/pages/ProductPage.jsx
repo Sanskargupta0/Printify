@@ -10,7 +10,6 @@ export default function ProductPage({ product }) {
     width: "",
     height: "",
     quantity: "",
-    direction: "",
     material: "",
     finishes: [],
     extra: [],

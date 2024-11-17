@@ -82,18 +82,18 @@ const Navbar = () => {
                 {searchInput && filteredProducts.length > 0 && (
                   <div className="absolute mt-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-lg max-h-60 overflow-y-auto w-full z-10">
                     {filteredProducts.map((product) => (
-                      <a
+                      <Link
                         key={product.id}
-                        href={product.link}
+                        to={product.link}
                         className="flex items-center p-2 hover:bg-gray-200 dark:hover:bg-gray-700"
                       >
                         <img
-                           src={`src/assets/products/${product.image}`}
+                           src={`../../../src/assets/products/${product.image}`}
                           alt={product.name}
                           className="w-10 h-10 mr-3 rounded"
                         />
                         <span className="text-sm">{product.name}</span>
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 )}
