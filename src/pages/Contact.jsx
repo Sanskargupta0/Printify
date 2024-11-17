@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { FiMail, FiPhone, FiMapPin } from "react-icons/fi";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { toast } from "react-toastify";
+import Loader from "../components/Loader/Loder";
 import Contact from "../assets/website/contact.png";
 import Contact2 from "../assets/website/contact2.png";
 export default function ContactPage() {
@@ -12,6 +13,7 @@ export default function ContactPage() {
     message: "",
     mobile: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,11 +22,82 @@ export default function ContactPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    // Here you would typically send the form data to your server
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.subject ||
+      !formData.message ||
+      !formData.mobile
+    ) {
+      toast.error("Please fill in all fields.", {
+        position: "top-center",
+      });
+      return;
+    }
+    try {
+      setLoading(true);
+      // validate email
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(formData.email)) {
+        toast.error("Please enter a valid email address.", {
+          position: "top-center",
+        });
+        setLoading(false);
+        return;
+      } else {
+        // send email
+        fetch(`${import.meta.env.VITE_Backend_URL}/contact-email`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        })
+          .then((res) => {
+            if (res.ok) {
+              setFormData({
+                name: "",
+                email: "",
+                subject: "",
+                message: "",
+                mobile: "",
+              });
+              toast.success("Your message has been sent successfully.", {
+                position: "top-center",
+              });
+              setLoading(false);
+            } else {
+              toast.error(
+                "An error occurred while sending your message. Please try again.",
+                {
+                  position: "top-center",
+                }
+              );
+              setLoading(false);
+            }
+          })
+          .catch((error) => {
+            console.error("Error sending email:", error);
+            toast.error(
+              "An error occurred while sending your message. Please try again.",
+              {
+                position: "top-center",
+              }
+            );
+            setLoading(false);
+          });
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+      toast.error("An error occurred while sending your message. Please try again.", {
+        position: "top-center",
+      });
+      setLoading(false);
+    }
   };
 
   return (
+    <>
     <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-white">
       <div className="container mx-auto px-4 py-16">
         <h1 className="text-4xl font-bold mb-8 text-center">
@@ -160,6 +233,8 @@ export default function ContactPage() {
         </div>
       </div>
     </div>
+    {loading && <Loader />}
+    </>
   );
 }
 
