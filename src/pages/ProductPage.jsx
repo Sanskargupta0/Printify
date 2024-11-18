@@ -152,6 +152,8 @@ export default function ProductPage({ product }) {
         });
         // Reset the form after successful submission
         setFormData({
+          id: product.id,
+          productName: product.name,
           lengthh: "",
           width: "",
           height: "",
@@ -413,7 +415,7 @@ export default function ProductPage({ product }) {
               <!-- Main Image -->
               <div class="main-image-container">
                 <img
-                  src="../src/assets/products/${product.mainImage}"
+                  src="/products/${product.mainImage}"
                   alt="${product.name}"
                   class="main-image"
                 />
@@ -428,7 +430,7 @@ export default function ProductPage({ product }) {
                           (image, index) => `
                       <div class="extra-image-container">
                         <img
-                          src="../src/assets/products/${image}"
+                          src="/products/${image}"
                           alt="Extra view ${index + 1} of ${product.name}"
                           class="extra-image"
                         />
