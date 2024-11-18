@@ -88,7 +88,7 @@ const Navbar = () => {
                         className="flex items-center p-2 hover:bg-gray-200 dark:hover:bg-gray-700"
                       >
                         <img
-                           src={`../../../src/assets/products/${product.image}`}
+                           src={`../products/${product.image}`}
                           alt={product.name}
                           className="w-10 h-10 mr-3 rounded"
                         />

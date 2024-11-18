@@ -111,7 +111,7 @@ const Hero = () => {
                     className="relative z-10"
                   >
                     <img
-                      src={`src/assets/products/${data.img}`}
+                      src={`/products/${data.img}`}
                       alt={data.title}
                       className="w-[300px] h-[300px] sm:h-[450px] sm:w-[450px] sm:scale-105 lg:scale-120 object-contain mx-auto"
                     />

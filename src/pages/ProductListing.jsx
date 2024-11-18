@@ -25,12 +25,12 @@ export default function AlternatingProductListing() {
               <div className={`md:flex ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
                 <div className="md:w-1/2">
                   <img 
-                  src={`src/assets/products/${product.mainImage}`}
+                  src={`/products/${product.mainImage}`}
                   alt={product.name} className="w-full h-64 object-cover" />
                   {product.extraImages.length > 0 && (
                     <div className="flex p-2 gap-2 justify-center">
                       {product.extraImages.map((img, i) => (
-                        <img key={i} src={`src/assets/products/${img}`} alt={`${product.name} ${i + 1}`} className="w-20 h-20 object-cover rounded" />
+                        <img key={i} src={`/products/${img}`} alt={`${product.name} ${i + 1}`} className="w-20 h-20 object-cover rounded" />
                       ))}
                     </div>
                   )}

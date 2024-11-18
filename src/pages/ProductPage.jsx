@@ -536,7 +536,7 @@ export default function ProductPage({ product }) {
               >
                 <img
                   src={
-                    `../src/assets/products/${product.mainImage}` ||
+                    `/products/${product.mainImage}` ||
                     "/placeholder.svg?height=600&width=600"
                   }
                   alt={product.name}
@@ -553,7 +553,7 @@ export default function ProductPage({ product }) {
                         data-aos-delay={200 * index}
                       >
                         <img
-                          src={`../src/assets/products/${image}`}
+                          src={`/products/${image}`}
                           alt={`Extra view ${index + 1} of ${product.name}`}
                           className="w-full h-full object-cover"
                         />
@@ -909,10 +909,10 @@ export default function ProductPage({ product }) {
                     data-aos-delay={200 * index}
                   >
                     <div className="aspect-square bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden mb-4">
-                      <Link to={product.link}>
+                      <Link to={`../../${product.link}`}>
                         <img
                           src={
-                            `../src/assets/products/${product.image}` ||
+                            `/products/${product.image}` ||
                             "/placeholder.svg?height=300&width=300"
                           }
                           alt={product.title}

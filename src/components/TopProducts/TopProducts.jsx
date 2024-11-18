@@ -192,7 +192,7 @@ const TopProducts = () => {
               {/* image section */}
               <div className="h-[100px]">
                 <img
-                  src={`src/assets/products/${data.img}`}
+                  src={`/products/${data.img}`}
                   alt={data.title}
                   className="max-w-[140px] block mx-auto transform -translate-y-20 group-hover:scale-105 duration-300 drop-shadow-md"
                 />
