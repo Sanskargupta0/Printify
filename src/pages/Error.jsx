@@ -85,6 +85,9 @@ const StyledNavLink = styled(NavLink)`
 `;
 
 const Error = () => {
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <ErrorPage className=" dark:bg-gray-950 dark:text-white duration-200 ">
       <Content>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Loader from "../components/Loader/Loder";
 import { toast } from "react-toastify";
 import CompanyImg from "../assets/website/company.jpg";
@@ -70,6 +70,10 @@ const customers = [Logo1, Logo2, Logo3, Logo4, Logo5, Logo6];
 export default function AboutPage() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleSubscribe = async () => {
     if (!email) {

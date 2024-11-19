@@ -6,6 +6,9 @@ import Banner from "../components/Banner/Banner";
 import Subscribe from "../components/Subscribe/Subscribe";
 import Testimonials from "../components/Testimonials/Testimonials";
 const Home = () => {
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="bg-white dark:bg-gray-900 dark:text-white duration-200">
       <Hero />

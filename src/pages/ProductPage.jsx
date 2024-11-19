@@ -26,6 +26,7 @@ export default function ProductPage({ product }) {
   });
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     setFormData({
       id: product.id,
       productName: product.name,

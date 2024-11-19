@@ -175,22 +175,30 @@ const Navbar = () => {
             <ul>
               {Menu.map((data) => (
                 <li key={data.id}>
-                  <a href={data.link} className="block p-2 hover:bg-primary/20">
+                  <Link to={data.link} className="block p-2 hover:bg-primary/20"
+                  onClick={toggleSidebar}
+                  >
                     {data.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
               <li className="mt-4">
+                <Link
+                to="/products"
+                onClick={toggleSidebar}
+                >
                 <p className="font-bold">Trending Products</p>
+                </Link>
                 <ul className="pl-4">
                   {DropdownLinks.map((data) => (
                     <li key={data.id}>
-                      <a
-                        href={data.link}
+                      <Link
+                        to={data.link}
                         className="block p-2 hover:bg-primary/20"
+                        onClick={toggleSidebar}
                       >
                         {data.name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
