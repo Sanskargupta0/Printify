@@ -327,10 +327,13 @@ export default function ProductPage({ product }) {
             color: #1f1f1f;
             margin-bottom: 4px;
             font-size: 14px;
+            text-transform: capitalize;
+           
           }
           .detail-value {
             color: #666;
             font-size: 13px;
+            text-transform: capitalize;
           }
           .images-section {
             margin-top: 20px;
@@ -412,27 +415,56 @@ export default function ProductPage({ product }) {
                 <div class="detail-label">Quantity</div>
                 <div class="detail-value">${formData.quantity}</div>
               </div>
-              <div class="detail-item">
-                <div class="detail-label">Material</div>
-                <div class="detail-value">${formData.material || "N/A"}</div>
-              </div>
-              <div class="detail-item">
-                <div class="detail-label">Finishes</div>
-                <div class="detail-value">${
-                  formData.finishes?.length
-                    ? formData.finishes.join(", ")
+             
+          ${Object.entries(product.dropDownMenu || {})
+            .map(
+              ([menuName, options]) => `
+            <div class="detail-item">
+              <div class="detail-label">${menuName}</div>
+              <div class="detail-value">
+                ${
+                  formData.dynamicFields[menuName]?.name
+                    ? `${
+                        formData.dynamicFields[menuName].name
+                      } (+$${formData.dynamicFields[menuName].price.toFixed(
+                        2
+                      )})`
                     : "N/A"
-                }</div>
-              </div>
-              <div class="detail-item">
-                <div class="detail-label">Extra Features</div>
-                <div class="detail-value">${
-                  formData.extra?.length ? formData.extra.join(", ") : "N/A"
-                }</div>
+                }
               </div>
             </div>
+          `
+            )
+            .join("")}
 
-            <div class="detail-item" style="margin-bottom: 30px;">
+         
+          ${Object.entries(product.checkBoxMenu || {})
+            .map(
+              ([menuName, options]) => `
+            <div class="detail-item">
+              <div class="detail-label">${menuName}</div>
+              <div class="detail-value">
+                ${
+                  formData.dynamicFields[menuName]?.length
+                    ? formData.dynamicFields[menuName]
+                        .map(
+                          (item) => `${item.name} (+$${item.price.toFixed(2)})`
+                        )
+                        .join(", ")
+                    : "N/A"
+                }
+              </div>
+            </div>
+          `
+            )
+            .join("")}
+
+          <div class="detail-item">
+            <div class="detail-label">Estimated Total Price</div>
+            <div class="detail-value">$${estimatedPrice.toFixed(2)}</div>
+          </div>
+
+            <div class="detail-item">
               <div class="detail-label">Special Notes</div>
               <div class="detail-value">${formData.note || "N/A"}</div>
             </div>
@@ -680,20 +712,22 @@ export default function ProductPage({ product }) {
                       required
                     />
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-1 dark:text-white">
-                      Width (inches)
-                    </label>
-                    <input
-                      type="number"
-                      name="width"
-                      min={0}
-                      value={formData.width}
-                      onChange={handleInputChange}
-                      className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-700 dark:text-white"
-                      required
-                    />
-                  </div>
+                  {product.width && (
+                    <div>
+                      <label className="block text-sm font-medium mb-1 dark:text-white">
+                        Width (inches)
+                      </label>
+                      <input
+                        type="number"
+                        name="width"
+                        min={0}
+                        value={formData.width}
+                        onChange={handleInputChange}
+                        className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+                        required
+                      />
+                    </div>
+                  )}
                   <div>
                     <label className="block text-sm font-medium mb-1 dark:text-white">
                       Height (inches)
@@ -736,6 +770,9 @@ export default function ProductPage({ product }) {
                         </label>
                         <select
                           value={formData.dynamicFields.menuName?.name}
+                          
+                          
+                          
                           onChange={(e) =>
                             handleDynamicDropdownChange(
                               menuName,

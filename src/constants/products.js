@@ -3,6 +3,7 @@ const Products = [
     id: 1,
     name: "Corrugated boxes",
     basePrice: 0.5,
+    width: true,
     link: "category/corrugated-boxes",
     mainImage: "boxes/boxes.png",
     bgRemoveImage: "boxes/boxes-bg.png",
@@ -282,6 +283,7 @@ const Products = [
     id: 7,
     name: "Rigid Gift Boxes",
     basePrice: 0.5,
+    width: true,
     link: "category/rigid-gift-boxes",
     mainImage: "gift-Box/gift-Box.png",
     bgRemoveImage: "gift-Box/gift-Box-bg.png",
@@ -289,11 +291,22 @@ const Products = [
     description:
       "Rigid gift boxes offer luxury presentation and protection for high-value items.",
     dropDownMenu: {
-      material: ["Chipboard", "Paper wrap"],
-      finishes: ["Matte", "Glossy", "Foil stamping"],
+      material: [
+        { name: "Cardboard", price: 0.5 },
+        { name: "Paperboard", price: 0.6 },
+      ],
+      finishes: [
+        { name: "Glossy", price: 0.5 },
+        { name: "Matte", price: 0.6 },
+        { name: "UV coating", price: 0.7 },
+      ]
     },
     checkBoxMenu: {
-      extra: ["Magnetic closure", "Ribbon ties", "Window cutouts"],
+      extra: [
+        { name: "Embossing", price: 0.5 },
+        { name: "Foil stamping", price: 0.6 },
+        { name: "Magnetic closure", price: 0.7 },
+      ],
     },
     alsoLike: [
       {
