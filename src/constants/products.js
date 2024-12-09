@@ -2,6 +2,7 @@ const Products = [
   {
     id: 1,
     name: "Corrugated boxes",
+    basePrice: 0.5,
     link: "category/corrugated-boxes",
     mainImage: "boxes/boxes.png",
     bgRemoveImage: "boxes/boxes-bg.png",
@@ -9,11 +10,25 @@ const Products = [
     description:
       "Corrugated boxes are used for packaging of various products. These boxes are made up of corrugated paperboard which is made up of three layers of paper. The middle layer is fluted and the outer layers are flat. These boxes are used for packaging of various products like food items, electronics, cosmetics, etc.",
     dropDownMenu: {
-      material: ["Corrugated paperboard", "Rigid paperboard", "Folding carton"],
-      finishes: ["Glossy", "Matte", "UV coating", "Lamination"],
+      material: [
+        { name: "Corrugated paperboard", price: 0.5 },
+        { name: "Rigid paperboard", price: 0.6 },
+        { name: "Folding carton", price: 0.7 },
+      ],
+      finishes: [
+        { name: "Glossy", price: 0.5 },
+        { name: "Matte", price: 0.6 },
+        { name: "UV coating", price: 0.7 },
+        { name: "Lamination", price: 0.8 },
+      ],
     },
     checkBoxMenu: {
-      extra: ["Die-cut", "Embossing", "Debossing", "Foil stamping"],
+      extra: [
+        { name: "Die-cut", price: 0.5 },
+        { name: "Embossing", price: 0.6 },
+        { name: "Debossing", price: 0.7 },
+        { name: "Foil stamping", price: 0.8 },
+      ],
     },
     alsoLike: [
       {
@@ -36,6 +51,7 @@ const Products = [
   {
     id: 2,
     name: "Mono Cartons",
+    basePrice: 0.5,
     link: "category/mono-cartons",
     mainImage: "roll/roll.png",
     bgRemoveImage: "roll/roll-bg.png",
@@ -43,11 +59,22 @@ const Products = [
     description:
       "Mono cartons are widely used for retail packaging, offering customized and brand-friendly design options.",
     dropDownMenu: {
-      material: ["Cardboard", "Paperboard"],
-      finishes: ["Matte", "Spot UV", "Lamination"],
+      material: [
+        { name: "Cardboard", price: 0.5 },
+        { name: "Paperboard", price: 0.6 },
+      ],
+      finishes: [
+        { name: "Matte", price: 0.5 },
+        { name: "Spot UV", price: 0.6 },
+        { name: "Lamination", price: 0.7 },
+      ],
     },
     checkBoxMenu: {
-      extra: ["Embossing", "Foil stamping", "Window patching"],
+      extra: [
+        { name: "Embossing", price: 0.5 },
+        { name: "Foil stamping", price: 0.6 },
+        { name: "Window patching", price: 0.7 },
+      ],
     },
     alsoLike: [
       {
@@ -70,6 +97,7 @@ const Products = [
   {
     id: 3,
     name: "Labels and Stickers",
+    basePrice: 0.5,
     link: "category/labels-and-stickers",
     mainImage: "labels/labels.png",
     bgRemoveImage: "labels/labels-bg.png",
@@ -77,11 +105,23 @@ const Products = [
     description:
       "Labels and stickers provide a convenient and efficient way to brand, identify, and enhance your products.",
     dropDownMenu: {
-      material: ["Paper", "Vinyl", "Polyester"],
-      finishes: ["Glossy", "Matte", "UV coating"],
+      material: [
+        { name: "Paper", price: 0.4 },
+        { name: "Vinyl", price: 0.5 },
+        { name: "Polyester", price: 0.6 },
+      ],
+      finishes: [
+        { name: "Glossy", price: 0.5 },
+        { name: "Matte", price: 0.6 },
+        { name: "UV coating", price: 0.7 },
+      ],
     },
     checkBoxMenu: {
-      extra: ["Custom shapes", "Waterproof", "Permanent adhesive"],
+      extra: [
+        { name: "Custom shapes", price: 0.4 },
+        { name: "Waterproof", price: 0.5 },
+        { name: "Permanent adhesive", price: 0.6 },
+      ],
     },
     alsoLike: [
       {
@@ -104,6 +144,7 @@ const Products = [
   {
     id: 4,
     name: "Packaging Tape",
+    basePrice: 0.5,
     link: "category/packaging-tape",
     mainImage: "roll/roll.png",
     bgRemoveImage: "roll/roll-bg.png",
@@ -111,11 +152,22 @@ const Products = [
     description:
       "Packaging tape offers superior adhesion and is used for sealing boxes, envelopes, and more.",
     dropDownMenu: {
-      material: ["BOPP film", "Acrylic adhesive"],
-      finishes: ["Transparent", "Printed", "Colored"],
+      material: [
+        { name: "BOPP film", price: 0.5 },
+        { name: "Acrylic adhesive", price: 0.6 },
+      ],
+      finishes: [
+        { name: "Transparent", price: 0.5 },
+        { name: "Printed", price: 0.6 },
+        { name: "Colored", price: 0.7 },
+      ],
     },
     checkBoxMenu: {
-      extra: ["Custom branding", "Easy tear", "Water-resistant"],
+      extra: [
+        { name: "Custom branding", price: 0.4 },
+        { name: "Easy tear", price: 0.5 },
+        { name: "Water-resistant", price: 0.6 },
+      ],
     },
     alsoLike: [
       {
@@ -138,6 +190,7 @@ const Products = [
   {
     id: 5,
     name: "Flexible Pouches",
+    basePrice: 0.5,
     link: "category/flexible-pouches",
     mainImage: "bags/bags.png",
     bgRemoveImage: "bags/bags-bg.png",
@@ -145,11 +198,21 @@ const Products = [
     description:
       "Flexible pouches are lightweight and versatile packaging solutions for liquids, powders, and more.",
     dropDownMenu: {
-      material: ["Plastic", "Foil"],
-      finishes: ["Glossy", "Matte"],
+      material: [
+        { name: "Plastic", price: 0.5 },
+        { name: "Foil", price: 0.6 },
+      ],
+      finishes: [
+        { name: "Glossy", price: 0.5 },
+        { name: "Matte", price: 0.6 },
+      ],
     },
     checkBoxMenu: {
-      extra: ["Reclosable zippers", "Tear notches", "Spout attachments"],
+      extra: [
+        { name: "Reclosable zippers", price: 0.4 },
+        { name: "Tear notches", price: 0.5 },
+        { name: "Spout attachments", price: 0.6 },
+      ],
     },
     alsoLike: [
       {
@@ -172,6 +235,7 @@ const Products = [
   {
     id: 6,
     name: "Shrink Sleeves",
+    basePrice: 0.5,
     link: "category/shrink-sleeves",
     mainImage: "gallery/img7.png",
     bgRemoveImage: "gallery/img8.png",
@@ -179,11 +243,22 @@ const Products = [
     description:
       "Shrink sleeves offer 360-degree design coverage and can fit a variety of container shapes.",
     dropDownMenu: {
-      material: ["PVC", "PET", "OPS"],
-      finishes: ["Glossy", "Matte"],
+      material: [
+        { name: "PVC", price: 0.5 },
+        { name: "PET", price: 0.6 },
+        { name: "OPS", price: 0.7 },
+      ],
+      finishes: [
+        { name: "Glossy", price: 0.5 },
+        { name: "Matte", price: 0.6 },
+      ],
     },
     checkBoxMenu: {
-      extra: ["Tamper-evident", "Full-body coverage", "UV-resistant inks"],
+      extra: [
+        { name: "Tamper-evident", price: 0.5 },
+        { name: "Full-body coverage", price: 0.6 },
+        { name: "UV-resistant inks", price: 0.7 },
+      ],
     },
     alsoLike: [
       {
@@ -206,6 +281,7 @@ const Products = [
   {
     id: 7,
     name: "Rigid Gift Boxes",
+    basePrice: 0.5,
     link: "category/rigid-gift-boxes",
     mainImage: "gift-Box/gift-Box.png",
     bgRemoveImage: "gift-Box/gift-Box-bg.png",

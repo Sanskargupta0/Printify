@@ -23,13 +23,14 @@ export default function ProductPage({ product }) {
     phone: "",
   });
 
+  const [estimatedPrice, setEstimatedPrice] = useState(0);
+
   useEffect(() => {
     window.scrollTo(0, 0);
-    // Initialize dynamic fields based on the product structure
     const initialDynamicFields = {};
     if (product.dropDownMenu) {
       Object.entries(product.dropDownMenu).forEach(([menuName, options]) => {
-        initialDynamicFields[menuName] = "";
+        initialDynamicFields[menuName] = [];
       });
     }
     if (product.checkBoxMenu) {
@@ -54,15 +55,31 @@ export default function ProductPage({ product }) {
   };
 
   const handleDynamicDropdownChange = (menuName, value) => {
-    setFormData((prev) => ({
-      ...prev,
-      dynamicFields: {
-        ...prev.dynamicFields,
-        [menuName]: value,
-      },
-    }));
+    if (value) {
+      setFormData((prev) => ({
+        ...prev,
+        dynamicFields: {
+          ...prev.dynamicFields,
+          [menuName]: {
+            name: value,
+            price: product.dropDownMenu[menuName]?.find(
+              (option) => option.name === value
+            ).price,
+          },
+        },
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        dynamicFields: {
+          ...prev.dynamicFields,
+          [menuName]: [],
+        },
+      }));
+    }
   };
 
+  // Handle checkbox changes
   const handleDynamicCheckboxChange = (menuName, value, checked) => {
     setFormData((prev) => ({
       ...prev,
@@ -74,6 +91,40 @@ export default function ProductPage({ product }) {
       },
     }));
   };
+
+  // Calculate estimated price
+  useEffect(() => {
+    const calculateEstimatedPrice = () => {
+      const { basePrice, dropDownMenu, checkBoxMenu } = product;
+      const { quantity, dynamicFields } = formData;
+
+      let totalPrice = basePrice * (quantity || 1);
+
+      // Add price for dropdown selections
+      Object.entries(dynamicFields || {}).forEach(
+        ([menuName, selectedValue]) => {
+          if (dropDownMenu && dropDownMenu[menuName] && selectedValue?.price) {
+            totalPrice += selectedValue.price * (quantity || 1);
+          }
+        }
+      );
+
+      // Add price for selected extras
+      if (
+        checkBoxMenu &&
+        dynamicFields.extra &&
+        Array.isArray(dynamicFields.extra)
+      ) {
+        dynamicFields.extra.forEach((extra) => {
+          totalPrice += extra.price * (quantity || 1);
+        });
+      }
+
+      return totalPrice;
+    };
+
+    setEstimatedPrice(calculateEstimatedPrice());
+  }, [formData, product]);
 
   const handleFileChange = (e) => {
     setFormData((prev) => ({
@@ -164,9 +215,7 @@ export default function ProductPage({ product }) {
           width: "",
           height: "",
           quantity: "",
-          material: "",
-          finishes: [],
-          extra: [],
+          dynamicFields: {},
           note: "",
           artwork: null,
           name: "",
@@ -595,6 +644,9 @@ export default function ProductPage({ product }) {
                 <h1 className="text-3xl font-bold mb-2 dark:text-white">
                   {product.name}
                 </h1>
+                <h3 className="text-xl font-medium mb-2 dark:text-white">
+                  ${product.basePrice} per unit
+                </h3>
                 <div className="flex items-center gap-1 mb-2">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <FiStar
@@ -680,10 +732,10 @@ export default function ProductPage({ product }) {
                     ([menuName, options]) => (
                       <div key={menuName} className="space-y-4">
                         <label className="block text-sm font-medium mb-1 dark:text-white capitalize">
-                          {menuName}
+                          {menuName} (Optional)
                         </label>
                         <select
-                          value={formData.dynamicFields[menuName]}
+                          value={formData.dynamicFields.menuName?.name}
                           onChange={(e) =>
                             handleDynamicDropdownChange(
                               menuName,
@@ -693,9 +745,9 @@ export default function ProductPage({ product }) {
                           className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                         >
                           <option value="">Select {menuName}</option>
-                          {options.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
+                          {options.map((option, index) => (
+                            <option key={index} value={option.name}>
+                              {option.name} (+${option.price})
                             </option>
                           ))}
                         </select>
@@ -709,19 +761,16 @@ export default function ProductPage({ product }) {
                     ([menuName, options]) => (
                       <div key={menuName}>
                         <label className="block text-sm font-medium mb-2 dark:text-white capitalize">
-                          {menuName}
+                          {menuName} (Optional)
                         </label>
                         <div className="grid grid-cols-2 gap-2">
-                          {options.map((option) => (
+                          {options.map((option, index) => (
                             <label
-                              key={option}
+                              key={index}
                               className="flex items-center space-x-2"
                             >
                               <input
                                 type="checkbox"
-                                checked={formData.dynamicFields[
-                                  menuName
-                                ]?.includes(option)}
                                 onChange={(e) =>
                                   handleDynamicCheckboxChange(
                                     menuName,
@@ -732,7 +781,7 @@ export default function ProductPage({ product }) {
                                 className="rounded border-gray-300 dark:border-gray-700"
                               />
                               <span className="text-sm dark:text-white">
-                                {option}
+                                {option.name} (+${option.price})
                               </span>
                             </label>
                           ))}
@@ -850,7 +899,10 @@ export default function ProductPage({ product }) {
                     type="submit"
                     className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors"
                   >
-                    Get a Quote
+                    Get a Quote{" "}
+                    {estimatedPrice
+                      ? `Estimated Price ~ $${estimatedPrice}`
+                      : ""}
                   </button>
                   <button
                     type="button"
