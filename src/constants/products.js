@@ -8,9 +8,13 @@ const Products = [
     extraImages: ["gallery/img1.png", "gallery/img2.png"],
     description:
       "Corrugated boxes are used for packaging of various products. These boxes are made up of corrugated paperboard which is made up of three layers of paper. The middle layer is fluted and the outer layers are flat. These boxes are used for packaging of various products like food items, electronics, cosmetics, etc.",
-    material: ["Corrugated paperboard", "Rigid paperboard", "Folding carton"],
-    finishes: ["Glossy", "Matte", "UV coating", "Lamination"],
-    extra: ["Die-cut", "Embossing", "Debossing", "Foil stamping"],
+    dropDownMenu: {
+      material: ["Corrugated paperboard", "Rigid paperboard", "Folding carton"],
+      finishes: ["Glossy", "Matte", "UV coating", "Lamination"],
+    },
+    checkBoxMenu: {
+      extra: ["Die-cut", "Embossing", "Debossing", "Foil stamping"],
+    },
     alsoLike: [
       {
         title: "Flexible Pouches",
@@ -38,9 +42,13 @@ const Products = [
     extraImages: ["gallery/img3.png", "gallery/img4.png"],
     description:
       "Mono cartons are widely used for retail packaging, offering customized and brand-friendly design options.",
-    material: ["Cardboard", "Paperboard"],
-    finishes: ["Matte", "Spot UV", "Lamination"],
-    extra: ["Embossing", "Foil stamping", "Window patching"],
+    dropDownMenu: {
+      material: ["Cardboard", "Paperboard"],
+      finishes: ["Matte", "Spot UV", "Lamination"],
+    },
+    checkBoxMenu: {
+      extra: ["Embossing", "Foil stamping", "Window patching"],
+    },
     alsoLike: [
       {
         title: "Corrugated Boxes",
@@ -68,9 +76,13 @@ const Products = [
     extraImages: ["gallery/img5.png", "gallery/img6.png"],
     description:
       "Labels and stickers provide a convenient and efficient way to brand, identify, and enhance your products.",
-    material: ["Paper", "Vinyl", "Polyester"],
-    finishes: ["Glossy", "Matte", "UV coating"],
-    extra: ["Custom shapes", "Waterproof", "Permanent adhesive"],
+    dropDownMenu: {
+      material: ["Paper", "Vinyl", "Polyester"],
+      finishes: ["Glossy", "Matte", "UV coating"],
+    },
+    checkBoxMenu: {
+      extra: ["Custom shapes", "Waterproof", "Permanent adhesive"],
+    },
     alsoLike: [
       {
         title: "Mono Cartons",
@@ -98,9 +110,13 @@ const Products = [
     extraImages: ["gallery/img8.png", "gallery/img9.png"],
     description:
       "Packaging tape offers superior adhesion and is used for sealing boxes, envelopes, and more.",
-    material: ["BOPP film", "Acrylic adhesive"],
-    finishes: ["Transparent", "Printed", "Colored"],
-    extra: ["Custom branding", "Easy tear", "Water-resistant"],
+    dropDownMenu: {
+      material: ["BOPP film", "Acrylic adhesive"],
+      finishes: ["Transparent", "Printed", "Colored"],
+    },
+    checkBoxMenu: {
+      extra: ["Custom branding", "Easy tear", "Water-resistant"],
+    },
     alsoLike: [
       {
         title: "Corrugated Boxes",
@@ -128,9 +144,13 @@ const Products = [
     extraImages: ["gallery/img10.png", "gallery/img11.png"],
     description:
       "Flexible pouches are lightweight and versatile packaging solutions for liquids, powders, and more.",
-    material: ["Plastic", "Foil"],
-    finishes: ["Glossy", "Matte"],
-    extra: ["Reclosable zippers", "Tear notches", "Spout attachments"],
+    dropDownMenu: {
+      material: ["Plastic", "Foil"],
+      finishes: ["Glossy", "Matte"],
+    },
+    checkBoxMenu: {
+      extra: ["Reclosable zippers", "Tear notches", "Spout attachments"],
+    },
     alsoLike: [
       {
         title: "Mono Cartons",
@@ -158,9 +178,13 @@ const Products = [
     extraImages: ["gallery/img9.png", "gallery/img10.png"],
     description:
       "Shrink sleeves offer 360-degree design coverage and can fit a variety of container shapes.",
-    material: ["PVC", "PET", "OPS"],
-    finishes: ["Glossy", "Matte"],
-    extra: ["Tamper-evident", "Full-body coverage", "UV-resistant inks"],
+    dropDownMenu: {
+      material: ["PVC", "PET", "OPS"],
+      finishes: ["Glossy", "Matte"],
+    },
+    checkBoxMenu: {
+      extra: ["Tamper-evident", "Full-body coverage", "UV-resistant inks"],
+    },
     alsoLike: [
       {
         title: "Flexible Pouches",
@@ -188,9 +212,13 @@ const Products = [
     extraImages: ["gallery/img11.png", "gallery/img1.png"],
     description:
       "Rigid gift boxes offer luxury presentation and protection for high-value items.",
-    material: ["Chipboard", "Paper wrap"],
-    finishes: ["Matte", "Glossy", "Foil stamping"],
-    extra: ["Magnetic closure", "Ribbon ties", "Window cutouts"],
+    dropDownMenu: {
+      material: ["Chipboard", "Paper wrap"],
+      finishes: ["Matte", "Glossy", "Foil stamping"],
+    },
+    checkBoxMenu: {
+      extra: ["Magnetic closure", "Ribbon ties", "Window cutouts"],
+    },
     alsoLike: [
       {
         title: "Mono Cartons",

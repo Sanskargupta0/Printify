@@ -15,9 +15,7 @@ export default function ProductPage({ product }) {
     width: "",
     height: "",
     quantity: "",
-    material: "",
-    finishes: [],
-    extra: [],
+    dynamicFields: {},
     note: "",
     artwork: null,
     name: "",
@@ -27,22 +25,22 @@ export default function ProductPage({ product }) {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    setFormData({
-      id: product.id,
-      productName: product.name,
-      lengthh: "",
-      width: "",
-      height: "",
-      quantity: "",
-      material: "",
-      finishes: [],
-      extra: [],
-      note: "",
-      artwork: null,
-      name: "",
-      email: "",
-      phone: "",
-    });
+    // Initialize dynamic fields based on the product structure
+    const initialDynamicFields = {};
+    if (product.dropDownMenu) {
+      Object.entries(product.dropDownMenu).forEach(([menuName, options]) => {
+        initialDynamicFields[menuName] = "";
+      });
+    }
+    if (product.checkBoxMenu) {
+      Object.entries(product.checkBoxMenu).forEach(([menuName, options]) => {
+        initialDynamicFields[menuName] = [];
+      });
+    }
+    setFormData((prev) => ({
+      ...prev,
+      dynamicFields: initialDynamicFields,
+    }));
   }, [product]);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -55,19 +53,26 @@ export default function ProductPage({ product }) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleCheckboxChange = (e) => {
-    const { name, value, checked } = e.target;
-    if (checked) {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: [...prev[name], value],
-      }));
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: prev[name].filter((item) => item !== value),
-      }));
-    }
+  const handleDynamicDropdownChange = (menuName, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      dynamicFields: {
+        ...prev.dynamicFields,
+        [menuName]: value,
+      },
+    }));
+  };
+
+  const handleDynamicCheckboxChange = (menuName, value, checked) => {
+    setFormData((prev) => ({
+      ...prev,
+      dynamicFields: {
+        ...prev.dynamicFields,
+        [menuName]: checked
+          ? [...prev.dynamicFields[menuName], value]
+          : prev.dynamicFields[menuName].filter((item) => item !== value),
+      },
+    }));
   };
 
   const handleFileChange = (e) => {
@@ -669,85 +674,72 @@ export default function ProductPage({ product }) {
                   />
                 </div>
 
-                {/* Material Selection (conditionally rendered) */}
-                {product.material && product.material.length > 0 && (
-                  <div>
-                    <label className="block text-sm font-medium mb-1 dark:text-white">
-                      Material (Optional)
-                    </label>
-                    <select
-                      name="material"
-                      value={formData.material}
-                      onChange={handleInputChange}
-                      className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-700 dark:text-white"
-                    >
-                      <option value="">Select Material</option>
-                      {product.material.map((material) => (
-                        <option key={material} value={material}>
-                          {material}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                )}
-
-                {/* Finishes (conditionally rendered) */}
-                {product.finishes && product.finishes.length > 0 && (
-                  <div>
-                    <label className="block text-sm font-medium mb-2 dark:text-white">
-                      Finishes (Optional)
-                    </label>
-                    <div className="grid grid-cols-2 gap-2">
-                      {product.finishes.map((finish) => (
-                        <label
-                          key={finish}
-                          className="flex items-center space-x-2"
-                        >
-                          <input
-                            type="checkbox"
-                            name="finishes"
-                            value={finish}
-                            checked={formData.finishes.includes(finish)}
-                            onChange={handleCheckboxChange}
-                            className="rounded border-gray-300 dark:border-gray-700"
-                          />
-                          <span className="text-sm dark:text-white">
-                            {finish}
-                          </span>
+                {/* Render Dropdown Menus */}
+                {product.dropDownMenu &&
+                  Object.entries(product.dropDownMenu).map(
+                    ([menuName, options]) => (
+                      <div key={menuName} className="space-y-4">
+                        <label className="block text-sm font-medium mb-1 dark:text-white capitalize">
+                          {menuName}
                         </label>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Extra Finishes (conditionally rendered) */}
-                {product.extra && product.extra.length > 0 && (
-                  <div>
-                    <label className="block text-sm font-medium mb-2 dark:text-white">
-                      Extra Finishes (Optional)
-                    </label>
-                    <div className="grid grid-cols-2 gap-2">
-                      {product.extra.map((finish) => (
-                        <label
-                          key={finish}
-                          className="flex items-center space-x-2"
+                        <select
+                          value={formData.dynamicFields[menuName]}
+                          onChange={(e) =>
+                            handleDynamicDropdownChange(
+                              menuName,
+                              e.target.value
+                            )
+                          }
+                          className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                         >
-                          <input
-                            type="checkbox"
-                            name="extra"
-                            value={finish}
-                            checked={formData.extra.includes(finish)}
-                            onChange={handleCheckboxChange}
-                            className="rounded border-gray-300 dark:border-gray-700"
-                          />
-                          <span className="text-sm dark:text-white">
-                            {finish}
-                          </span>
+                          <option value="">Select {menuName}</option>
+                          {options.map((option) => (
+                            <option key={option} value={option}>
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    )
+                  )}
+
+                {/* Render Checkbox Menus */}
+                {product.checkBoxMenu &&
+                  Object.entries(product.checkBoxMenu).map(
+                    ([menuName, options]) => (
+                      <div key={menuName}>
+                        <label className="block text-sm font-medium mb-2 dark:text-white capitalize">
+                          {menuName}
                         </label>
-                      ))}
-                    </div>
-                  </div>
-                )}
+                        <div className="grid grid-cols-2 gap-2">
+                          {options.map((option) => (
+                            <label
+                              key={option}
+                              className="flex items-center space-x-2"
+                            >
+                              <input
+                                type="checkbox"
+                                checked={formData.dynamicFields[
+                                  menuName
+                                ]?.includes(option)}
+                                onChange={(e) =>
+                                  handleDynamicCheckboxChange(
+                                    menuName,
+                                    option,
+                                    e.target.checked
+                                  )
+                                }
+                                className="rounded border-gray-300 dark:border-gray-700"
+                              />
+                              <span className="text-sm dark:text-white">
+                                {option}
+                              </span>
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+                    )
+                  )}
 
                 {/* Notes */}
                 <div>
