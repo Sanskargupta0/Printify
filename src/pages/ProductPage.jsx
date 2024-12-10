@@ -38,10 +38,21 @@ export default function ProductPage({ product }) {
         initialDynamicFields[menuName] = [];
       });
     }
-    setFormData((prev) => ({
-      ...prev,
+    setFormData({
+      id: product.id,
+      productName: product.name,
+      lengthh: "",
+      width: "",
+      height: "",
+      quantity: "",
+      dynamicFields: {},
+      note: "",
+      artwork: null,
+      name: "",
+      email: "",
+      phone: "",
       dynamicFields: initialDynamicFields,
-    }));
+    });
   }, [product]);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -55,28 +66,20 @@ export default function ProductPage({ product }) {
   };
 
   const handleDynamicDropdownChange = (menuName, value) => {
-    if (value) {
-      setFormData((prev) => ({
-        ...prev,
-        dynamicFields: {
-          ...prev.dynamicFields,
-          [menuName]: {
-            name: value,
-            price: product.dropDownMenu[menuName]?.find(
-              (option) => option.name === value
-            ).price,
-          },
-        },
-      }));
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        dynamicFields: {
-          ...prev.dynamicFields,
-          [menuName]: [],
-        },
-      }));
-    }
+    setFormData((prev) => ({
+      ...prev,
+      dynamicFields: {
+        ...prev.dynamicFields,
+        [menuName]: value
+          ? {
+              name: value,
+              price: product.dropDownMenu[menuName]?.find(
+                (option) => option.name === value
+              ).price,
+            }
+          : [],
+      },
+    }));
   };
 
   // Handle checkbox changes
@@ -137,12 +140,21 @@ export default function ProductPage({ product }) {
     e.preventDefault();
 
     // Validation check for all required fields
-    const { lengthh, width, height, quantity, name, email, phone } = formData;
+    const {
+      lengthh,
+      width,
+      height,
+      quantity,
+      name,
+      email,
+      phone,
+      dynamicFields,
+    } = formData;
 
     if (
       !lengthh ||
       !width ||
-      !height ||
+      (!height && product.height) ||
       !quantity ||
       !name ||
       !email ||
@@ -177,12 +189,14 @@ export default function ProductPage({ product }) {
       formDataToSend.append("width", width);
       formDataToSend.append("height", height);
       formDataToSend.append("quantity", quantity);
-      formDataToSend.append("material", formData.material || "");
-      formDataToSend.append(
-        "finishes",
-        JSON.stringify(formData.finishes || [])
-      );
-      formDataToSend.append("extra", JSON.stringify(formData.extra || []));
+      if (dynamicFields) {
+        Object.entries(dynamicFields).forEach(([fieldName, value]) => {
+          formDataToSend.append(
+            `dynamicFields.${fieldName}`,
+            JSON.stringify(value)
+          );
+        });
+      }
       formDataToSend.append("note", formData.note || "");
       formDataToSend.append("name", name);
       formDataToSend.append("email", email);
@@ -409,11 +423,14 @@ export default function ProductPage({ product }) {
                 <div class="detail-label">Dimensions</div>
                 <div class="detail-value">${formData.lengthh} x ${
       formData.width
-    } x ${formData.height}</div>
+    }
+x ${product.height ? formData.height : "N/A"} </div>
               </div>
               <div class="detail-item">
                 <div class="detail-label">Quantity</div>
-                <div class="detail-value">${formData.quantity}</div>
+                <div class="detail-value">${
+                  formData.quantity ? formData.quantity : "1"
+                }</div>
               </div>
              
           ${Object.entries(product.dropDownMenu || {})
@@ -712,36 +729,36 @@ export default function ProductPage({ product }) {
                       required
                     />
                   </div>
-                  {product.width && (
+                  <div>
+                    <label className="block text-sm font-medium mb-1 dark:text-white">
+                      Width (inches)
+                    </label>
+                    <input
+                      type="number"
+                      name="width"
+                      min={0}
+                      value={formData.width}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+                      required
+                    />
+                  </div>
+                  {product.height && (
                     <div>
                       <label className="block text-sm font-medium mb-1 dark:text-white">
-                        Width (inches)
+                        Height (inches)
                       </label>
                       <input
                         type="number"
-                        name="width"
+                        name="height"
                         min={0}
-                        value={formData.width}
+                        value={formData.height}
                         onChange={handleInputChange}
                         className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                         required
                       />
                     </div>
                   )}
-                  <div>
-                    <label className="block text-sm font-medium mb-1 dark:text-white">
-                      Height (inches)
-                    </label>
-                    <input
-                      type="number"
-                      name="height"
-                      min={0}
-                      value={formData.height}
-                      onChange={handleInputChange}
-                      className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-700 dark:text-white"
-                      required
-                    />
-                  </div>
                 </div>
 
                 {/* Quantity */}
@@ -764,15 +781,12 @@ export default function ProductPage({ product }) {
                 {product.dropDownMenu &&
                   Object.entries(product.dropDownMenu).map(
                     ([menuName, options]) => (
-                      <div key={menuName} className="space-y-4">
-                        <label className="block text-sm font-medium mb-1 dark:text-white capitalize">
+                      <div key={menuName}>
+                        <label className="block font-medium mb-1">
                           {menuName} (Optional)
                         </label>
                         <select
-                          value={formData.dynamicFields.menuName?.name}
-                          
-                          
-                          
+                          value={formData.dynamicFields[menuName]?.name || ""}
                           onChange={(e) =>
                             handleDynamicDropdownChange(
                               menuName,
@@ -797,32 +811,35 @@ export default function ProductPage({ product }) {
                   Object.entries(product.checkBoxMenu).map(
                     ([menuName, options]) => (
                       <div key={menuName}>
-                        <label className="block text-sm font-medium mb-2 dark:text-white capitalize">
+                        <p className="block font-medium mb-1">
                           {menuName} (Optional)
-                        </label>
-                        <div className="grid grid-cols-2 gap-2">
-                          {options.map((option, index) => (
-                            <label
-                              key={index}
-                              className="flex items-center space-x-2"
-                            >
-                              <input
-                                type="checkbox"
-                                onChange={(e) =>
-                                  handleDynamicCheckboxChange(
-                                    menuName,
-                                    option,
-                                    e.target.checked
-                                  )
-                                }
-                                className="rounded border-gray-300 dark:border-gray-700"
-                              />
-                              <span className="text-sm dark:text-white">
-                                {option.name} (+${option.price})
-                              </span>
-                            </label>
-                          ))}
-                        </div>
+                        </p>
+                        {options.map((option, index) => (
+                          <label
+                            key={index}
+                            className="flex items-center space-x-2"
+                          >
+                            <input
+                              type="checkbox"
+                              checked={
+                                formData.dynamicFields[menuName]?.includes(
+                                  option.name
+                                ) || false
+                              }
+                              onChange={(e) =>
+                                handleDynamicCheckboxChange(
+                                  menuName,
+                                  option.name,
+                                  e.target.checked
+                                )
+                              }
+                              className="rounded border-gray-300 dark:border-gray-700"
+                            />
+                            <span>
+                              {option.name} (+${option.price})
+                            </span>
+                          </label>
+                        ))}
                       </div>
                     )
                   )}
