@@ -796,7 +796,7 @@ x ${product.height ? formData.height : "N/A"} </div>
                   Object.entries(product.dropDownMenu).map(
                     ([menuName, options]) => (
                       <div key={menuName}>
-                        <label className="block font-medium mb-1">
+                        <label className="block font-medium mb-1 capitalize">
                           {menuName} (Optional)
                         </label>
                         <select
@@ -825,7 +825,7 @@ x ${product.height ? formData.height : "N/A"} </div>
                   Object.entries(product.checkBoxMenu).map(
                     ([menuName, options]) => (
                       <div key={menuName}>
-                        <p className="block font-medium mb-1">
+                        <p className="block font-medium mb-1 capitalize">
                           {menuName} (Optional)
                         </p>
                         {options.map((option, index) => (
