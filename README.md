@@ -4,6 +4,11 @@
 [![Vite](https://img.shields.io/badge/Vite-%3C%3E)](https://vitejs.dev/)  
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-%3C%3E)](https://tailwindcss.com/)
 
+## 📝 Project Description
+
+Printify is a dynamic, React-based web application designed to streamline product management and quotation generation. It features customizable product listings, email integration for quotation requests, and enhanced interactivity with animations and responsive UI components. Users can search products, view similar suggestions, and download personalized quotations as PDFs. The platform is built with modern tools like Vite, Tailwind CSS, and React Router, ensuring a smooth and scalable experience.
+
+
 ## ⚙️ Tech Stack
 
 - React (via Vite)

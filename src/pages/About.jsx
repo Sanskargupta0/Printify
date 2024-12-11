@@ -134,7 +134,7 @@ export default function AboutPage() {
         {/* Hero Section */}
         <section className="container mx-auto px-4 py-20 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            About Print360°
+            About CorePac USA°
           </h1>
           <div className="flex items-center justify-center mb-8">
             <FaAt className="w-8 h-8 text-blue-500" />
@@ -144,9 +144,9 @@ export default function AboutPage() {
           </h2>
           <div className="max-w-3xl mx-auto text-lg text-muted-foreground dark:text-gray-300">
             <p className="mb-6">
-              Welcome to Print360°, where innovation meets precision in the
+              Welcome to CorePac USA°, where innovation meets precision in the
               world of printing and packaging. With a passion for excellence and
-              a commitment to delivering top-notch services, Print360° stands as
+              a commitment to delivering top-notch services, CorePac USA° stands as
               your trusted partner in the realm of bespoke printing solutions.
             </p>
           </div>
@@ -185,7 +185,7 @@ export default function AboutPage() {
             <div className="relative h-[400px] rounded-xl overflow-hidden">
               <img
                 src={CompanyImg}
-                alt="Print360 Building"
+                alt="CorePac USA Building"
                 className="object-cover w-full h-full"
               />
             </div>
@@ -222,7 +222,7 @@ export default function AboutPage() {
         <section className="py-20">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-8">
-              Set the Trends with Print360°
+              Set the Trends with CorePac USA°
             </h2>
             <p className="max-w-2xl mx-auto mb-12 text-lg text-muted-foreground dark:text-gray-300">
               Indeed, you are just a call away from us. Let&apos;s create

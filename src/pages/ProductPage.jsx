@@ -21,6 +21,7 @@ export default function ProductPage({ product }) {
     name: "",
     email: "",
     phone: "",
+    initialDynamicFields: {},
   });
 
   const [estimatedPrice, setEstimatedPrice] = useState(0);
@@ -45,13 +46,13 @@ export default function ProductPage({ product }) {
       width: "",
       height: "",
       quantity: "",
-      dynamicFields: {},
       note: "",
       artwork: null,
       name: "",
       email: "",
       phone: "",
       dynamicFields: initialDynamicFields,
+      initialDynamicFields,
     });
   }, [product]);
 
@@ -90,7 +91,9 @@ export default function ProductPage({ product }) {
         ...prev.dynamicFields,
         [menuName]: checked
           ? [...prev.dynamicFields[menuName], value]
-          : prev.dynamicFields[menuName].filter((item) => item !== value),
+          : prev.dynamicFields[menuName].filter(
+              (item) => item.name !== value.name
+            ),
       },
     }));
   };
@@ -113,17 +116,22 @@ export default function ProductPage({ product }) {
       );
 
       // Add price for selected extras
-      if (
-        checkBoxMenu &&
-        dynamicFields.extra &&
-        Array.isArray(dynamicFields.extra)
-      ) {
-        dynamicFields.extra.forEach((extra) => {
-          totalPrice += extra.price * (quantity || 1);
+      if (checkBoxMenu) {
+        Object.entries(dynamicFields).forEach(([menuName, selectedValues]) => {
+          if (checkBoxMenu[menuName] && Array.isArray(selectedValues)) {
+            selectedValues.forEach((extra) => {
+              const extraOption = checkBoxMenu[menuName].find(
+                (option) => option.name === extra.name
+              );
+              if (extraOption) {
+                totalPrice += extraOption.price * (quantity || 1);
+              }
+            });
+          }
         });
       }
 
-      return totalPrice;
+      return Math.floor(totalPrice * 100) / 100;
     };
 
     setEstimatedPrice(calculateEstimatedPrice());
@@ -139,7 +147,6 @@ export default function ProductPage({ product }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validation check for all required fields
     const {
       lengthh,
       width,
@@ -151,20 +158,19 @@ export default function ProductPage({ product }) {
       dynamicFields,
     } = formData;
 
+    // Validation checks
     if (
       !lengthh ||
       !width ||
-      (!height && product.height) ||
+      (!height && product.height) || // Only validate height if required by product
       !quantity ||
       !name ||
       !email ||
       !phone
     ) {
       toast.error(
-        "Please fill out length, width, height, quantity, name, email, phone required fields.",
-        {
-          position: "top-center",
-        }
+        "Please fill out length, width, height, quantity, name, email, and phone.",
+        { position: "top-center" }
       );
       return;
     }
@@ -181,39 +187,55 @@ export default function ProductPage({ product }) {
     try {
       setLoading(true);
 
-      // Prepare FormData for file upload
+      // Prepare FormData
       const formDataToSend = new FormData();
       formDataToSend.append("id", formData.id);
       formDataToSend.append("productName", formData.productName);
       formDataToSend.append("lengthh", lengthh);
       formDataToSend.append("width", width);
-      formDataToSend.append("height", height);
+      formDataToSend.append("height", height || ""); // Default empty if not required
       formDataToSend.append("quantity", quantity);
-      if (dynamicFields) {
-        Object.entries(dynamicFields).forEach(([fieldName, value]) => {
-          formDataToSend.append(
-            `dynamicFields.${fieldName}`,
-            JSON.stringify(value)
-          );
-        });
-      }
+
+      // Convert dynamicFields to JSON string
+      const dynamicFieldsArray = Object.entries(formData.dynamicFields).map(
+        ([key, value]) => {
+          if (Array.isArray(value)) {
+            // For arrays like checkboxes
+            return {
+              [key]: value.map((option) => ({
+                name: option.name,
+                price: option.price,
+              })),
+            };
+          } else if (value && typeof value === "object") {
+            // For dropdowns or single selection
+            return { [key]: { name: value.name, price: value.price } };
+          }
+          return { [key]: value }; // Default case
+        }
+      );
+      formDataToSend.append(
+        "dynamicFields",
+        JSON.stringify(dynamicFieldsArray)
+      );
+
       formDataToSend.append("note", formData.note || "");
       formDataToSend.append("name", name);
       formDataToSend.append("email", email);
       formDataToSend.append("phone", phone);
+      formDataToSend.append("estimatedPrice", estimatedPrice);
 
-      // Append the file if present
       if (formData.artwork) {
         formDataToSend.append("artwork", formData.artwork);
         formDataToSend.append("artworkName", formData.artwork.name);
       }
 
-      // Make API call
+      // Send API request
       const res = await fetch(
         `${import.meta.env.VITE_Backend_URL}/quotation-email`,
         {
           method: "POST",
-          body: formDataToSend, // FormData automatically sets the appropriate headers for multipart data
+          body: formDataToSend,
         }
       );
 
@@ -221,37 +243,29 @@ export default function ProductPage({ product }) {
         toast.success("Your quotation email has been sent successfully.", {
           position: "top-center",
         });
-        // Reset the form after successful submission
-        setFormData({
-          id: product.id,
-          productName: product.name,
+        setFormData((prev) => ({
+          ...prev,
           lengthh: "",
           width: "",
           height: "",
           quantity: "",
-          dynamicFields: {},
           note: "",
           artwork: null,
           name: "",
           email: "",
           phone: "",
-        });
+          dynamicFields: prev.initialDynamicFields,
+        }));
       } else {
-        toast.error(
-          "An error occurred while sending your email. Please try again.",
-          {
-            position: "top-center",
-          }
-        );
+        toast.error("Failed to send email. Please try again.", {
+          position: "top-center",
+        });
       }
     } catch (error) {
       console.error("Error sending email:", error);
-      toast.error(
-        "An error occurred while sending your email. Please try again.",
-        {
-          position: "top-center",
-        }
-      );
+      toast.error("An error occurred. Please try again.", {
+        position: "top-center",
+      });
     } finally {
       setLoading(false);
     }
@@ -265,7 +279,7 @@ export default function ProductPage({ product }) {
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Quotation Request - Print360</title>
+        <title>Quotation Request - CorePac USA</title>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
         <style>
           @page {
@@ -401,7 +415,7 @@ export default function ProductPage({ product }) {
           <header class="header">
             <div class="logo-section">
               <img src="https://i.postimg.cc/MTpYx13B/logo.png" alt="Logo" height="40px" width="40px" />
-              <span class="logo-text">Print360</span>
+              <span class="logo-text">CorePac USA</span>
             </div>
             <div class="date">${new Date().toLocaleDateString("en-US", {
               year: "numeric",
@@ -489,13 +503,13 @@ x ${product.height ? formData.height : "N/A"} </div>
 
           <div class="contact-info">
             Need assistance? Contact us at
-            <a href="mailto:Print360Official.help@gmail.com" class="contact-link">
-              Print360Official.help@gmail.com
+            <a href="mailto:CorePac USAOfficial.help@gmail.com" class="contact-link">
+              CorePac USAOfficial.help@gmail.com
             </a>
           </div>
 
           <footer class="footer" style="margin-bottom: 200px">
-            <p style="font-weight: 600; margin-bottom: 8px;">Print360</p>
+            <p style="font-weight: 600; margin-bottom: 8px;">CorePac USA</p>
             <p style="margin-bottom: 8px;">Noida, Uttar Pradesh 226013</p>
             <p>Copyright © ${new Date().getFullYear()}. All rights reserved.</p>
           </footer>
@@ -508,7 +522,7 @@ x ${product.height ? formData.height : "N/A"} </div>
           <header class="header">
             <div class="logo-section">
               <img src="https://i.postimg.cc/MTpYx13B/logo.png" alt="Logo" height="40px" width="40px"/>
-              <span class="logo-text">Print360</span>
+              <span class="logo-text">CorePac USA</span>
             </div>
           </header>
 
@@ -559,7 +573,7 @@ x ${product.height ? formData.height : "N/A"} </div>
           </main>
 
           <footer class="footer">
-            <p style="font-weight: 600; margin-bottom: 8px;">Print360</p>
+            <p style="font-weight: 600; margin-bottom: 8px;">CorePac USA</p>
             <p>Copyright © ${new Date().getFullYear()}. All rights reserved.</p>
           </footer>
           
@@ -571,7 +585,7 @@ x ${product.height ? formData.height : "N/A"} </div>
 
     const opt = {
       margin: 0,
-      filename: `Print360-Quotation-${formData.productName}-${
+      filename: `CorePac USA-Quotation-${formData.productName}-${
         new Date().toISOString().split("T")[0]
       }.pdf`,
       image: {
@@ -822,14 +836,16 @@ x ${product.height ? formData.height : "N/A"} </div>
                             <input
                               type="checkbox"
                               checked={
-                                formData.dynamicFields[menuName]?.includes(
-                                  option.name
+                                formData.dynamicFields[menuName]?.some(
+                                  (item) =>
+                                    item.name === option.name &&
+                                    item.price === option.price
                                 ) || false
                               }
                               onChange={(e) =>
                                 handleDynamicCheckboxChange(
                                   menuName,
-                                  option.name,
+                                  { name: option.name, price: option.price },
                                   e.target.checked
                                 )
                               }

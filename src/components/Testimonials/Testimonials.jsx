@@ -5,31 +5,31 @@ const TestimonialData = [
   {
     id: 1,
     name: "Emily Johnson",
-    text: "Print360 exceeded our expectations with their top-notch printing services! From packaging designs to promotional materials, they delivered everything with impeccable quality and precision.",
+    text: "CorePac USA exceeded our expectations with their top-notch printing services! From packaging designs to promotional materials, they delivered everything with impeccable quality and precision.",
     img: "https://picsum.photos/201/201",
   },
   {
     id: 2,
     name: "Michael Smith",
-    text: "Working with Print360 was a seamless experience. Their customer support is exceptional, and they truly listened to our unique needs. We were thrilled with the final product!",
+    text: "Working with CorePac USA was a seamless experience. Their customer support is exceptional, and they truly listened to our unique needs. We were thrilled with the final product!",
     img: "https://picsum.photos/202/202",
   },
   {
     id: 3,
     name: "Priya Patel",
-    text: "Fast, reliable, and creative! Print360 brought our branding vision to life with stunning custom designs. Highly recommended for anyone serious about their business image.",
+    text: "Fast, reliable, and creative! CorePac USA brought our branding vision to life with stunning custom designs. Highly recommended for anyone serious about their business image.",
     img: "https://picsum.photos/203/203",
   },
   {
     id: 4,
     name: "James Brown",
-    text: "From concept to final print, the team at Print360 showcased unmatched expertise. Their transparent communication and attention to detail made all the difference.",
+    text: "From concept to final print, the team at CorePac USA showcased unmatched expertise. Their transparent communication and attention to detail made all the difference.",
     img: "https://picsum.photos/204/204",
   },
   {
     id: 5,
     name: "Sophia Martinez",
-    text: "The quality and creativity Print360 brought to our project were outstanding. We couldn't have asked for a better partner to handle our business marketing materials.",
+    text: "The quality and creativity CorePac USA brought to our project were outstanding. We couldn't have asked for a better partner to handle our business marketing materials.",
     img: "https://picsum.photos/205/205",
   },
 ];
@@ -85,7 +85,7 @@ const Testimonials = () => {
             Testimonials
           </h1>
           <p data-aos="fade-up" className="text-xs text-gray-400 py-2">
-            At Print360, we take pride in bringing visions to life with
+            At CorePac USA, we take pride in bringing visions to life with
             precision, creativity, and exceptional service. Here’s what our
             satisfied customers have to say about partnering with us.
           </p>

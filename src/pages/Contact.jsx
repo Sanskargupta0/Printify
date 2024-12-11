@@ -104,39 +104,39 @@ export default function ContactPage() {
     <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-white">
       <div className="container mx-auto px-4 py-16">
         <h1 className="text-4xl font-bold mb-8 text-center">
-          Contact Print360°
+          Contact CorePac USA°
         </h1>
 
         <div className="grid md:grid-cols-2 gap-12">
           <div>
             <img
               src={Contact}
-              alt="Print360 Illustration"
+              alt="CorePac USA Illustration"
               className="w-full h-auto rounded-lg shadow-lg mb-8"
             />
 
             <h2 className="text-2xl font-semibold mb-4">
-              Welcome to Print360°
+              Welcome to CorePac USA°
             </h2>
             <p className="mb-6">
               Where innovation meets precision in the world of printing and
               packaging. With a passion for excellence and a commitment to
-              delivering top-notch services, Print360° stands as your trusted
+              delivering top-notch services, CorePac USA° stands as your trusted
               partner in the realm of bespoke printing solutions.
             </p>
 
             <div className="space-y-4">
               <div className="flex items-center">
                 <FiMail className="mr-2" />
-                <span>info@print360.com</span>
+                <span>info@CorePac USA.com</span>
               </div>
               <div className="flex items-center">
                 <FiPhone className="mr-2" />
-                <span>+1 (555) 123-4567</span>
+                <span>+1 718 734 4408</span>
               </div>
               <div className="flex items-center">
                 <FiMapPin className="mr-2" />
-                <span>123 Print Street, Design City, 12345</span>
+                <span>9816 E Colonical Dr, Orlando FL 32817, United States5</span>
               </div>
             </div>
           </div>
@@ -229,7 +229,7 @@ export default function ContactPage() {
             </form>
             <img
               src={Contact2}
-              alt="Print360 Illustration"
+              alt="CorePac USA Illustration"
               className="w-full h-auto rounded-lg shadow-lg mt-8  max-h-[300px]"
             />
           </div>

@@ -65,7 +65,7 @@ const Footer = () => {
           <div className="py-8 px-4">
             <h1 className="sm:text-3xl text-xl font-bold sm:text-left text-justify mb-3 flex items-center gap-3">
               <img src={footerLogo} alt="" className="max-w-[50px]" />
-              Print 360
+              CorePac USA
             </h1>
             <p>
               We are a leading Brand of Printing and Packaging Products. It is
@@ -134,11 +134,11 @@ const Footer = () => {
               <div className="mt-6">
                 <div className="flex items-center gap-3">
                   <FaLocationArrow />
-                  <p>Noida, Uttar Pradesh</p>
+                  <p>9816 E Colonical Dr, Orlando FL 32817, United States</p>
                 </div>
                 <div className="flex items-center gap-3 mt-3">
                   <FaMobileAlt />
-                  <p>+91 123456789</p>
+                  <p>+1 718 734 4408</p>
                 </div>
               </div>
             </div>

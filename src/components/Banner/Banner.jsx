@@ -24,7 +24,7 @@ const Banner = () => {
               data-aos="fade-up"
               className="text-sm text-gray-500 tracking-wide leading-5"
             >
-              Welcome to Print360, your partner for precision printing and
+              Welcome to CorePac USA, your partner for precision printing and
               customized packaging solutions. Established in 2024, we&apos;ve
               quickly become known for our expertise, customer focus, and
               high-quality craftsmanship, turning your vision into impactful
