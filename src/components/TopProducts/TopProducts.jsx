@@ -242,7 +242,7 @@ const StyledWrapper = styled.div`
     left: 0;
     display: block;
     border-radius: 50px;
-    background: #fea928;
+    background: #2986cc;
     width: 45px;
     height: 45px;
     transition: all 0.3s ease;
@@ -272,7 +272,7 @@ const StyledWrapper = styled.div`
 
   .cta:hover:before {
     width: 100%;
-    background: #fea928;
+    background: #2986cc;
   }
 
   .cta:hover svg {

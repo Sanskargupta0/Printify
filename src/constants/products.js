@@ -4,6 +4,7 @@ const Products = [
     name: "Corrugated boxes",
     basePrice: 0.5,
     height: true,
+    minimumQuantity: 100,
     link: "category/corrugated-boxes",
     mainImage: "boxes/boxes.png",
     bgRemoveImage: "boxes/boxes-bg.png",

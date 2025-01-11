@@ -784,6 +784,7 @@ x ${product.height ? formData.height : "N/A"} </div>
                     type="number"
                     name="quantity"
                     min={1}
+                    placeholder={`Minimum order quantity is ${product.minimumQuantity || 1} units`}
                     value={formData.quantity}
                     onChange={handleInputChange}
                     className="w-full p-2 border rounded dark:bg-gray-800 dark:border-gray-700 dark:text-white"
