@@ -148,8 +148,8 @@ const Products = [
     name: "Packaging Tape",
     basePrice: 0.5,
     link: "category/packaging-tape",
-    mainImage: "roll/roll.png",
-    bgRemoveImage: "roll/roll-bg.png",
+    mainImage: "roll/tape.png",
+    bgRemoveImage: "roll/tape.png",
     extraImages: ["gallery/img8.png", "gallery/img9.png"],
     description:
       "Packaging tape offers superior adhesion and is used for sealing boxes, envelopes, and more.",
@@ -240,7 +240,7 @@ const Products = [
     basePrice: 0.5,
     link: "category/shrink-sleeves",
     mainImage: "gallery/img7.png",
-    bgRemoveImage: "gallery/img8.png",
+    bgRemoveImage: "gallery/Picture5.jpg",
     extraImages: ["gallery/img9.png", "gallery/img10.png"],
     description:
       "Shrink sleeves offer 360-degree design coverage and can fit a variety of container shapes.",
@@ -287,7 +287,7 @@ const Products = [
     height: true,
     link: "category/rigid-gift-boxes",
     mainImage: "gift-Box/gift-Box.png",
-    bgRemoveImage: "gift-Box/gift-Box-bg.png",
+    bgRemoveImage: "gift-Box/gift-Box-bg.jpg",
     extraImages: ["gallery/img11.png", "gallery/img1.png"],
     description:
       "Rigid gift boxes offer luxury presentation and protection for high-value items.",
