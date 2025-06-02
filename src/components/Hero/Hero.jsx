@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
+import Commercial_Products from '../../../src/assets/website/Commercial Products.png';
+import Personalised_Products from '../../assets/website/Personalised Products.png';
 
 const Hero = () => {
   return (
@@ -15,7 +17,7 @@ const Hero = () => {
           <HeroCard data-aos="fade-right">
             <div className="image-container">
               {/* Image placeholder */}
-              <img src="../../../src/assets/website/Commercial Products.png" alt="Commercial Products" />
+              <img src={Commercial_Products} alt="Commercial Products" />
             </div>
             <HeroCardContent>
               <Link to="/products/commercial">
@@ -27,7 +29,7 @@ const Hero = () => {
           <HeroCard data-aos="fade-left">
             <div className="image-container">
               {/* Image placeholder */}
-              <img src="../../../src/assets/website/Personalised Products.png" alt="Personalised Products" />
+              <img src={Personalised_Products} alt="Personalised Products" />
             </div>
             <HeroCardContent>
               <Link to="/products/personalized">

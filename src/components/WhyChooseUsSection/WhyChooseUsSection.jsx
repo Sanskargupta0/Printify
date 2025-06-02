@@ -1,40 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+import WhyChooseUsSectionImage from '../../../src/assets/website/WhyChooseUsSection.png';
 
 const WhyChooseUs = () => {
-  const features = [
-    {
-      number: '01',
-      color: '#4CAF50',
-      title: 'IN ACCORDANCE WITH AUTHORITIES',
-      description: 'WHAT MAKES A PACKAGING FOOD GRADE?'
-    },
-    {
-      number: '02',
-      color: '#FF9800',
-      title: 'EFFICIENT AND THOROUGH CLEANING',
-      description: ''
-    },
-    {
-      number: '03',
-      color: '#2196F3',
-      title: 'USING SUITABLE MATERIALS',
-      description: ''
-    },
-    {
-      number: '04',
-      color: '#F44336',
-      title: 'CONTAIN OUTER PACKAGING',
-      description: ''
-    }
-  ];
 
   return (
     <WhyChooseUsSection>
       <div className="container">
         <WhyChooseUsContainer>
           <FeaturesContainer data-aos="fade-right">
-            <img src="../../../src/assets/website/WhyChooseUsSection.png" alt="image" />
+            <img src={WhyChooseUsSectionImage} alt="image" />
           </FeaturesContainer>
           
           <WhyChooseUsContent data-aos="fade-left">

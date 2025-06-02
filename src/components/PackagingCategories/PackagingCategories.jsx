@@ -1,27 +1,31 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import Boxes from '../../../src/assets/website/boxes.png';
+import GiftBoxes from '../../../src/assets/website/gift boxes.png';
+import MylarBags from '../../../src/assets/website/Mylar bages.png';
+import Labels from '../../../src/assets/website/labels.png';
 
 const PackagingCategories = () => {
   const categories = [
     {
       title: 'Boxes & Packaging',
-      image: '../../../src/assets/website/boxes.png',
+      image: Boxes,
       link: '/products/boxes'
     },
     {
       title: 'Gift Boxes',
-      image: '../../../src/assets/website/gift boxes.png',
+      image: GiftBoxes,
       link: '/products/gift-boxes'
     },
     {
       title: 'Mylar Bags',
-      image: '../../../src/assets/website/Mylar bages.png',
+      image: MylarBags,
       link: '/products/mylar-bags'
     },
     {
       title: 'Labels',
-      image: '../../../src/assets/website/labels.png',
+      image: Labels,
       link: '/products/labels'
     }
   ];

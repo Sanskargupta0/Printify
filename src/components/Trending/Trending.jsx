@@ -2,27 +2,31 @@ import React from 'react';
 import styled from 'styled-components';
 import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
+import CoffeePackaging from '../../../src/assets/website/Flexible Pouches.png';
+import BeveragePackaging from '../../../src/assets/website/beverage-packaging.png';
+import PremiumGiftBox from '../../../src/assets/website/gift box.png';
+import CustomMailerBox from '../../../src/assets/products/boxes/boxes.png';
 
 const Trending = () => {
   const trendingProducts = [
     {
       title: 'Coffee Packaging',
-      image: '../../../src/assets/website/Flexible Pouches.png',
+      image: CoffeePackaging,
       link: '/products/coffee-packaging'
     },
     {
       title: 'Beverage Packaging',
-      image: '../../../src/assets/website/beverage-packaging.png',
+      image: BeveragePackaging,
       link: '/products/beverage-packaging'
     },
     {
       title: 'Premium Gift Box',
-      image: '../../../src/assets/website/gift box.png',
+      image: PremiumGiftBox,
       link: '/products/premium-gift-box'
     },
     {
       title: 'Custom Mailer Box',
-      image: '../../../src/assets/products/boxes/boxes.png',
+      image: CustomMailerBox,
       link: '/products/custom-mailer'
     }
   ];

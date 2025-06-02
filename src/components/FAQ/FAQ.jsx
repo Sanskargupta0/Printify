@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaPlus, FaMinus } from 'react-icons/fa';
+import Review1 from '../../../src/assets/website/review1.png';
+import Review2 from '../../../src/assets/website/review2.png';
+import Review3 from '../../../src/assets/website/review3.png';
 
 const FAQ = () => {
   const [activeIndex, setActiveIndex] = useState(null);
@@ -52,9 +55,9 @@ const FAQ = () => {
         
         <SupportTeam data-aos="fade-up">
           <SupportTeamImages>
-            <img src="../../../src/assets/website/review1.png" alt="Support Team Member" />
-            <img src="../../../src/assets/website/review2.png" alt="Support Team Member" />
-            <img src="../../../src/assets/website/review3.png" alt="Support Team Member" />
+            <img src={Review1} alt="Support Team Member" />
+            <img src={Review2} alt="Support Team Member" />
+            <img src={Review3} alt="Support Team Member" />
           </SupportTeamImages>
           <SupportTeamTitle>Still have questions?</SupportTeamTitle>
           <SupportTeamText>

@@ -2,18 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 import { FaStar, FaArrowRight } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import Person1 from '../../../src/assets/website/person1.png';
+import Person2 from '../../../src/assets/website/person2.png';
 
 const Testimonials = () => {
   const testimonials = [
     {
       name: 'Sarah Johnson',
-      image: '../../../src/assets/website/person1.png',
+      image: Person1,
       rating: 5,
       comment: 'Best packaging ever! Quality and design exceeded expectations'
     },
     {
       name: 'Michael Davis',
-      image: '../../../src/assets/website/person2.png',
+      image: Person2,
       rating: 5,
       comment: 'Impressed with the quality,design, and attention to detail. Highly recommend'
     }
