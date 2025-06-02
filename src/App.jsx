@@ -8,6 +8,9 @@ import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import DownloadBtn from "./components/DownloadBtn/DownloadBtn";
 
+// Styles
+import { GlobalStyle } from './styles/GlobalStyle';
+
 function App() {
   React.useEffect(() => {
     AOS.init({
@@ -20,6 +23,7 @@ function App() {
   }, []);
   return (
     <>
+    <GlobalStyle />
     <Navbar/>
         <Routes>
           <Route path="/" element={<pages.Home/>} />

@@ -1,152 +1,215 @@
-import React from "react";
-import footerLogo from "../../assets/logo.png";
-import Banner from "../../assets/website/footer-pattern.jpg";
-import resume from '../../assets/catalogue.pdf';
+import React, { useState } from "react";
+import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Products from "../../constants/products";
-import {
-  FaFacebook,
-  FaInstagram,
-  FaLinkedin,
-  FaLocationArrow,
-  FaMobileAlt,
-} from "react-icons/fa";
-
-const BannerImg = {
-  backgroundImage: `url(${Banner})`,
-  backgroundPosition: "bottom",
-  backgroundRepeat: "no-repeat",
-  backgroundSize: "cover",
-  height: "100%",
-  width: "100%",
-};
-
-const FooterLinks = [
-  {
-    title: "Home",
-    link: "/",
-  },
-  {
-    title: "About",
-    link: "/aboutUs",
-  },
-  {
-    title: "Contact",
-    link: "/contact",
-  },
-  {
-    title: "All Products",
-    link: "/products",
-  },
-];
-
-// Map max 6 products to the ProductsLinks id , name and link
-const ProductsLinks = Products.slice(0, 5).map((product) => ({
-  title: product.name,
-  link: product.link,
-}));
+import { toast } from "react-toastify";
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
 
-  const handleDownload = () => {
-    const link = document.createElement('a');
-    link.href = resume;
-    link.download = 'Catalogue.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    if (email) {
+      toast.success("Thank you for subscribing to our newsletter!");
+      setEmail("");
+    } else {
+      toast.error("Please enter a valid email address");
+    }
   };
 
   return (
-    <div style={BannerImg} className="text-white">
+    <FooterContainer>
       <div className="container">
-        <div data-aos="zoom-in" className="grid md:grid-cols-3 pb-44 pt-5">
-          {/* company details */}
-          <div className="py-8 px-4">
-            <h1 className="sm:text-3xl text-xl font-bold sm:text-left text-justify mb-3 flex items-center gap-3">
-              <img src={footerLogo} alt="" className="max-w-[50px]" />
-              CorePac USA
-            </h1>
-            <p>
-              We are a leading Brand of Printing and Packaging Products. It is
-              the time to Embrace the Packaging of Tomorrow. Welcome!
-            </p>
-          </div>
+        <FooterContent>
+          <FooterBrand>
+            <Link to="/">
+              <Logo>COREPAC USA</Logo>
+            </Link>
+          </FooterBrand>
 
-          {/* Footer Links */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 col-span-2 md:pl-10">
-            <div>
-              <div className="py-8 px-4">
-                <h1 className="sm:text-xl text-xl font-bold sm:text-left text-justify mb-3">
-                  Important Links
-                </h1>
-                <ul className="flex flex-col gap-3">
-                  {FooterLinks.map((link, index) => (
-                    <li
-                      className="cursor-pointer hover:text-primary hover:translate-x-1 duration-300 text-gray-200"
-                      key={index}
-                    >
-                      <Link to={link.link}>
-                        <span>{link.title}</span>
-                      </Link>
-                    </li>
-                  ))}
-                  <li className="cursor-pointer hover:text-primary hover:translate-x-1 duration-300 text-gray-200" onClick={handleDownload}>
-                    <span>Download Catalogue</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div>
-              <div className="py-8 px-4">
-                <h1 className="sm:text-xl text-xl font-bold sm:text-left text-justify mb-3">
-                  Products Links
-                </h1>
-                <ul className="flex flex-col gap-3">
-                {ProductsLinks.map((link, index) => (
-                    <li
-                      className="cursor-pointer hover:text-primary hover:translate-x-1 duration-300 text-gray-200"
-                      key={index}
-                    >
-                      <Link to={link.link}>
-                        <span>{link.title}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+          <FooterLinksSection>
+            <FooterLinksColumn>
+              <FooterLinksTitle>Company</FooterLinksTitle>
+              <FooterLinks>
+                <FooterLink to="/shop">Shop</FooterLink>
+                <FooterLink to="/careers">Careers</FooterLink>
+                <FooterLink to="/faq">FAQ</FooterLink>
+              </FooterLinks>
+            </FooterLinksColumn>
 
-            {/* social links */}
+            <FooterLinksColumn>
+              <FooterLinksTitle>Category</FooterLinksTitle>
+              <FooterLinks>
+                <FooterLink to="/products/pouches">Pouches</FooterLink>
+                <FooterLink to="/products/bags">Bags</FooterLink>
+                <FooterLink to="/products/boxes">Boxes</FooterLink>
+                <FooterLink to="/products/gifts">Gifts</FooterLink>
+                <FooterLink to="/products/labels">Labels</FooterLink>
+              </FooterLinks>
+            </FooterLinksColumn>
 
-            <div>
-              <div className="flex items-center gap-3 mt-6">
-                <a href="#">
-                  <FaInstagram className="text-3xl" />
-                </a>
-                <a href="#">
-                  <FaFacebook className="text-3xl" />
-                </a>
-                <a href="#">
-                  <FaLinkedin className="text-3xl" />
-                </a>
-              </div>
-              <div className="mt-6">
-                <div className="flex items-center gap-3">
-                  <FaLocationArrow />
-                  <p>9816 E Colonical Dr, Orlando FL 32817, United States</p>
-                </div>
-                <div className="flex items-center gap-3 mt-3">
-                  <FaMobileAlt />
-                  <p>+1 718 734 4408</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+            <FooterLinksColumn>
+              <FooterLinksTitle>Join our newsletter</FooterLinksTitle>
+              <NewsletterForm onSubmit={handleSubscribe}>
+                <NewsletterInput
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <NewsletterButton type="submit">Subscribe</NewsletterButton>
+              </NewsletterForm>
+            </FooterLinksColumn>
+          </FooterLinksSection>
+        </FooterContent>
+
+        <FooterBottom>
+          <FooterCopyright>
+            Copyright 2025 COREPAC. All rights reserved
+          </FooterCopyright>
+          <FooterLegal>
+            <FooterLegalLink to="/terms">Terms of condition</FooterLegalLink>
+            <FooterLegalLink to="/privacy">Privacy Policy</FooterLegalLink>
+          </FooterLegal>
+        </FooterBottom>
       </div>
-    </div>
+    </FooterContainer>
   );
 };
+
+const FooterContainer = styled.footer`
+  background-color: white;
+  padding-top: 60px;
+`;
+
+const FooterContent = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding-bottom: 40px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
+
+const FooterBrand = styled.div`
+  flex: 1;
+  min-width: 200px;
+`;
+
+const Logo = styled.div`
+  font-family: Nico Moji;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 16px;
+  letter-spacing: 0%;
+  vertical-align: middle;
+`;
+
+const FooterLinksSection = styled.div`
+  flex: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+
+  @media (max-width: 576px) {
+    flex-direction: column;
+  }
+`;
+
+const FooterLinksColumn = styled.div`
+  flex: 1;
+  min-width: 150px;
+`;
+
+const FooterLinksTitle = styled.h3`
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: #333;
+`;
+
+const FooterLinks = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const FooterLink = styled(Link)`
+  font-size: 14px;
+  color: #666;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #0277bd;
+  }
+`;
+
+const NewsletterForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const NewsletterInput = styled.input`
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  outline: none;
+
+  &:focus {
+    border-color: #0277bd;
+  }
+`;
+
+const NewsletterButton = styled.button`
+  padding: 10px;
+  background-color: #0277bd;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #01579b;
+  }
+`;
+
+const FooterBottom = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-top: 1px solid #eee;
+
+  @media (max-width: 576px) {
+    flex-direction: column;
+    gap: 10px;
+  }
+`;
+
+const FooterCopyright = styled.div`
+  font-size: 14px;
+  color: #666;
+`;
+
+const FooterLegal = styled.div`
+  display: flex;
+  gap: 20px;
+`;
+
+const FooterLegalLink = styled(Link)`
+  font-size: 14px;
+  color: #666;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #0277bd;
+  }
+`;
 
 export default Footer;

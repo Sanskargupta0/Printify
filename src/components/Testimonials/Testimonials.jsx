@@ -1,131 +1,184 @@
-import React from "react";
-import Slider from "react-slick";
-
-const TestimonialData = [
-  {
-    id: 1,
-    name: "Emily Johnson",
-    text: "CorePac USA exceeded our expectations with their top-notch printing services! From packaging designs to promotional materials, they delivered everything with impeccable quality and precision.",
-    img: "https://picsum.photos/201/201",
-  },
-  {
-    id: 2,
-    name: "Michael Smith",
-    text: "Working with CorePac USA was a seamless experience. Their customer support is exceptional, and they truly listened to our unique needs. We were thrilled with the final product!",
-    img: "https://picsum.photos/202/202",
-  },
-  {
-    id: 3,
-    name: "Priya Patel",
-    text: "Fast, reliable, and creative! CorePac USA brought our branding vision to life with stunning custom designs. Highly recommended for anyone serious about their business image.",
-    img: "https://picsum.photos/203/203",
-  },
-  {
-    id: 4,
-    name: "James Brown",
-    text: "From concept to final print, the team at CorePac USA showcased unmatched expertise. Their transparent communication and attention to detail made all the difference.",
-    img: "https://picsum.photos/204/204",
-  },
-  {
-    id: 5,
-    name: "Sophia Martinez",
-    text: "The quality and creativity CorePac USA brought to our project were outstanding. We couldn't have asked for a better partner to handle our business marketing materials.",
-    img: "https://picsum.photos/205/205",
-  },
-];
+import React from 'react';
+import styled from 'styled-components';
+import { FaStar, FaArrowRight } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const Testimonials = () => {
-  var settings = {
-    dots: true,
-    arrows: false,
-    infinite: true,
-    speed: 500,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    cssEase: "linear",
-    pauseOnHover: true,
-    pauseOnFocus: true,
-    responsive: [
-      {
-        breakpoint: 10000,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-          infinite: true,
-        },
-      },
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 640,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
+  const testimonials = [
+    {
+      name: 'Sarah Johnson',
+      image: '../../../src/assets/website/person1.png',
+      rating: 5,
+      comment: 'Best packaging ever! Quality and design exceeded expectations'
+    },
+    {
+      name: 'Michael Davis',
+      image: '../../../src/assets/website/person2.png',
+      rating: 5,
+      comment: 'Impressed with the quality,design, and attention to detail. Highly recommend'
+    }
+  ];
 
   return (
-    <div>
+    <TestimonialsSection>
       <div className="container">
-        {/* header section */}
-        <div className="text-center mb-10 max-w-[600px] mx-auto">
-          <p data-aos="fade-up" className="text-sm text-primary py-2">
-            What our customers are saying
-          </p>
-          <h1 data-aos="fade-up" className="text-3xl font-bold">
-            Testimonials
-          </h1>
-          <p data-aos="fade-up" className="text-xs text-gray-400 py-2">
-            At CorePac USA, we take pride in bringing visions to life with
-            precision, creativity, and exceptional service. Here’s what our
-            satisfied customers have to say about partnering with us.
-          </p>
-        </div>
-
-        {/* Testimonial cards */}
-        <div data-aos="zoom-in" className="h-[450px]">
-          <Slider {...settings}>
-            {TestimonialData.map((data) => (
-              <div className="my-6" key={data.id}>
-                <div
-                  key={data.id}
-                  className="flex flex-col gap-4 shadow-lg py-8 px-6 mx-4 rounded-xl dark:bg-gray-800 bg-primary/10 relative"
-                >
-                  <div className="mb-4">
-                    <img
-                      src={data.img}
-                      alt=""
-                      className="rounded-full w-20 h-20"
-                    />
-                  </div>
-                  <div className="flex flex-col items-center gap-4">
-                    <div className="space-y-3">
-                      <p className="text-xs text-gray-500">{data.text}</p>
-                      <h1 className="text-xl font-bold text-black/80 dark:text-light">
-                        {data.name}
-                      </h1>
-                    </div>
-                  </div>
-                  <p className="text-black/20 text-9xl font-serif absolute top-0 right-0">
-                    ,,
-                  </p>
-                </div>
-              </div>
-            ))}
-          </Slider>
-        </div>
+        <SectionTitle data-aos="fade-up">Our Testimonials</SectionTitle>
+        <SectionSubtitle data-aos="fade-up">Here it from those who know</SectionSubtitle>
+        
+        <TestimonialsContainer>
+          {testimonials.map((testimonial, index) => (
+            <TestimonialCard key={index} data-aos="fade-up" data-aos-delay={index * 100}>
+              <TestimonialImage>
+                <img src={testimonial.image || "/placeholder.svg"} alt={testimonial.name} />
+              </TestimonialImage>
+              
+              <TestimonialContent>
+                <TestimonialRating>
+                  {[...Array(5)].map((_, i) => (
+                    <FaStar key={i} />
+                  ))}
+                  <span>({testimonial.rating} Rating)</span>
+                </TestimonialRating>
+                <TestimonialText>{testimonial.comment}</TestimonialText>
+              </TestimonialContent>
+              
+              <BlueSquare />
+            </TestimonialCard>
+          ))}
+        </TestimonialsContainer>
+        
+        <SeeMoreButton data-aos="fade-up">
+          <Link to="/testimonials">
+            See More <FaArrowRight />
+          </Link>
+        </SeeMoreButton>
       </div>
-    </div>
+    </TestimonialsSection>
   );
 };
+
+const TestimonialsSection = styled.section`
+  background-color: #0277bd;
+  padding: 60px 0;
+  color: white;
+`;
+
+const SectionTitle = styled.h2`
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 10px;
+`;
+
+const SectionSubtitle = styled.p`
+  font-size: 16px;
+  margin-bottom: 40px;
+`;
+
+const TestimonialsContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 30px;
+  
+  @media (max-width: 992px) {
+    flex-direction: column;
+  }
+`;
+
+const TestimonialCard = styled.div`
+  display: flex;
+  flex: 1;
+  background-color: white;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+`;
+
+const TestimonialImage = styled.div`
+  width: 220px;
+  height: 220px;
+  overflow: hidden;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  @media (max-width: 576px) {
+    width: 120px;
+  }
+`;
+
+const TestimonialContent = styled.div`
+  flex: 1;
+  padding: 20px 30px;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const TestimonialRating = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  
+  svg {
+    color: #000;
+    margin-right: 2px;
+    font-size: 18px;
+  }
+  
+  span {
+    margin-left: 5px;
+    font-size: 14px;
+    color: #666;
+  }
+`;
+
+const TestimonialText = styled.p`
+  font-size: 16px;
+  line-height: 1.6;
+`;
+
+const BlueSquare = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  background-color: #7FB3D5;
+  border-top-right-radius: 20px;
+  z-index: 1;
+`;
+
+const SeeMoreButton = styled.div`
+  text-align: center;
+  
+  a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #2E86C1;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    
+    svg {
+      font-size: 14px;
+    }
+    
+    &:hover {
+      background-color: #2874A6;
+    }
+  }
+`;
 
 export default Testimonials;
