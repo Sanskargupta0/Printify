@@ -1,18 +1,69 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
-import { FaArrowRight } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import Loader from "../Loader/Loder";
 
 const SetTrends = () => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubscribe = (e) => {
+  const handleSubscribe = async (e) => {
     e.preventDefault();
-    if (email) {
-      toast.success('Thank you for subscribing!');
-      setEmail('');
-    } else {
-      toast.error('Please enter a valid email address');
+    if (!email) {
+      toast.error("Please enter your email to subscribe.", {
+        position: "top-center",
+      });
+      return;
+    }
+
+    try {
+      // chcek if email is valid
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        toast.error("Please enter a valid email address.", {
+          position: "top-center",
+        });
+        return;
+      } else {
+        setLoading(true);
+        const res = await fetch(
+          `${import.meta.env.VITE_Backend_URL}/subscribe-email`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email }),
+          }
+        );
+        if (res.ok) {
+          setEmail("");
+          toast.success("You have successfully subscribed to our newsletter.", {
+            position: "top-center",
+          });
+          setLoading(false);
+          setEmail("");
+        } else {
+          toast.error(
+            "An error occurred while sending your subscription email. Please try again.",
+            {
+              position: "top-center",
+            }
+          );
+          setLoading(false);
+          setEmail("");
+        }
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+      toast.error(
+        "An error occurred while sending your subscription email. Please try again.",
+        {
+          position: "top-center",
+        }
+      );
+      setLoading(false);
+      setEmail("");
     }
   };
 
@@ -21,7 +72,7 @@ const SetTrends = () => {
       <div className="container">
         <TrendsTitle data-aos="fade-up">Set the Trends with CorePac USA</TrendsTitle>
         <TrendsDescription data-aos="fade-up">
-          Indeed, you are just a call away from us. Let's create revolutionary packaging products together.
+          Indeed, you are just a call away from us. Let&apos;s create revolutionary packaging products together.
         </TrendsDescription>
         
         <SubscribeForm data-aos="fade-up" onSubmit={handleSubscribe}>
@@ -36,6 +87,7 @@ const SetTrends = () => {
           </SubscribeButton>
         </SubscribeForm>
       </div>
+      {loading && <Loader />}
     </TrendsSection>
   );
 };
@@ -82,6 +134,7 @@ const SubscribeInput = styled.input`
   border-radius: 4px 0 0 4px;
   font-size: 14px;
   outline: none;
+  color: #333;
   
   @media (max-width: 576px) {
     border-radius: 4px;
