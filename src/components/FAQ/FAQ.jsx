@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import Review1 from '../../../src/assets/website/review1.png';
@@ -33,7 +34,7 @@ const FAQ = () => {
 
   return (
     <FAQSection>
-      <div className="container">
+      <div className="container" id="faq">
         <SectionTitle data-aos="fade-up">Need Help?</SectionTitle>
         <SectionSubtitle data-aos="fade-up">Everything you need to know about CorePac USA</SectionSubtitle>
         
@@ -61,9 +62,11 @@ const FAQ = () => {
           </SupportTeamImages>
           <SupportTeamTitle>Still have questions?</SupportTeamTitle>
           <SupportTeamText>
-            Can't find the answer you're looking for? Please chat to our friendly team.
+            Can&apos;t find the answer you&apos;re looking for? Please chat to our friendly team.
           </SupportTeamText>
+          <Link to="/contact">
           <SupportButton>Get in touch</SupportButton>
+          </Link>
         </SupportTeam>
       </div>
     </FAQSection>

@@ -1,43 +1,27 @@
-import React from "react";
-import Logo from "../../assets/logo.png";
-import { IoMdSearch, IoMdMenu, IoMdClose } from "react-icons/io";
-import { FaCaretDown } from "react-icons/fa";
-import DarkMode from "./DarkMode";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Outlet, Link } from "react-router-dom";
+import { FaBars, FaTimes } from "react-icons/fa";
+import { IoMdSearch } from "react-icons/io";
+import logo from "../../assets/website/logo.png";
 import Products from "../../constants/products";
-import Header from "../Header/Header";
-// Map max 6 products to the menu id , name and link
-const Menu = Products.slice(0, 7).map((product) => ({
-  id: product.id,
-  name: product.name,
-  link: product.link,
-}));
-
-// Map max 3 products from the end of array to the dropdown id , name and link
-const DropdownLinks = Products.slice(-3).map((product) => ({
-  id: product.id,
-  name: product.name,
-  link: product.link,
-}));
-
-// Map all products to the search bar
-const products = Products.map((product) => ({
-  id: product.id,
-  name: product.name,
-  link: product.link,
-  image: product.mainImage,
-}));
 
 const Navbar = () => {
-  const [sidebarOpen, setSidebarOpen] = React.useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
+  // Map all products to the search bar
+  const products = Products.map((product) => ({
+    id: product.id,
+    name: product.name,
+    link: product.link,
+    image: product.mainImage,
+  }));
 
-  const [searchInput, setSearchInput] = React.useState("");
-  const [filteredProducts, setFilteredProducts] = React.useState([]);
+  const [searchInput, setSearchInput] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   const handleSearchChange = (e) => {
     const value = e.target.value.toLowerCase();
@@ -54,205 +38,167 @@ const Navbar = () => {
   };
 
   return (
-    <div className="shadow-md bg-white dark:bg-gray-900 dark:text-white duration-200 relative z-40">
-      {/* upper Navbar */}
-      <Header />
-      {/* lower Navbar */}
-    
-      <Outlet />
-    </div>
+    <HeaderContainer>
+      <div className="container">
+        <HeaderContent>
+          <Logo>
+            <Link to="/">
+              <img
+                src={logo}
+                alt="logo"
+                style={{
+                  width: "300px",
+                  height: "auto",
+                  maxWidth: "100%",
+                }}
+                className="navbar-logo"
+              />
+            </Link>
+          </Logo>
+          <div className="flex items-center justify-between gap-5 relative">
+            {/* Improved Search Bar */}
+            <div className="relative flex items-center bg-white dark:bg-gray-800 rounded-full border border-gray-300 dark:border-gray-500 px-3 py-1 w-[130px] sm:w-[220px]  group focus-within:border-primary transition-all duration-300 ">
+              <IoMdSearch className="text-gray-400 mr-2 text-lg" />
+              <input
+                type="text"
+                placeholder="Search products"
+                value={searchInput}
+                onChange={handleSearchChange}
+                className="bg-transparent outline-none w-full text-sm text-gray-700 dark:text-gray-200 placeholder-gray-400"
+                style={{ border: "none", boxShadow: "none" }}
+              />
+              {/* Render filtered results */}
+              {searchInput && filteredProducts.length > 0 && (
+                <div className="absolute left-0 top-12 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-lg max-h-60 overflow-y-auto w-full z-10">
+                  {filteredProducts.map((product) => (
+                    <a
+                      key={product.id}
+                      href={product.link}
+                      className="flex items-center p-2 hover:bg-gray-200 dark:hover:bg-gray-700"
+                    >
+                      <img
+                        src={`../../../src/assets/products/${product.image}`}
+                        alt={product.name}
+                        className="w-10 h-10 mr-3 rounded"
+                      />
+                      <span className="text-sm">{product.name}</span>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <MobileMenuButton onClick={toggleMenu}>
+              {isMenuOpen ? <FaTimes /> : <FaBars />}
+            </MobileMenuButton>
+
+            <Navigation isOpen={isMenuOpen}>
+              <NavList>
+                <NavItem>
+                  <NavLink to="/">Home</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink to="/products">Products</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink to="/about">About Us</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink to="/contact">Contact Us</NavLink>
+                </NavItem>
+              </NavList>
+            </Navigation>
+          </div>
+        </HeaderContent>
+      </div>
+      <style>
+        {`
+          @media (max-width: 768px) {
+            .navbar-logo {
+              width: 300px !important;
+            }
+          }
+          @media (max-width: 576px) {
+            .navbar-logo {
+              width: 150px !important;
+            }
+          }
+        `}
+      </style>
+    </HeaderContainer>
   );
 };
 
-const GetInTouch = styled.div`
-  button {
-    position: relative;
-    padding: 6px 15px;
-    background: #4c83fa;
-    font-size: 12px;
-    font-weight: 1000;
-    color: #ffffff;
-    border: 3px solid #4c83fa;
-    border-radius: 8px;
-    box-shadow: 0 0 0 #ffffff;
-    transition: all 0.3s ease-in-out;
-    cursor: pointer;
-  }
+const HeaderContainer = styled.header`
+  background-color: #0277bd;
+  padding: 15px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+`;
 
-  .star-1 {
-    position: absolute;
-    top: 20%;
-    left: 20%;
-    width: 25px;
-    height: auto;
-    filter: drop-shadow(0 0 0 #4c83fa);
-    z-index: -5;
-    transition: all 1s cubic-bezier(0.05, 0.83, 0.43, 0.96);
-  }
+const HeaderContent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
 
-  .star-2 {
-    position: absolute;
-    top: 45%;
-    left: 45%;
-    width: 15px;
-    height: auto;
-    filter: drop-shadow(0 0 0 #4c83fa);
-    z-index: -5;
-    transition: all 1scubic-bezier(0, 0.4, 0, 1.01);
-  }
+const Logo = styled.div`
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 1px;
+`;
 
-  .star-3 {
-    position: absolute;
-    top: 40%;
-    left: 40%;
-    width: 5px;
-    height: auto;
-    filter: drop-shadow(0 0 0 #4c83fa);
-    z-index: -5;
-    transition: all 1s cubic-bezier(0, 0.4, 0, 1.01);
-  }
+const MobileMenuButton = styled.button`
+  display: none;
+  background: transparent;
+  color: white;
+  font-size: 24px;
 
-  .star-4 {
-    position: absolute;
-    top: 20%;
-    left: 40%;
-    width: 8px;
-    height: auto;
-    filter: drop-shadow(0 0 0 #4c83fa);
-    z-index: -5;
-    transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01);
-  }
-
-  .star-5 {
-    position: absolute;
-    top: 25%;
-    left: 45%;
-    width: 15px;
-    height: auto;
-    filter: drop-shadow(0 0 0 #4c83fa);
-    z-index: -5;
-    transition: all 0.6s cubic-bezier(0, 0.4, 0, 1.01);
-  }
-
-  .star-6 {
-    position: absolute;
-    top: 5%;
-    left: 50%;
-    width: 5px;
-    height: auto;
-    filter: drop-shadow(0 0 0 #4c83fa);
-    z-index: -5;
-    transition: all 0.8s ease;
-  }
-
-  button:hover {
-    background: transparent;
-    color: #4c83fa;
-    box-shadow: 0 0 0px #4c83fa;
-  }
-
-  button:hover .star-1 {
-    position: absolute;
-    top: -80%;
-    left: -30%;
-    width: 25px;
-    height: auto;
-    filter: drop-shadow(0 0 0px #4c83fa);
-    z-index: 2;
-  }
-
-  button:hover .star-2 {
-    position: absolute;
-    top: -0%;
-    left: 10%;
-    width: 15px;
-    height: auto;
-    filter: drop-shadow(0 0 0px #4c83fa);
-    z-index: 2;
-  }
-
-  button:hover .star-3 {
-    position: absolute;
-    top: 55%;
-    left: 25%;
-    width: 5px;
-    height: auto;
-    filter: drop-shadow(0 0 0px #4c83fa);
-    z-index: 2;
-  }
-
-  button:hover .star-4 {
-    position: absolute;
-    top: 30%;
-    left: 80%;
-    width: 8px;
-    height: auto;
-    filter: drop-shadow(0 0 0px #4c83fa);
-    z-index: 2;
-  }
-
-  button:hover .star-5 {
-    position: absolute;
-    top: 25%;
-    left: 115%;
-    width: 15px;
-    height: auto;
-    filter: drop-shadow(0 0 0px #4c83fa);
-    z-index: 2;
-  }
-
-  button:hover .star-6 {
-    position: absolute;
-    top: 5%;
-    left: 60%;
-    width: 5px;
-    height: auto;
-    filter: drop-shadow(0 0 0px #4c83fa);
-    z-index: 2;
-  }
-
-  .fil0 {
-    fill: #4c83fa;
+  @media (max-width: 768px) {
+    display: block;
   }
 `;
 
-const SearchBar = styled.div`
-  .input {
-    max-width: 190px;
-  }
-
-  .label {
-    position: relative;
-    display: block;
-    width: 280px;
-    border-radius: 10px;
-    border: 2px solid #5e5757;
-    padding: 15px 8px 15px 10px;
-    text-align: left;
-    box-shadow: 20px 20px 60px #3853c7, -20px -20px 60px #19ad88;
-  }
-
-  .shortcut {
-    position: absolute;
-    top: 50%;
-    right: -3%;
-    transform: translate(-50%, -50%);
-    transition: all 0.3s ease;
-    color: #c5c5c5;
-    background-color: #5e5757;
-    padding: 0.3em;
-    border-radius: 6px;
+const Navigation = styled.nav`
+  @media (max-width: 768px) {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background-color: #0277bd;
+    height: ${({ isOpen }) => (isOpen ? "auto" : "0")};
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    transition: height 0.3s ease;
+    visibility: ${({ isOpen }) => (isOpen ? "visible" : "hidden")};
   }
+`;
 
-  .search_bar {
-    background-color: transparent;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    color: rgb(111, 115, 119);
+const NavList = styled.ul`
+  display: flex;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 20px;
+  }
+`;
+
+const NavItem = styled.li`
+  margin-left: 20px;
+
+  @media (max-width: 768px) {
+    margin: 10px 0;
+  }
+`;
+
+const NavLink = styled(Link)`
+  color: white;
+  font-weight: 500;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 0.8;
   }
 `;
 

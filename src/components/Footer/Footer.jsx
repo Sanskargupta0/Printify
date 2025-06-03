@@ -1,18 +1,71 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import logo from "../../assets/website/logo-main.png";
+import Loader from "../Loader/Loder";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubscribe = (e) => {
+  const handleSubscribe = async (e) => {
     e.preventDefault();
-    if (email) {
-      toast.success("Thank you for subscribing to our newsletter!");
+    if (!email) {
+      toast.error("Please enter your email to subscribe.", {
+        position: "top-center",
+      });
+      return;
+    }
+
+    try {
+      // chcek if email is valid
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        toast.error("Please enter a valid email address.", {
+          position: "top-center",
+        });
+        return;
+      } else {
+        setLoading(true);
+        const res = await fetch(
+          `${import.meta.env.VITE_Backend_URL}/subscribe-email`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email }),
+          }
+        );
+        if (res.ok) {
+          setEmail("");
+          toast.success("You have successfully subscribed to our newsletter.", {
+            position: "top-center",
+          });
+          setLoading(false);
+          setEmail("");
+        } else {
+          toast.error(
+            "An error occurred while sending your subscription email. Please try again.",
+            {
+              position: "top-center",
+            }
+          );
+          setLoading(false);
+          setEmail("");
+        }
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+      toast.error(
+        "An error occurred while sending your subscription email. Please try again.",
+        {
+          position: "top-center",
+        }
+      );
+      setLoading(false);
       setEmail("");
-    } else {
-      toast.error("Please enter a valid email address");
     }
   };
 
@@ -22,7 +75,16 @@ const Footer = () => {
         <FooterContent>
           <FooterBrand>
             <Link to="/">
-              <Logo>COREPAC USA</Logo>
+              <img
+                src={logo}
+                alt="logo"
+                style={{
+                  width: "300px",
+                  height: "auto",
+                  maxWidth: "100%",
+                }}
+                className="footer-logo"
+              />
             </Link>
           </FooterBrand>
 
@@ -30,20 +92,34 @@ const Footer = () => {
             <FooterLinksColumn>
               <FooterLinksTitle>Company</FooterLinksTitle>
               <FooterLinks>
-                <FooterLink to="/shop">Shop</FooterLink>
-                <FooterLink to="/careers">Careers</FooterLink>
-                <FooterLink to="/faq">FAQ</FooterLink>
+                <FooterLink to="/products">Shop</FooterLink>
+                <FooterLink to="/">Careers</FooterLink>
+                <FooterLink
+                  as="a"
+                  href="#faq"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const faqSection = document.getElementById("faq");
+                    if (faqSection) {
+                      faqSection.scrollIntoView({ behavior: "smooth" });
+                    }
+                  }}
+                >
+                  FAQ
+                </FooterLink>
               </FooterLinks>
             </FooterLinksColumn>
 
             <FooterLinksColumn>
               <FooterLinksTitle>Category</FooterLinksTitle>
               <FooterLinks>
-                <FooterLink to="/products/pouches">Pouches</FooterLink>
-                <FooterLink to="/products/bags">Bags</FooterLink>
-                <FooterLink to="/products/boxes">Boxes</FooterLink>
-                <FooterLink to="/products/gifts">Gifts</FooterLink>
-                <FooterLink to="/products/labels">Labels</FooterLink>
+                <FooterLink to="/category/flexible-pouches">Pouches</FooterLink>
+                <FooterLink to="/category/shrink-sleeves">Bags</FooterLink>
+                <FooterLink to="/category/corrugated-boxes">Boxes</FooterLink>
+                <FooterLink to="/category/rigid-gift-boxes">Gifts</FooterLink>
+                <FooterLink to="/category/labels-and-stickers">
+                  Labels
+                </FooterLink>
               </FooterLinks>
             </FooterLinksColumn>
 
@@ -67,11 +143,26 @@ const Footer = () => {
             Copyright 2025 COREPAC. All rights reserved
           </FooterCopyright>
           <FooterLegal>
-            <FooterLegalLink to="/terms">Terms of condition</FooterLegalLink>
-            <FooterLegalLink to="/privacy">Privacy Policy</FooterLegalLink>
+            <FooterLegalLink to="/">Terms of condition</FooterLegalLink>
+            <FooterLegalLink to="/">Privacy Policy</FooterLegalLink>
           </FooterLegal>
         </FooterBottom>
       </div>
+      {loading && <Loader />}
+      <style>
+        {`
+          @media (max-width: 768px) {
+            .footer-logo" {
+              width: 300px !important;
+            }
+          }
+          @media (max-width: 576px) {
+            .footer-logo" {
+              width: 150px !important;
+            }
+          }
+        `}
+      </style>
     </FooterContainer>
   );
 };
@@ -95,15 +186,6 @@ const FooterContent = styled.div`
 const FooterBrand = styled.div`
   flex: 1;
   min-width: 200px;
-`;
-
-const Logo = styled.div`
-  font-family: Nico Moji;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 16px;
-  letter-spacing: 0%;
-  vertical-align: middle;
 `;
 
 const FooterLinksSection = styled.div`

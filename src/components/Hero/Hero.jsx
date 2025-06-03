@@ -20,7 +20,7 @@ const Hero = () => {
               <img src={Commercial_Products} alt="Commercial Products" />
             </div>
             <HeroCardContent>
-              <Link to="/products/commercial">
+              <Link to="/products">
                 Commercial Products <FaArrowRight />
               </Link>
             </HeroCardContent>
@@ -32,7 +32,7 @@ const Hero = () => {
               <img src={Personalised_Products} alt="Personalised Products" />
             </div>
             <HeroCardContent>
-              <Link to="/products/personalized">
+              <Link to="/products">
                 Personalised Products <FaArrowRight />
               </Link>
             </HeroCardContent>

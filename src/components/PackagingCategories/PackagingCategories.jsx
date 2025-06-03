@@ -11,22 +11,22 @@ const PackagingCategories = () => {
     {
       title: 'Boxes & Packaging',
       image: Boxes,
-      link: '/products/boxes'
+      link: '/products'
     },
     {
       title: 'Gift Boxes',
       image: GiftBoxes,
-      link: '/products/gift-boxes'
+      link: '/products'
     },
     {
       title: 'Mylar Bags',
       image: MylarBags,
-      link: '/products/mylar-bags'
+      link: '/products'
     },
     {
       title: 'Labels',
       image: Labels,
-      link: '/products/labels'
+      link: '/products'
     }
   ];
 

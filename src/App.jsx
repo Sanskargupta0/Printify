@@ -27,7 +27,7 @@ function App() {
     <Navbar/>
         <Routes>
           <Route path="/" element={<pages.Home/>} />
-          <Route path="/aboutUs" element={<pages.About/>} />
+          <Route path="/about" element={<pages.About/>} />
           <Route path="/contact" element={<pages.Contact/>} />
           <Route path="/products" element={<pages.ProductListing/>} />
           {Products.map((product) => (

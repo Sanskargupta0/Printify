@@ -50,7 +50,7 @@ const Testimonials = () => {
         </TestimonialsContainer>
         
         <SeeMoreButton data-aos="fade-up">
-          <Link to="/testimonials">
+          <Link to="/contact">
             See More <FaArrowRight />
           </Link>
         </SeeMoreButton>

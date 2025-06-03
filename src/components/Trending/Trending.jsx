@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
@@ -12,22 +11,22 @@ const Trending = () => {
     {
       title: 'Coffee Packaging',
       image: CoffeePackaging,
-      link: '/products/coffee-packaging'
+      link: '/products'
     },
     {
       title: 'Beverage Packaging',
       image: BeveragePackaging,
-      link: '/products/beverage-packaging'
+      link: '/products'
     },
     {
       title: 'Premium Gift Box',
       image: PremiumGiftBox,
-      link: '/products/premium-gift-box'
+      link: '/products'
     },
     {
       title: 'Custom Mailer Box',
       image: CustomMailerBox,
-      link: '/products/custom-mailer'
+      link: '/products'
     }
   ];
 
@@ -57,9 +56,9 @@ const Trending = () => {
 
   return (
     <TrendingSection>
-      <div className="container">
+      <div className="container" style={{ padding: '0 40px' }}>
         <TrendingLabel data-aos="fade-up">Trending</TrendingLabel>
-        <SectionTitle data-aos="fade-up">See what's trending</SectionTitle>
+        <SectionTitle data-aos="fade-up">See what&apos;s trending</SectionTitle>
         
         <SliderContainer data-aos="fade-up">
           <Slider {...settings}>
