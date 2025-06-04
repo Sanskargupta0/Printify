@@ -223,7 +223,7 @@ const FooterLink = styled(Link)`
   transition: color 0.3s ease;
 
   &:hover {
-    color: #0277bd;
+    color: #0A679A;
   }
 `;
 
@@ -241,13 +241,13 @@ const NewsletterInput = styled.input`
   outline: none;
 
   &:focus {
-    border-color: #0277bd;
+    border-color: #0A679A;
   }
 `;
 
 const NewsletterButton = styled.button`
   padding: 10px;
-  background-color: #0277bd;
+  background-color: #0A679A;
   color: white;
   border: none;
   border-radius: 4px;
@@ -290,7 +290,7 @@ const FooterLegalLink = styled(Link)`
   transition: color 0.3s ease;
 
   &:hover {
-    color: #0277bd;
+    color: #0A679A;
   }
 `;
 

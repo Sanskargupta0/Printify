@@ -27,7 +27,7 @@ const AboutHero = () => {
 
 const HeroSection = styled.section`
   padding: 80px 0;
-  background-color: #0277bd;
+  background-color: #0A679A;
   position: relative;
 `;
 

@@ -67,22 +67,38 @@ const Navbar = () => {
                 className="bg-transparent outline-none w-full text-sm text-gray-700 dark:text-gray-200 placeholder-gray-400"
                 style={{ border: "none", boxShadow: "none" }}
               />
+              {/* Show cross mark to clear search */}
+              {searchInput && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSearchInput("");
+                    setFilteredProducts([]);
+                  }}
+                  className="absolute right-2 text-gray-400 hover:text-gray-600 focus:outline-none"
+                  style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
+                  aria-label="Clear search"
+                >
+                  <FaTimes />
+                </button>
+              )}
               {/* Render filtered results */}
               {searchInput && filteredProducts.length > 0 && (
                 <div className="absolute left-0 top-12 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-lg max-h-60 overflow-y-auto w-full z-10">
                   {filteredProducts.map((product) => (
-                    <a
+                    <Link
                       key={product.id}
-                      href={product.link}
+                      to={product.link}
+                      onClick={() => setSearchInput("")}
                       className="flex items-center p-2 hover:bg-gray-200 dark:hover:bg-gray-700"
                     >
                       <img
-                        src={`../../../src/assets/products/${product.image}`}
+                        src={`../products/${product.image}`}
                         alt={product.name}
                         className="w-10 h-10 mr-3 rounded"
                       />
                       <span className="text-sm">{product.name}</span>
-                    </a>
+                    </Link>
                   ))}
                 </div>
               )}
@@ -130,7 +146,7 @@ const Navbar = () => {
 };
 
 const HeaderContainer = styled.header`
-  background-color: #0277bd;
+  background-color: #0A679A;
   padding: 15px 0;
   position: sticky;
   top: 0;
@@ -167,7 +183,7 @@ const Navigation = styled.nav`
     top: 70px;
     left: 0;
     width: 100%;
-    background-color: #0277bd;
+    background-color: #0A679A;
     height: ${({ isOpen }) => (isOpen ? "auto" : "0")};
     overflow: hidden;
     transition: height 0.3s ease;

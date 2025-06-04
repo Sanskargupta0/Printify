@@ -51,7 +51,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .btn-primary {
-    background-color: #0277bd;
+    background-color: #0A679A;
     color: white;
     &:hover {
       background-color: #01579b;
@@ -59,11 +59,11 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .btn-outline {
-    border: 1px solid #0277bd;
-    color: #0277bd;
+    border: 1px solid #0A679A;
+    color: #0A679A;
     background: transparent;
     &:hover {
-      background-color: #0277bd;
+      background-color: #0A679A;
       color: white;
     }
   }

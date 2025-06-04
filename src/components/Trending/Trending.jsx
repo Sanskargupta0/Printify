@@ -80,7 +80,7 @@ const Trending = () => {
 };
 
 const TrendingSection = styled.section`
-  background-color: #0277bd;
+  background-color: #0A679A;
   padding: 80px 0;
   color: white;
 `;
@@ -140,7 +140,7 @@ const ProductTitle = styled.h3`
     transition: color 0.3s ease;
     
     &:hover {
-      color: #0277bd;
+      color: #0A679A;
     }
   }
 `;

@@ -34,7 +34,7 @@ const Values = () => {
 
 const ValuesSection = styled.section`
   padding: 60px 0;
-  background-color: #0277bd;
+  background-color: #0A679A;
   color: white;
 `;
 
@@ -83,7 +83,7 @@ const ValueNumber = styled.div`
   left: 20px;
   font-size: 24px;
   font-weight: 700;
-  color: #0277bd;
+  color: #0A679A;
 `;
 
 const ValueText = styled.div`

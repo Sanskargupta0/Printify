@@ -16,7 +16,7 @@ const Contact = () => {
               <FaEnvelope />
             </ContactIcon>
             <ContactCardTitle>Email</ContactCardTitle>
-            <ContactCardText>support@corepac.com</ContactCardText>
+            <ContactCardText>info@CorePacUSA.com</ContactCardText>
           </ContactCard>
           
           <ContactCard data-aos="fade-up" data-aos-delay="200">
@@ -24,7 +24,7 @@ const Contact = () => {
               <FaMapMarkerAlt />
             </ContactIcon>
             <ContactCardTitle>Office</ContactCardTitle>
-            <ContactCardText>CorePac LTD, ABC street California</ContactCardText>
+            <ContactCardText>9816 E Colonical Dr, Orlando FL 32817, United States5</ContactCardText>
           </ContactCard>
           
           <ContactCard data-aos="fade-up" data-aos-delay="300">
@@ -32,7 +32,7 @@ const Contact = () => {
               <FaPhone />
             </ContactIcon>
             <ContactCardTitle>Commercial Support</ContactCardTitle>
-            <ContactCardText>+91 9999999999</ContactCardText>
+            <ContactCardText>+1 718 734 4408</ContactCardText>
           </ContactCard>
         </ContactCards>
       </div>
@@ -41,7 +41,7 @@ const Contact = () => {
 };
 
 const ContactSection = styled.section`
-  background-color: #0277bd;
+  background-color: #0A679A;
   padding: 80px 0;
   color: white;
   text-align: center;

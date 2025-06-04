@@ -128,7 +128,7 @@ export default function ContactPage() {
             <div className="space-y-4">
               <div className="flex items-center">
                 <FiMail className="mr-2" />
-                <span>info@CorePac USA.com</span>
+                <span>info@CorePacUSA.com</span>
               </div>
               <div className="flex items-center">
                 <FiPhone className="mr-2" />

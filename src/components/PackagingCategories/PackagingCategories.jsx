@@ -61,7 +61,7 @@ const CategoriesSection = styled.section`
 const CategoryLabel = styled.div`
   font-size: 14px;
   font-weight: 500;
-  color: #0277bd;
+  color: #0A679A;
   margin-bottom: 10px;
 `;
 
@@ -125,7 +125,7 @@ const CategoryTitle = styled.h3`
     transition: color 0.3s ease;
     
     &:hover {
-      color: #0277bd;
+      color: #0A679A;
     }
   }
 `;

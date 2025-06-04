@@ -114,7 +114,7 @@ const FAQQuestion = styled.div`
 `;
 
 const FAQIcon = styled.div`
-  color: #0277bd;
+  color: #0A679A;
   font-size: 14px;
 `;
 
@@ -161,7 +161,7 @@ const SupportTeamText = styled.p`
 `;
 
 const SupportButton = styled.button`
-  background-color: #0277bd;
+  background-color: #0A679A;
   color: white;
   padding: 12px 30px;
   border-radius: 30px;

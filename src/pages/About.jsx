@@ -22,7 +22,7 @@ const AboutUs = () => {
 };
 
 const AboutUsContainer = styled.div`
-  background-color: #0277bd;
+  background-color: #0A679A;
   color: white;
 `;
 

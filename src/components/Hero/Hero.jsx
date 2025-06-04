@@ -48,7 +48,7 @@ const Hero = () => {
 };
 
 const HeroSection = styled.section`
-  background-color: #0277bd;
+  background-color: #0A679A;
   color: white;
   padding: 60px 0 40px;
 `;
@@ -104,7 +104,7 @@ const HeroCardContent = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: #0277bd;
+    color: #0A679A;
     font-weight: 500;
     
     svg {

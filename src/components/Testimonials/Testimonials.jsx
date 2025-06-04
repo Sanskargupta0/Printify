@@ -60,7 +60,7 @@ const Testimonials = () => {
 };
 
 const TestimonialsSection = styled.section`
-  background-color: #0277bd;
+  background-color: #0A679A;
   padding: 60px 0;
   color: white;
 `;

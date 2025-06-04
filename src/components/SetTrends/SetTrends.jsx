@@ -94,7 +94,7 @@ const SetTrends = () => {
 
 const TrendsSection = styled.section`
   padding: 60px 0;
-  background-color: #0277bd;
+  background-color: #0A679A;
   color: white;
   text-align: center;
 `;
