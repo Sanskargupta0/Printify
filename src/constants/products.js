@@ -2,6 +2,7 @@ const Products = [
   {
     id: 1,
     name: "Corrugated boxes",
+    type: "Commercial Packaging",
     basePrice: 0.5,
     currentPrice: 2000,
     originalPrice: 3000,
@@ -88,6 +89,7 @@ const Products = [
   {
     id: 2,
     name: "Mono Cartons",
+    type: "Commercial Packaging",
     basePrice: 0.5,
     currentPrice: 2000,
     originalPrice: 3000,
@@ -169,6 +171,7 @@ const Products = [
   {
     id: 3,
     name: "Labels and Stickers",
+    type: "Commercial Packaging",
     basePrice: 0.5,
     currentPrice: 2000,
     originalPrice: 3000,
@@ -251,6 +254,7 @@ const Products = [
   {
     id: 4,
     name: "Packaging Tape",
+    type: "Customised Packaging",
     basePrice: 0.5,
     currentPrice: 2000,
     originalPrice: 3000,
@@ -332,6 +336,7 @@ const Products = [
   {
     id: 5,
     name: "Flexible Pouches",
+    type: "Customised Packaging",
     basePrice: 0.5,
     currentPrice: 2000,
     originalPrice: 3000,
@@ -413,6 +418,7 @@ const Products = [
   {
     id: 6,
     name: "Shrink Sleeves",
+    type: "Customised Packaging",
     basePrice: 0.5,
     link: "category/shrink-sleeves",
     mainImage: "gallery/img7.png",
@@ -492,6 +498,7 @@ const Products = [
   {
     id: 7,
     name: "Rigid Gift Boxes",
+    type: "Customised Packaging",
     basePrice: 0.5,
     currentPrice: 2000,
     originalPrice: 3000,

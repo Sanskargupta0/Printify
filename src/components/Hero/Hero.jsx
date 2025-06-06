@@ -20,8 +20,8 @@ const Hero = () => {
               <img src={Commercial_Products} alt="Commercial Products" />
             </div>
             <HeroCardContent>
-              <Link to="/products">
-                Commercial Products <FaArrowRight />
+              <Link to="/products?type=Commercial%20Packaging">
+                Commercial Packaging Products <FaArrowRight />
               </Link>
             </HeroCardContent>
           </HeroCard>
@@ -32,8 +32,8 @@ const Hero = () => {
               <img src={Personalised_Products} alt="Personalised Products" />
             </div>
             <HeroCardContent>
-              <Link to="/products">
-                Personalised Products <FaArrowRight />
+              <Link to="/products?type=Customised%20Packaging">
+                Customised Printed Packaging Products <FaArrowRight />
               </Link>
             </HeroCardContent>
           </HeroCard>
@@ -54,7 +54,7 @@ const HeroSection = styled.section`
 `;
 
 const HeroTitle = styled.h1`
-  font-size: 48px;
+  font-size: 50px;
   font-weight: 700;
   margin-bottom: 40px;
   
@@ -81,13 +81,12 @@ const HeroCard = styled.div`
   position: relative;
   
   .image-container {
-    height: 250px;
+    height: 350px;
     overflow: hidden;
     
     img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
     }
   }
 `;

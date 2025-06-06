@@ -86,7 +86,7 @@ const TrendingSection = styled.section`
 `;
 
 const TrendingLabel = styled.div`
-  font-size: 14px;
+  font-size: 24px;
   font-weight: 500;
   margin-bottom: 10px;
 `;

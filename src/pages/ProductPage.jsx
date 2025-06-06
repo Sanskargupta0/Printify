@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { FiUpload, FiStar, FiShare2, FiDownload } from "react-icons/fi";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import html2pdf from "html2pdf.js";
 import Loader from "../components/Loader/Loder";
@@ -34,6 +35,18 @@ export default function ProductPage({ product }) {
 
   const [showContactRequirement, setShowContactRequirement] = useState(false);
 
+  const [currentImage, setCurrentImage] = useState(0);
+
+  const [images, setImages] = useState([]);
+
+  const nextImage = () => {
+    setCurrentImage((prev) => (prev + 1) % images.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
     const initialDynamicFields = {};
@@ -62,6 +75,10 @@ export default function ProductPage({ product }) {
       dynamicFields: initialDynamicFields,
       initialDynamicFields,
     });
+    setImages([
+      `/products/${product.mainImage}`,
+      ...(product.extraImages || []).map((img) => `/products/${img}`),
+    ]);
   }, [product]);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -657,49 +674,33 @@ x ${product.height ? formData.height : "N/A"} </div>
           <div className="grid md:grid-cols-2 gap-8 py-8 px-2 mb-8 rounded bg-[#D9D9D9]">
             {/* Product Images */}
             <div className="space-y-4">
-              <div
-                className="aspect-square bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden"
-                data-aos="fade-up"
-                data-aos-delay={200}
-              >
-                <img
-                  src={
-                    `/products/${product.mainImage}` ||
-                    "/placeholder.svg?height=600&width=600"
-                  }
-                  alt={product.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="grid grid-cols-4 gap-2">
-                {product.extraImages && product.extraImages.length > 0
-                  ? product.extraImages.map((image, index) => (
-                      <div
+              <GalleryContainer className="container">
+                <GalleryWrapper>
+                  <MainImage>
+                    <img
+                      src={images[currentImage] || "/placeholder.svg"}
+                      alt="Gift Box Package"
+                    />
+                    <NavButton className="prev" onClick={prevImage}>
+                      <FaChevronLeft />
+                    </NavButton>
+                    <NavButton className="next" onClick={nextImage}>
+                      <FaChevronRight />
+                    </NavButton>
+                  </MainImage>
+
+                  <ImageDots>
+                    {images.map((_, index) => (
+                      <Dot
                         key={index}
-                        className="aspect-square bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden"
-                        data-aos="fade-up"
-                        data-aos-delay={200 * index}
-                      >
-                        <img
-                          src={`/products/${image}`}
-                          alt={`Extra view ${index + 1} of ${product.name}`}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    ))
-                  : [1, 2, 3, 4].map((i) => (
-                      <div
-                        key={i}
-                        className="aspect-square bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden"
-                      >
-                        <img
-                          src="/placeholder.svg?height=150&width=150"
-                          alt={`Placeholder view ${i}`}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
+                        active={index === currentImage}
+                        onClick={() => setCurrentImage(index)}
+                      />
                     ))}
-              </div>
+                  </ImageDots>
+                </GalleryWrapper>
+              </GalleryContainer>
+
               {/* Quotation Image */}
               {showContactRequirement && (
                 <div className="grid grid-cols-1">
@@ -1160,31 +1161,38 @@ x ${product.height ? formData.height : "N/A"} </div>
 
                 <ProductsGrid>
                   {product.alsoLike.map((product, index) => (
-                    <ProductCard
+                    <Link
+                      to={`../../${product.link}`}
+                      className="no-underline"
                       key={product.id}
-                      data-aos="fade-up"
-                      data-aos-delay={index * 100}
                     >
-                      <ProductImage>
-                        <img
-                          src={
-                            `/products/${product.image}` ||
-                            "/placeholder.svg?height=300&width=300"
-                          }
-                          alt={product.title}
-                        />
-                      </ProductImage>
-                      <ProductInfo>
-                        <ProductName>{product.title}</ProductName>
-                        <ProductPricing>
-                          <CurrentPrice>Rs.{product.currentPrice}</CurrentPrice>
-                          <OriginalPrice>
-                            {" "}
-                            Rs.{product.originalPrice}
-                          </OriginalPrice>
-                        </ProductPricing>
-                      </ProductInfo>
-                    </ProductCard>
+                      <ProductCard
+                        data-aos="fade-up"
+                        data-aos-delay={index * 100}
+                      >
+                        <ProductImage>
+                          <img
+                            src={
+                              `/products/${product.image}` ||
+                              "/placeholder.svg?height=300&width=300"
+                            }
+                            alt={product.title}
+                          />
+                        </ProductImage>
+                        <ProductInfo>
+                          <ProductName>{product.title}</ProductName>
+                          <ProductPricing>
+                            <CurrentPrice>
+                              Rs.{product.currentPrice}
+                            </CurrentPrice>
+                            <OriginalPrice>
+                              {" "}
+                              Rs.{product.originalPrice}
+                            </OriginalPrice>
+                          </ProductPricing>
+                        </ProductInfo>
+                      </ProductCard>
+                    </Link>
                   ))}
                 </ProductsGrid>
 
@@ -1260,6 +1268,7 @@ const ProductImage = styled.div`
   height: 200px;
   overflow: hidden;
   border-radius: 8px;
+  background-color: #f0f0f0;
 
   img {
     width: 100%;
@@ -1334,4 +1343,70 @@ const OriginalPrices = styled.span`
   font-size: 24px;
   color: #999;
   text-decoration: line-through;
+`;
+
+const GalleryContainer = styled.div`
+  flex: 1;
+`;
+
+const GalleryWrapper = styled.div`
+  max-width: 500px;
+`;
+
+const MainImage = styled.div`
+  position: relative;
+  border-radius: 40px;
+  overflow: hidden;
+  height: 400px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+`;
+
+const NavButton = styled.button`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+
+  &.prev {
+    left: 15px;
+  }
+
+  &.next {
+    right: 15px;
+  }
+`;
+
+const ImageDots = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+`;
+
+const Dot = styled.button`
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background-color: ${(props) => (props.active ? "#0277bd" : "black")};
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 `;
