@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 // Components
 import AboutHero from '../components/AboutHero/AboutHero';
-import Values from '../components/Values/Values';
+import MissionShowcase from '../components/MissionShowcase/MissionShowcase';
 import Customers from '../components/Customers/Customers';
 import SetTrends from '../components/SetTrends/SetTrends';
 import FAQ from '../components/FAQ/FAQ';
@@ -12,7 +12,7 @@ const AboutUs = () => {
   return (
     <AboutUsContainer>
       <AboutHero />
-      <Values />
+      <MissionShowcase />
       <Customers />
       <SetTrends />
       <FAQ />

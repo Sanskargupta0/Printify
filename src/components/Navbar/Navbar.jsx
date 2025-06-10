@@ -109,7 +109,7 @@ const Navbar = () => {
             </MobileMenuButton>
 
             <Navigation isOpen={isMenuOpen}>
-              <NavList>
+              <NavList onClick={toggleMenu}>
                 <NavItem>
                   <NavLink to="/">Home</NavLink>
                 </NavItem>

@@ -1,15 +1,13 @@
-"use client"
-
 import { useState } from "react"
 import styled from "styled-components"
 import { FaPhone, FaChevronDown } from "react-icons/fa"
 import { toast } from "react-toastify"
+import Loader from "../Loader/Loder"
 
 const ContactRequirement = () => {
   const [phoneNumber, setPhoneNumber] = useState("")
   const [selectedCountry, setSelectedCountry] = useState({ code: "+91", name: "India" })
   const [showDropdown, setShowDropdown] = useState(false)
-
   const countryCodes = [
     { code: "+1", name: "USA" },
     { code: "+44", name: "UK" },
@@ -32,16 +30,57 @@ const ContactRequirement = () => {
     { code: "+31", name: "Netherlands" },
     { code: "+46", name: "Sweden" },
   ]
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if (phoneNumber.trim()) {
-      toast.success("Your contact details have been submitted!")
-      setPhoneNumber("")
-    } else {
-      toast.error("Please enter your mobile number")
-    }
-  }
+  const [loading, setLoading] = useState(false);
+  
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+      if (!phoneNumber) {
+        toast.error("Please enter your Phone Number.",{
+          position: "top-center",
+        });
+        return;
+      }
+      try {
+        // check if phone number is valid
+        const phonePattern = /^\+?[1-9]\d{1,14}$/; // E.164 format
+        if (!phonePattern.test(phoneNumber)) {
+          toast.error("Please enter a valid phone number.",{
+            position: "top-center",
+          });
+          setPhoneNumber("");
+          return;
+        } else{
+          setLoading(true);
+          const res = await fetch(`${import.meta.env.VITE_Backend_URL}/contact-number`, 
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ mobile:`${selectedCountry.code + phoneNumber}`})
+            }
+          )
+          if (res.ok) {
+            setPhoneNumber("");
+            toast.success("Our customer representative will contact you.",{
+              position: "top-center",
+            });
+            setLoading(false);
+          } else {
+            toast.error("An error occurred while sending your Phone Number. Please try again.",{
+              position: "top-center",
+            });
+            setLoading(false);
+          }
+        }
+      } catch (error) {
+        console.error("Error sending Phone Number:", error);
+        toast.error("An error occurred while sending your Phone number. Please try again.",{
+          position: "top-center",
+        });
+        setLoading(false);
+      }
+  };
 
   const handleCountrySelect = (country) => {
     setSelectedCountry(country)
@@ -88,15 +127,19 @@ const ContactRequirement = () => {
 
               <PhoneInput
                 type="tel"
+                maxLength={10}
+                autoComplete="tel"
+                required
                 placeholder="Enter your mobile number"
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
               />
             </PhoneInputContainer>
-            <SubmitButton type="submit">SEND</SubmitButton>
+            <SubmitButton onClick={(e)=> handleSubmit(e)}>SEND</SubmitButton>
           </ContactForm>
         </ContactContent>
       </div>
+      {loading && <Loader />}
     </ContactSection>
   )
 }
