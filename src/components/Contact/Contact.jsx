@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import { FaEnvelope, FaMapMarkerAlt, FaPhone } from 'react-icons/fa';
 
@@ -7,7 +6,7 @@ const Contact = () => {
     <ContactSection>
       <div className="container">
         <ContactHeader data-aos="fade-up">Contact Us</ContactHeader>
-        <ContactTitle data-aos="fade-up">We'd love to hear from you</ContactTitle>
+        <ContactTitle data-aos="fade-up">We&apos;d love to hear from you</ContactTitle>
         <ContactSubtitle data-aos="fade-up">Our friendly team is always here to chat</ContactSubtitle>
         
         <ContactCards>

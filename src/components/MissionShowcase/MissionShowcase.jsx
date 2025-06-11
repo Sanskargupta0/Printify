@@ -45,25 +45,30 @@ const MissionShowcase = () => {
         <WhoWeAreContainer data-aos="fade-up">
           <SectionTitle>Who We Are</SectionTitle>
           <WhoWeAreText>
-            We're a team of designers, print experts, and packaging specialists
-            who understand that your product's first impression matters. Whether
-            it's a sleek retail box, an eco-friendly pouch, or a custom-printed
+            We&apos;re a team of designers, print experts, and packaging specialists
+            who understand that your product&apos;s first impression matters. Whether
+            it&apos;s a sleek retail box, an eco-friendly pouch, or a custom-printed
             flyer, we believe packaging should do more than just protect — it
             should speak.
           </WhoWeAreText>
         </WhoWeAreContainer>
+        
         <ShowcaseGrid>
-          {/* Top Row */}
-          <TopRow>
-            {/* Product Image 1 */}
+          {/* First Row - Image and Explore Button */}
+          <FirstRowContainer>
             <ProductImageCard data-aos="fade-right">
               <img
-                src={aboutus1}
+                src={aboutus2}
                 alt="White with Love Packaging"
               />
             </ProductImageCard>
+            <ExploreButtonContainer data-aos="fade-up">
+              <ExploreButton to="/products">EXPLORE MORE</ExploreButton>
+            </ExploreButtonContainer>
+          </FirstRowContainer>
 
-            {/* Mission Card */}
+          {/* Second Row - Mission Card and Product Image */}
+          <SecondRowContainer>
             <MissionCard data-aos="fade-left">
               <MissionTitle>Mission we are working on</MissionTitle>
               <MissionList>
@@ -79,41 +84,31 @@ const MissionShowcase = () => {
                 ))}
               </MissionList>
             </MissionCard>
-          </TopRow>
 
-          {/* Middle Row */}
-          <MiddleRow>
-            {/* Explore More Button */}
-            <ExploreButtonContainer data-aos="fade-up">
-              <ExploreButton to="/products">EXPLORE MORE</ExploreButton>
-            </ExploreButtonContainer>
-
-            {/* Product Image 2 */}
             <ProductImageCard data-aos="fade-up">
               <ProductImage
-                src={aboutus2}
+                src={aboutus1}
                 alt="COCO Packaging"
               />
             </ProductImageCard>
-          </MiddleRow>
-
-          {/* Bottom Section */}
-          <div className="px-[5rem] mt-[125px] bg-[#6DB2FB] rounded-[20px]">
-          <BottomSection data-aos="fade-up">
-            <BottomContent>
-              <BottomTitle>You might also like</BottomTitle>
-              <BottomSubtitle>
-                Choose the one that resonates with your brand's tone and style.
-              </BottomSubtitle>
-              <BottomButtons>
-                <ContactButton to="/contact">Contact now</ContactButton>
-                <LearnMoreButton to="/products">Learn more</LearnMoreButton>
-              </BottomButtons>
-            </BottomContent>
-          </BottomSection>
-          </div>
+          </SecondRowContainer>
         </ShowcaseGrid>
       </div>
+      {/* Bottom Section */}
+          <div className="sm:px-[5rem] mt-[125px] w-[80%] bg-[#6DB2FB] rounded-[20px] sm: px-0; ">
+            <BottomSection data-aos="fade-up">
+              <BottomContent>
+                <BottomTitle>You might also like</BottomTitle>
+                <BottomSubtitle>
+                  Choose the one that resonates with your brand&apos;s tone and style.
+                </BottomSubtitle>
+                <BottomButtons>
+                  <ContactButton to="/contact">Contact now</ContactButton>
+                  <LearnMoreButton to="/products">Learn more</LearnMoreButton>
+                </BottomButtons>
+              </BottomContent>
+            </BottomSection>
+          </div>
     </ShowcaseSection>
   );
 };
@@ -164,6 +159,9 @@ const SectionTitle = styled.h2`
 `;
 
 const ShowcaseSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
   padding: 80px 0;
   min-height: 100vh;
   display: flex;
@@ -171,33 +169,34 @@ const ShowcaseSection = styled.section`
 `;
 
 const ShowcaseGrid = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 30px;
   max-width: 1200px;
   margin: 0 auto;
-`;
-
-const TopRow = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
-  height: 500px;
 
   @media (max-width: 768px) {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    height: auto;
   }
 `;
 
-const MiddleRow = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+const FirstRowContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   gap: 30px;
-  align-items: center;
 
   @media (max-width: 768px) {
-    grid-template-columns: 1fr;
+    height: auto;
   }
+`;
+
+const SecondRowContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
 `;
 
 const ProductImageCard = styled.div`
@@ -206,6 +205,12 @@ const ProductImageCard = styled.div`
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  height: 100%;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
 
   &:hover {
     transform: translateY(-5px);
@@ -214,11 +219,6 @@ const ProductImageCard = styled.div`
 
 const ProductImage = styled.img`
   width: 100%;
-  height: 300px;
-
-  @media (max-width: 768px) {
-    height: 250px;
-  }
 `;
 
 const MissionCard = styled.div`
@@ -279,9 +279,11 @@ const ExploreButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 400px;
 
   @media (max-width: 768px) {
     order: 2;
+    height: 100px
   }
 `;
 

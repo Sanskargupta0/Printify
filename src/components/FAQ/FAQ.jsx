@@ -40,14 +40,14 @@ const FAQ = () => {
         
         <FAQContainer data-aos="fade-up">
           {faqs.map((faq, index) => (
-            <FAQItem key={index} isActive={activeIndex === index}>
+            <FAQItem key={index} isactive={activeIndex === index}>
               <FAQQuestion onClick={() => toggleFAQ(index)}>
                 {faq.question}
                 <FAQIcon>
                   {activeIndex === index ? <FaMinus /> : <FaPlus />}
                 </FAQIcon>
               </FAQQuestion>
-              <FAQAnswer isActive={activeIndex === index}>
+              <FAQAnswer isactive={activeIndex === index}>
                 {faq.answer}
               </FAQAnswer>
             </FAQItem>
@@ -119,11 +119,11 @@ const FAQIcon = styled.div`
 `;
 
 const FAQAnswer = styled.div`
-  padding: ${props => (props.isActive ? '0 0 15px' : '0')};
-  max-height: ${props => (props.isActive ? '1000px' : '0')};
+  padding: ${props => (props.isactive ? '0 0 15px' : '0')};
+  max-height: ${props => (props.isactive ? '1000px' : '0')};
   overflow: hidden;
   transition: all 0.3s ease;
-  opacity: ${props => (props.isActive ? '1' : '0')};
+  opacity: ${props => (props.isactive ? '1' : '0')};
   color: #666;
 `;
 

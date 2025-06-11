@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import backgroundImage from "../../assets/website/background.png"
 const AboutHero = () => {
@@ -8,7 +7,7 @@ const AboutHero = () => {
         <HeroContent>
           <HeroTextContent data-aos="fade-right">
             <HeroTitle>Your Packaging Partner</HeroTitle>
-            <HeroSubtitle>Crafting packaging excellence, delivering your brand's success</HeroSubtitle>
+            <HeroSubtitle>Crafting packaging excellence, delivering your brand&apos;s success</HeroSubtitle>
             
             <AboutTitle>About CorePac USA</AboutTitle>
             <AboutText>
