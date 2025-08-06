@@ -11,7 +11,7 @@ const Products = [
     link: "category/corrugated-boxes",
     mainImage: "boxes/boxes.png",
     bgRemoveImage: "boxes/boxes-bg.png",
-    extraImages: ["gallery/img1.png", "gallery/img2.png"],
+    extraImages: ["gallery/img12.png", "gallery/img13.png"],
     description:
       "Corrugated boxes are used for packaging of various products. These boxes are made up of corrugated paperboard which is made up of three layers of paper. The middle layer is fluted and the outer layers are flat. These boxes are used for packaging of various products like food items, electronics, cosmetics, etc.",
     features: [
@@ -79,7 +79,7 @@ const Products = [
       },
       {
         title: "Printed Mono Cartons",
-        image: "roll/roll.png",
+        image: "cartons/cartons.png",
         link: "category/printed-mono-cartons",
         currentPrice: 2000,
         originalPrice: 3000,
@@ -154,7 +154,7 @@ const Products = [
       },
       {
         title: "Printed Tapes",
-        image: "roll/tape.png",
+        image: "tape/tape.png",
         link: "category/printed-tapes",
         currentPrice: 2000,
         originalPrice: 3000,
@@ -178,9 +178,9 @@ const Products = [
     height: true,
     minimumQuantity: 100,
     link: "category/printed-corrugated-boxes",
-    mainImage: "boxes/boxes.png",
+    mainImage: "boxes/boxes2.png",
     bgRemoveImage: "boxes/boxes-bg.png",
-    extraImages: ["gallery/img1.png", "gallery/img2.png"],
+    extraImages: ["gallery/img15.png", "gallery/img16.png"],
     description:
       "Printed corrugated boxes are used for packaging of various products with custom branding and designs. These boxes are made up of corrugated paperboard which is made up of three layers of paper. The middle layer is fluted and the outer layers are flat. These boxes are used for packaging of various products like food items, electronics, cosmetics, etc.",
     features: [
@@ -234,7 +234,7 @@ const Products = [
     alsoLike: [
       {
         title: "Printed Mono Cartons",
-        image: "roll/roll.png",
+        image: "cartons/cartons.png",
         link: "category/printed-mono-cartons",
         currentPrice: 2000,
         originalPrice: 3000,
@@ -263,9 +263,9 @@ const Products = [
     currentPrice: 2000,
     originalPrice: 3000,
     link: "category/printed-mono-cartons",
-    mainImage: "roll/roll.png",
-    bgRemoveImage: "roll/roll-bg.png",
-    extraImages: ["gallery/img3.png", "gallery/img4.png"],
+    mainImage: "cartons/cartons.png",
+    bgRemoveImage: "cartons/cartons.png",
+    extraImages: ["gallery/img17.png", "gallery/img18.png"],
     description:
       "Printed mono cartons are widely used for retail packaging, offering customized and brand-friendly design options with high-quality printing.",
     features: [
@@ -346,8 +346,8 @@ const Products = [
     originalPrice: 3000,
     link: "category/printed-labels",
     mainImage: "labels/labels.png",
-    bgRemoveImage: "labels/labels-bg.png",
-    extraImages: ["gallery/img5.png", "gallery/img6.png"],
+    bgRemoveImage: "labels/labels.png",
+    extraImages: ["gallery/img19.png", "gallery/img20.png"],
     description:
       "Printed labels and stickers provide a convenient and efficient way to brand, identify, and enhance your products with custom designs and high-quality printing.",
     features: [
@@ -399,21 +399,21 @@ const Products = [
     alsoLike: [
       {
         title: "Printed Mono Cartons",
-        image: "roll/roll.png",
+        image: "cartons/cartons.png",
         link: "category/printed-mono-cartons",
         currentPrice: 2000,
         originalPrice: 3000,
       },
       {
         title: "Printed Tapes",
-        image: "roll/tape.png",
+        image: "tape/tape.png",
         link: "category/printed-tapes",
         currentPrice: 2000,
         originalPrice: 3000,
       },
       {
         title: "Printed Shrink Sleeves",
-        image: "gallery/img7.png",
+        image: "sleeves/sleeves.png",
         link: "category/printed-shrink-sleeves",
         currentPrice: 2000,
         originalPrice: 3000,
@@ -429,8 +429,8 @@ const Products = [
     originalPrice: 3000,
     link: "category/printed-flexible-pouches",
     mainImage: "bags/bags.png",
-    bgRemoveImage: "bags/bags-bg.png",
-    extraImages: ["gallery/img10.png", "gallery/img11.png"],
+    bgRemoveImage: "bags/bags.png",
+    extraImages: ["gallery/img21.png", "gallery/img22.png"],
     description:
       "Printed flexible pouches and myler bags are lightweight and versatile packaging solutions for liquids, powders, and more with custom branding and high-quality printing.",
     features: [
@@ -480,21 +480,21 @@ const Products = [
     alsoLike: [
       {
         title: "Printed Mono Cartons",
-        image: "roll/roll.png",
+        image: "cartons/cartons.png",
         link: "category/printed-mono-cartons",
         currentPrice: 2000,
         originalPrice: 3000,
       },
       {
         title: "Printed Shrink Sleeves",
-        image: "gallery/img7.png",
+        image: "sleeves/sleeves.png",
         link: "category/printed-shrink-sleeves",
         currentPrice: 2000,
         originalPrice: 3000,
       },
       {
         title: "Printed Tapes",
-        image: "roll/tape.png",
+        image: "tape/tape.png",
         link: "category/printed-tapes",
         currentPrice: 2000,
         originalPrice: 3000,
@@ -509,9 +509,9 @@ const Products = [
     currentPrice: 2000,
     originalPrice: 3000,
     link: "category/printed-tapes",
-    mainImage: "roll/tape.png",
-    bgRemoveImage: "roll/tape.png",
-    extraImages: ["gallery/img8.png", "gallery/img9.png"],
+    mainImage: "tape/tape.png",
+    bgRemoveImage: "tape/tape.png",
+    extraImages: ["gallery/img23.png", "gallery/img24.png"],
     description:
       "Printed packaging tape offers superior adhesion and is used for sealing boxes, envelopes, and more with custom branding and high-quality printing.",
     features: [
@@ -594,7 +594,7 @@ const Products = [
     link: "category/printed-rigid-gift-boxes",
     mainImage: "gift-Box/gift-Box.png",
     bgRemoveImage: "gift-Box/gift-Box-bg.jpg",
-    extraImages: ["gallery/img11.png", "gallery/img1.png"],
+    extraImages: ["gallery/img25.png", "gallery/img26.png"],
     description:
       "Printed rigid gift boxes offer luxury presentation and protection for high-value items with custom branding and high-quality printing.",
     features: [
@@ -645,7 +645,7 @@ const Products = [
     alsoLike: [
       {
         title: "Printed Mono Cartons",
-        image: "roll/roll.png",
+        image: "cartons/cartons.png",
         link: "category/printed-mono-cartons",
         currentPrice: 2000,
         originalPrice: 3000,
@@ -659,7 +659,7 @@ const Products = [
       },
       {
         title: "Printed Shrink Sleeves",
-        image: "gallery/img7.png",
+        image: "sleeves/sleeves.png",
         link: "category/printed-shrink-sleeves",
         currentPrice: 2000,
         originalPrice: 3000,
@@ -674,9 +674,9 @@ const Products = [
     currentPrice: 2000,
     originalPrice: 3000,
     link: "category/printed-shrink-sleeves",
-    mainImage: "gallery/img7.png",
-    bgRemoveImage: "gallery/Picture5.jpg",
-    extraImages: ["gallery/img9.png", "gallery/img10.png"],
+    mainImage: "sleeves/sleeves.png",
+    bgRemoveImage: "sleeves/sleeves.jpg",
+    extraImages: ["gallery/img27.png", "gallery/img28.png"],
     description:
       "Printed shrink sleeves offer 360-degree design coverage and can fit a variety of container shapes with custom branding and high-quality printing.",
     features: [
@@ -748,6 +748,87 @@ const Products = [
       },
     ],
   },
+  {
+    id: 10,
+    name: "Printed paper bags",
+    type: "Customised Packaging",
+    basePrice: 0.5,
+    currentPrice: 2000,
+    originalPrice: 3000,
+    link: "category/printed-paper-bags",
+    mainImage: "paper-bags/paper-bags.png",
+    bgRemoveImage: "paper-bags/paper-bags.jpg",
+    extraImages: ["gallery/img29.png", "gallery/img30.png"],
+    description:
+      "Printed paper bags are eco-friendly and customizable packaging solutions for retail, events, and more with high-quality printing.",
+    features: [
+      {
+        title: "Premium Quality Materials",
+        description:
+          "Crafted from high-grade, eco-friendly materials that ensure your items are beautifully presented and well-protected.",
+      },
+      {
+        title: "Elegant, Versatile Design",
+        description:
+          "Each box features a sleek, stylish design—perfect for birthdays, holidays, or any special occasion, no additional wrapping needed.",
+      },
+      {
+        title: "Customization Options",
+        description:
+          "Choose from a variety of sizes, colors, and finishes—or add a personalized message or logo to make your packaging truly unique.",
+      },
+      {
+        title: "Hassle-Free Assembly",
+        description:
+          "Our gift boxes are easy to assemble and secure, with magnetic closures, ribbons, or fold-flat options for convenient storage and shipping.",
+      },
+      {
+        title: "Eco-Conscious Packaging",
+        description:
+          "We prioritize sustainability with recyclable and reusable materials, so you can feel good about your environmental impact without compromising on style.",
+      },
+    ],
+    dropDownMenu: {
+      material: [
+        { name: "Kraft paper", price: 0.5 },
+        { name: "Art paper", price: 0.6 },
+      ],
+      finishes: [
+        { name: "Glossy", price: 0.5 },
+        { name: "Matte", price: 0.6 },
+      ],
+    },
+    checkBoxMenu: {
+      extra: [
+        { name: "Custom handles", price: 0.4 },
+        { name: "Reinforced bottom", price: 0.5 },
+        { name: "Water-resistant coating", price: 0.6 },
+      ],
+    },
+    alsoLike: [
+      {
+        title: "Printed Mono Cartons",
+        image: "roll/roll.png",
+        link: "category/printed-mono-cartons",
+        currentPrice: 2000,
+        originalPrice: 3000,
+      },
+      {
+        title: "Printed Labels",
+        image: "labels/labels.png",
+        link: "category/printed-labels",
+        currentPrice: 2000,
+        originalPrice: 3000,
+      },
+      {
+        title: "Printed Tapes",
+        image: "roll/tape.png",
+        link: "category/printed-tapes",
+        currentPrice: 2000,
+        originalPrice: 3000,
+      },
+    ],
+  }
 ];
 
 export default Products;

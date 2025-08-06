@@ -75,11 +75,11 @@ export default function ProductListing() {
             filteredProducts.map((product, index) => (
               <ProductCard key={product.id} reverse={index % 2 === 0}>
                 <ProductImageSection>
-                  <MainImage src={`/products/${product.mainImage}`} alt={product.name} />
+                  <MainImage src={`/products/${product.mainImage}`} alt={product.name} style={{ objectFit: "fill" }} />
                   {product.extraImages.length > 0 && (
                     <ExtraImagesContainer>
                       {product.extraImages.map((img, i) => (
-                        <ExtraImage key={i} src={`/products/${img}`} alt={`${product.name} ${i + 1}`} />
+                        <ExtraImage key={i} style={{ objectFit: "fill" }} src={`/products/${img}`} alt={`${product.name} ${i + 1}`} />
                       ))}
                     </ExtraImagesContainer>
                   )}
