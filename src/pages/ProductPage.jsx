@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { FiUpload, FiStar, FiShare2, FiDownload } from "react-icons/fi";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -11,7 +12,7 @@ import { toast } from "react-toastify";
 import Quote from "../assets/website/Quote.png";
 import styled from "styled-components";
 
-export default function ProductPage({ product }) {
+function ProductPage({ product }) {
   // Default form state
   const [formData, setFormData] = useState({
     id: product.id,
@@ -28,8 +29,6 @@ export default function ProductPage({ product }) {
     phone: "",
     initialDynamicFields: {},
   });
-
-  const [estimatedPrice, setEstimatedPrice] = useState(0);
 
   const [showDescription, setShowDescription] = useState(false);
 
@@ -51,12 +50,12 @@ export default function ProductPage({ product }) {
     window.scrollTo(0, 0);
     const initialDynamicFields = {};
     if (product.dropDownMenu) {
-      Object.entries(product.dropDownMenu).forEach(([menuName, options]) => {
+      Object.entries(product.dropDownMenu).forEach(([menuName]) => {
         initialDynamicFields[menuName] = [];
       });
     }
     if (product.checkBoxMenu) {
-      Object.entries(product.checkBoxMenu).forEach(([menuName, options]) => {
+      Object.entries(product.checkBoxMenu).forEach(([menuName]) => {
         initialDynamicFields[menuName] = [];
       });
     }
@@ -97,12 +96,7 @@ export default function ProductPage({ product }) {
       dynamicFields: {
         ...prev.dynamicFields,
         [menuName]: value
-          ? {
-              name: value,
-              price: product.dropDownMenu[menuName]?.find(
-                (option) => option.name === value
-              ).price,
-            }
+          ? { name: value }
           : [],
       },
     }));
@@ -123,45 +117,6 @@ export default function ProductPage({ product }) {
     }));
   };
 
-  // Calculate estimated price
-  useEffect(() => {
-    const calculateEstimatedPrice = () => {
-      const { basePrice, dropDownMenu, checkBoxMenu } = product;
-      const { quantity, dynamicFields } = formData;
-
-      let totalPrice = basePrice * (quantity || 1);
-
-      // Add price for dropdown selections
-      Object.entries(dynamicFields || {}).forEach(
-        ([menuName, selectedValue]) => {
-          if (dropDownMenu && dropDownMenu[menuName] && selectedValue?.price) {
-            totalPrice += selectedValue.price * (quantity || 1);
-          }
-        }
-      );
-
-      // Add price for selected extras
-      if (checkBoxMenu) {
-        Object.entries(dynamicFields).forEach(([menuName, selectedValues]) => {
-          if (checkBoxMenu[menuName] && Array.isArray(selectedValues)) {
-            selectedValues.forEach((extra) => {
-              const extraOption = checkBoxMenu[menuName].find(
-                (option) => option.name === extra.name
-              );
-              if (extraOption) {
-                totalPrice += extraOption.price * (quantity || 1);
-              }
-            });
-          }
-        });
-      }
-
-      return Math.floor(totalPrice * 100) / 100;
-    };
-
-    setEstimatedPrice(calculateEstimatedPrice());
-  }, [formData, product]);
-
   const handleFileChange = (e) => {
     setFormData((prev) => ({
       ...prev,
@@ -180,7 +135,6 @@ export default function ProductPage({ product }) {
       name,
       email,
       phone,
-      dynamicFields,
     } = formData;
 
     // Validation checks
@@ -227,14 +181,11 @@ export default function ProductPage({ product }) {
           if (Array.isArray(value)) {
             // For arrays like checkboxes
             return {
-              [key]: value.map((option) => ({
-                name: option.name,
-                price: option.price,
-              })),
+              [key]: value.map((option) => option.name),
             };
           } else if (value && typeof value === "object") {
             // For dropdowns or single selection
-            return { [key]: { name: value.name, price: value.price } };
+            return { [key]: value.name };
           }
           return { [key]: value }; // Default case
         }
@@ -248,7 +199,6 @@ export default function ProductPage({ product }) {
       formDataToSend.append("name", name);
       formDataToSend.append("email", email);
       formDataToSend.append("phone", phone);
-      formDataToSend.append("estimatedPrice", estimatedPrice);
 
       if (formData.artwork) {
         formDataToSend.append("artwork", formData.artwork);
@@ -298,6 +248,26 @@ export default function ProductPage({ product }) {
 
   const handlePdfDownload = () => {
     setIsLoading(true);
+    
+    // Convert artwork to base64 if it exists
+    let artworkBase64 = null;
+    if (formData.artwork) {
+      const reader = new FileReader();
+      reader.readAsDataURL(formData.artwork);
+      reader.onload = () => {
+        artworkBase64 = reader.result;
+        generatePDF(artworkBase64);
+      };
+      reader.onerror = () => {
+        generatePDF(null);
+      };
+    } else {
+      generatePDF(null);
+    }
+  };
+
+  const generatePDF = (artworkBase64) => {
+    const pageCount = artworkBase64 ? 3 : 2;
     const userHtml = `
     <!DOCTYPE html>
     <html lang="en">
@@ -307,21 +277,29 @@ export default function ProductPage({ product }) {
         <title>Quotation Request - CorePac USA</title>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
         <style>
+          * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+          }
           @page {
             margin: 0;
             size: A4;
           }
-          body {
+          html, body {
             margin: 0;
+            padding: 0;
             font-family: 'Poppins', sans-serif;
             color: #434343;
             line-height: 1.6;
           }
           .page {
-            page-break-after: always;
             padding: 40px;
             background: linear-gradient(to bottom, #f4f7ff 0%, #ffffff 100%);
-            min-height: 100vh;
+            position: relative;
+          }
+          .page:not(:last-child) {
+            page-break-after: always;
           }
           .header {
             display: flex;
@@ -381,18 +359,39 @@ export default function ProductPage({ product }) {
             margin-bottom: 4px;
             font-size: 14px;
             text-transform: capitalize;
-           
           }
           .detail-value {
             color: #666;
             font-size: 13px;
             text-transform: capitalize;
           }
+          .contact-info {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #666;
+          }
+          .contact-link {
+            color: #0277bd;
+            text-decoration: none;
+          }
+          .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 12px;
+            color: #666;
+          }
+          .page-number {
+            position: absolute;
+            bottom: 20px;
+            right: 40px;
+            font-size: 12px;
+            color: #999;
+          }
           .images-section {
             margin-top: 20px;
           }
           .main-image-container {
-            aspect-ratio: 1 / 1;
             width: 100%;
             max-width: 500px;
             margin: 0 auto 20px;
@@ -402,8 +401,8 @@ export default function ProductPage({ product }) {
           }
           .main-image {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto;
+            object-fit: contain;
           }
           .extra-images-grid {
             display: grid;
@@ -422,24 +421,29 @@ export default function ProductPage({ product }) {
             height: 100%;
             object-fit: cover;
           }
-          .placeholder-image {
+          .artwork-container {
             width: 100%;
-            height: 100%;
-            background: #f0f0f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #666;
-            font-size: 12px;
+            max-width: 600px;
+            margin: 20px auto;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #f8f9fa;
+            text-align: center;
+          }
+          .artwork-image {
+            width: 100%;
+            height: auto;
+            max-height: 800px;
+            object-fit: contain;
           }
         </style>
       </head>
       <body>
-        <!-- First Page - Details -->
+        <!-- Page 1 - Details -->
         <div class="page">
           <header class="header">
             <div class="logo-section">
-              <img src="https://i.postimg.cc/MTpYx13B/logo.png" alt="Logo" height="40px" width="40px" />
+              <img src="https://i.postimg.cc/bNth8xHZ/COREPAC.jpg" alt="Logo" height="40px" width="40px" />
               <span class="logo-text">CorePac USA</span>
             </div>
             <div class="date">${new Date().toLocaleDateString("en-US", {
@@ -459,11 +463,10 @@ export default function ProductPage({ product }) {
                 <div class="detail-value">${formData.productName}</div>
               </div>
               <div class="detail-item">
-                <div class="detail-label">Dimensions</div>
+                <div class="detail-label">Dimensions (L x W x H)</div>
                 <div class="detail-value">${formData.lengthh} x ${
       formData.width
-    }
-x ${product.height ? formData.height : "N/A"} </div>
+    } x ${product.height ? formData.height : "N/A"}</div>
               </div>
               <div class="detail-item">
                 <div class="detail-label">Quantity</div>
@@ -474,17 +477,13 @@ x ${product.height ? formData.height : "N/A"} </div>
              
           ${Object.entries(product.dropDownMenu || {})
             .map(
-              ([menuName, options]) => `
+              ([menuName]) => `
             <div class="detail-item">
               <div class="detail-label">${menuName}</div>
               <div class="detail-value">
                 ${
                   formData.dynamicFields[menuName]?.name
-                    ? `${
-                        formData.dynamicFields[menuName].name
-                      } (+$${formData.dynamicFields[menuName].price.toFixed(
-                        2
-                      )})`
+                    ? formData.dynamicFields[menuName].name
                     : "N/A"
                 }
               </div>
@@ -496,16 +495,14 @@ x ${product.height ? formData.height : "N/A"} </div>
          
           ${Object.entries(product.checkBoxMenu || {})
             .map(
-              ([menuName, options]) => `
+              ([menuName]) => `
             <div class="detail-item">
               <div class="detail-label">${menuName}</div>
               <div class="detail-value">
                 ${
                   formData.dynamicFields[menuName]?.length
                     ? formData.dynamicFields[menuName]
-                        .map(
-                          (item) => `${item.name} (+$${item.price.toFixed(2)})`
-                        )
+                        .map((item) => item.name)
                         .join(", ")
                     : "N/A"
                 }
@@ -515,38 +512,46 @@ x ${product.height ? formData.height : "N/A"} </div>
             )
             .join("")}
 
-          <div class="detail-item">
-            <div class="detail-label">Estimated Total Price</div>
-            <div class="detail-value">$${estimatedPrice.toFixed(2)}</div>
-          </div>
-
-            <div class="detail-item">
-              <div class="detail-label">Special Notes</div>
-              <div class="detail-value">${formData.note || "N/A"}</div>
+              <div class="detail-item">
+                <div class="detail-label">Special Notes</div>
+                <div class="detail-value">${formData.note || "N/A"}</div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-label">Customer Name</div>
+                <div class="detail-value">${formData.name}</div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-label">Email</div>
+                <div class="detail-value">${formData.email}</div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-label">Phone</div>
+                <div class="detail-value">${formData.phone}</div>
+              </div>
             </div>
           </main>
 
           <div class="contact-info">
             Need assistance? Contact us at
-            <a href="mailto:CorePac USAOfficial.help@gmail.com" class="contact-link">
-              CorePac USAOfficial.help@gmail.com
+            <a href="mailto:info@CorePacUSA.com" class="contact-link">
+              info@CorePacUSA.com
             </a>
           </div>
 
-          <footer class="footer" style="margin-bottom: 200px">
+          <footer class="footer">
             <p style="font-weight: 600; margin-bottom: 8px;">CorePac USA</p>
-            <p style="margin-bottom: 8px;">Noida, Uttar Pradesh 226013</p>
+            <p style="margin-bottom: 8px;">9816 E Colonial Dr, Orlando FL 32817, United States</p>
             <p>Copyright © ${new Date().getFullYear()}. All rights reserved.</p>
           </footer>
           
-          <div class="page-number">Page 1 of 2</div>
+          <div class="page-number">Page 1 of ${pageCount}</div>
         </div>
 
-        <!-- Second Page - Images -->
+        <!-- Page 2 - Product Images -->
         <div class="page">
           <header class="header">
             <div class="logo-section">
-              <img src="https://i.postimg.cc/MTpYx13B/logo.png" alt="Logo" height="40px" width="40px"/>
+              <img src="https://i.postimg.cc/bNth8xHZ/COREPAC.jpg" alt="Logo" height="40px" width="40px"/>
               <span class="logo-text">CorePac USA</span>
             </div>
           </header>
@@ -565,35 +570,25 @@ x ${product.height ? formData.height : "N/A"} </div>
               </div>
 
               <!-- Extra Images Grid -->
-              <div class="extra-images-grid">
-                ${
-                  product.extraImages && product.extraImages.length > 0
-                    ? product.extraImages
+              ${
+                product.extraImages && product.extraImages.length > 0
+                  ? `<div class="extra-images-grid">
+                      ${product.extraImages
                         .map(
                           (image, index) => `
-                      <div class="extra-image-container">
-                        <img
-                          src="/products/${image}"
-                          alt="Extra view ${index + 1} of ${product.name}"
-                          class="extra-image"
-                        />
-                      </div>
-                    `
-                        )
-                        .join("")
-                    : [1, 2, 3, 4]
-                        .map(
-                          (i) => `
-                      <div class="extra-image-container">
-                        <div class="placeholder-image">
-                          Placeholder ${i}
+                        <div class="extra-image-container">
+                          <img
+                            src="/products/${image}"
+                            alt="Extra view ${index + 1} of ${product.name}"
+                            class="extra-image"
+                          />
                         </div>
-                      </div>
-                    `
+                      `
                         )
-                        .join("")
-                }
-              </div>
+                        .join("")}
+                    </div>`
+                  : ""
+              }
             </div>
           </main>
 
@@ -602,35 +597,68 @@ x ${product.height ? formData.height : "N/A"} </div>
             <p>Copyright © ${new Date().getFullYear()}. All rights reserved.</p>
           </footer>
           
-          <div class="page-number">Page 2 of 2</div>
+          <div class="page-number">Page 2 of ${pageCount}</div>
         </div>
+
+        ${
+          artworkBase64
+            ? `
+        <!-- Page 3 - Artwork -->
+        <div class="page">
+          <header class="header">
+            <div class="logo-section">
+              <img src="https://i.postimg.cc/bNth8xHZ/COREPAC.jpg" alt="Logo" height="40px" width="40px"/>
+              <span class="logo-text">CorePac USA</span>
+            </div>
+          </header>
+
+          <main class="content-box">
+            <h2 class="title">Customer Artwork</h2>
+            
+            <div class="artwork-container">
+              <img
+                src="${artworkBase64}"
+                alt="Customer Artwork"
+                class="artwork-image"
+              />
+            </div>
+          </main>
+
+          <footer class="footer">
+            <p style="font-weight: 600; margin-bottom: 8px;">CorePac USA</p>
+            <p>Copyright © ${new Date().getFullYear()}. All rights reserved.</p>
+          </footer>
+          
+          <div class="page-number">Page 3 of ${pageCount}</div>
+        </div>
+        `
+            : ""
+        }
       </body>
     </html>
-  `;
-
-    const opt = {
+  `;    const opt = {
       margin: 0,
       filename: `CorePac USA-Quotation-${formData.productName}-${
         new Date().toISOString().split("T")[0]
       }.pdf`,
       image: {
         type: "jpeg",
-        quality: 1,
+        quality: 0.98,
       },
       html2canvas: {
         scale: 2,
         useCORS: true,
         logging: false,
         letterRendering: true,
-        allowTaint: true,
       },
       jsPDF: {
-        unit: "in",
+        unit: "mm",
         format: "a4",
         orientation: "portrait",
-        compress: true,
       },
-      pagebreak: { mode: "css", before: ".page" },
+      pagebreak: { 
+        mode: 'avoid-all'
+      },
     };
 
     // Create a temporary container
@@ -638,28 +666,32 @@ x ${product.height ? formData.height : "N/A"} </div>
     element.innerHTML = userHtml;
     document.body.appendChild(element);
 
-    // Generate and download PDF
-    html2pdf()
-      .set(opt)
-      .from(element)
-      .save()
-      .then(() => {
-        document.body.removeChild(element);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error generating PDF:", error);
-        toast.error(
-          "An error occurred while generating the PDF. Please try again.",
-          {
-            position: "top-center",
+    // Small delay to ensure DOM is ready
+    setTimeout(() => {
+      html2pdf()
+        .set(opt)
+        .from(element)
+        .save()
+        .then(() => {
+          if (document.body.contains(element)) {
+            document.body.removeChild(element);
           }
-        );
-        setIsLoading(false);
-        if (document.body.contains(element)) {
-          document.body.removeChild(element);
-        }
-      });
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error generating PDF:", error);
+          toast.error(
+            "An error occurred while generating the PDF. Please try again.",
+            {
+              position: "top-center",
+            }
+          );
+          setIsLoading(false);
+          if (document.body.contains(element)) {
+            document.body.removeChild(element);
+          }
+        });
+    }, 100);
   };
 
   return (
@@ -719,9 +751,6 @@ x ${product.height ? formData.height : "N/A"} </div>
                 <h1 className="text-3xl font-bold mb-2 dark:text-white">
                   {product.name}
                 </h1>
-                <h3 className="text-xl font-medium mb-2 dark:text-white">
-                  ${product.basePrice} per unit
-                </h3>
                 <div className="flex items-center gap-1 mb-2">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <FiStar
@@ -734,8 +763,7 @@ x ${product.height ? formData.height : "N/A"} </div>
                   </span>
                 </div>
                 <PriceContainer>
-                  <CurrentPrices>RS 2,000.00</CurrentPrices>
-                  <OriginalPrices>RS 3,700.00</OriginalPrices>
+                  <CurrentPrices>On Request</CurrentPrices>
                 </PriceContainer>
                 {/* Show Description Button */}
                 <div className="mb-4 mt-4">
@@ -892,7 +920,7 @@ x ${product.height ? formData.height : "N/A"} </div>
                             <option value="">Select {menuName}</option>
                             {options.map((option, index) => (
                               <option key={index} value={option.name}>
-                                {option.name} (+${option.price})
+                                {option.name}
                               </option>
                             ))}
                           </select>
@@ -917,23 +945,19 @@ x ${product.height ? formData.height : "N/A"} </div>
                                 type="checkbox"
                                 checked={
                                   formData.dynamicFields[menuName]?.some(
-                                    (item) =>
-                                      item.name === option.name &&
-                                      item.price === option.price
+                                    (item) => item.name === option.name
                                   ) || false
                                 }
                                 onChange={(e) =>
                                   handleDynamicCheckboxChange(
                                     menuName,
-                                    { name: option.name, price: option.price },
+                                    { name: option.name },
                                     e.target.checked
                                   )
                                 }
                                 className="rounded border-gray-300 dark:border-gray-700"
                               />
-                              <span>
-                                {option.name} (+${option.price})
-                              </span>
+                              <span>{option.name}</span>
                             </label>
                           ))}
                         </div>
@@ -1049,10 +1073,7 @@ x ${product.height ? formData.height : "N/A"} </div>
                       type="submit"
                       className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors"
                     >
-                      Get a Quote{" "}
-                      {estimatedPrice
-                        ? `Estimated Price ~ $${estimatedPrice}`
-                        : ""}
+                      Get a Quote
                     </button>
                     <button
                       type="button"
@@ -1160,11 +1181,11 @@ x ${product.height ? formData.height : "N/A"} </div>
                 </SectionHeader>
 
                 <ProductsGrid>
-                  {product.alsoLike.map((product, index) => (
+                  {product.alsoLike.map((relatedProduct, index) => (
                     <Link
-                      to={`../../${product.link}`}
+                      to={`../../${relatedProduct.link}`}
                       className="no-underline"
-                      key={product.id}
+                      key={relatedProduct.id}
                     >
                       <ProductCard
                         data-aos="fade-up"
@@ -1173,23 +1194,14 @@ x ${product.height ? formData.height : "N/A"} </div>
                         <ProductImage>
                           <img
                             src={
-                              `/products/${product.image}` ||
+                              `/products/${relatedProduct.image}` ||
                               "/placeholder.svg?height=300&width=300"
                             }
-                            alt={product.title}
+                            alt={relatedProduct.title}
                           />
                         </ProductImage>
                         <ProductInfo>
-                          <ProductName>{product.title}</ProductName>
-                          <ProductPricing>
-                            <CurrentPrice>
-                              Rs.{product.currentPrice}
-                            </CurrentPrice>
-                            <OriginalPrice>
-                              {" "}
-                              Rs.{product.originalPrice}
-                            </OriginalPrice>
-                          </ProductPricing>
+                          <ProductName>{relatedProduct.title}</ProductName>
                         </ProductInfo>
                       </ProductCard>
                     </Link>
@@ -1212,6 +1224,31 @@ x ${product.height ? formData.height : "N/A"} </div>
     </>
   );
 }
+
+ProductPage.propTypes = {
+  product: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    name: PropTypes.string.isRequired,
+    mainImage: PropTypes.string.isRequired,
+    extraImages: PropTypes.arrayOf(PropTypes.string),
+    height: PropTypes.bool,
+    minimumQuantity: PropTypes.number,
+    dropDownMenu: PropTypes.object,
+    checkBoxMenu: PropTypes.object,
+    description: PropTypes.string,
+    features: PropTypes.array,
+    alsoLike: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        title: PropTypes.string,
+        image: PropTypes.string,
+        link: PropTypes.string,
+      })
+    ),
+  }).isRequired,
+};
+
+export default ProductPage;
 
 const RelatedSection = styled.section`
   background-color: #0a679a;
@@ -1290,22 +1327,7 @@ const ProductName = styled.h3`
   margin-bottom: 10px;
 `;
 
-const ProductPricing = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-`;
 
-const CurrentPrice = styled.span`
-  font-size: 14px;
-  font-weight: 600;
-  color: #333;
-`;
-
-const OriginalPrice = styled.span`
-  font-size: 12px;
-  text-decoration: line-through;
-`;
 
 const ViewAllButton = styled.div`
   text-align: center;
@@ -1337,12 +1359,6 @@ const CurrentPrices = styled.span`
   font-size: 30px;
   font-weight: 700;
   color: #333;
-`;
-
-const OriginalPrices = styled.span`
-  font-size: 24px;
-  color: #999;
-  text-decoration: line-through;
 `;
 
 const GalleryContainer = styled.div`
